@@ -1,4 +1,4 @@
-import { Head } from '@inertiajs/react';
+import { Head, usePage } from '@inertiajs/react';
 import { useState } from 'react';
 import PublicLayout from '@/layouts/public/public-layout';
 import { Mail, Phone, MapPin, Clock, Send, CheckCircle, Building2, Factory, Globe, Facebook, Linkedin, Youtube, MessageSquare } from 'lucide-react';
@@ -27,6 +27,14 @@ export default function ContactPage({ page }: ContactProps) {
     const heroTitle = hero?.title || 'Contact Us';
     const heroSubtitle = hero?.subtitle || "We'd love to hear from you. Get in touch for any inquiries.";
     const heroBadge = hero?.meta?.badge || hero?.meta?.label || 'GET IN TOUCH';
+    const sharedProps = (usePage().props as any);
+    const contactEmailDynamic = sharedProps.contactEmail || 'info@novita-myanmar.com.mm';
+    const businessEmailDynamic = sharedProps.businessEmail || 'business@novita-myanmar.com.mm';
+    const careersEmailDynamic = sharedProps.careersEmail || 'careers@novita-myanmar.com.mm';
+    const contactAddressDynamic = sharedProps.contactAddress || 'No. 216/222 Bo Myat Htun Housing, Room D3, Corner of 49 Street and Maharbandoola Road, Ward 1, Pazundaung Township, Yangon, Myanmar';
+    const contactPhoneDynamic = sharedProps.contactPhone || '(+95) 9 5000144';
+    const factoryPhoneDynamic = sharedProps.factoryPhone || '09 977225001';
+    const contactPhone2Dynamic = sharedProps.contactPhone2 || '09 977225004';
 
     const [formData, setFormData] = useState({ name: '', email: '', phone: '', subject: '', message: '' });
     const [submitted, setSubmitted] = useState(false);
@@ -55,20 +63,27 @@ export default function ContactPage({ page }: ContactProps) {
             {/* Contact Info */}
             <section className="py-14 md:py-20 bg-white dark:bg-[#070E1F]">
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                         {[
                             {
                                 icon: Building2,
                                 title: 'Registered Office',
-                                lines: ['NOVITA Pharmaceutical Co., Ltd.', 'Level 5, Building A', 'Yangon Business Centre', 'No. 123, Pyay Road', 'Yangon, Myanmar'],
-                                phone: '+95 1 234 5678',
-                                email: 'info@novitapharma.com',
+                                lines: ['NOVITA Pharmaceutical Co., Ltd.', ...contactAddressDynamic.split(',').map((s: string) => s.trim())],
+                                phone: contactPhoneDynamic,
+                                email: contactEmailDynamic,
+                                mapUrl: 'https://maps.app.goo.gl/HJVXT2ghQCwvZzCB7',
                             },
                             {
                                 icon: Factory,
                                 title: 'Factory',
                                 lines: ['NOVITA Pharmaceutical Factory', 'Industrial Zone (1)', 'Hlaing Tharyar Township', 'Yangon, Myanmar'],
-                                phone: '+95 1 678 9012',
+                                phone: factoryPhoneDynamic,
+                            },
+                            {
+                                icon: Phone,
+                                title: 'Additional Phone',
+                                lines: ['For general inquiries'],
+                                phone: contactPhone2Dynamic,
                                 note: 'Factory under development. Visits by appointment only.',
                             },
                             {
@@ -80,10 +95,17 @@ export default function ContactPage({ page }: ContactProps) {
                             <div key={card.title} className="rounded-[28px] border border-gray-200 dark:border-white/10 bg-white dark:bg-gray-800/50 p-6 shadow-sm hover:shadow-xl transition">
                                 <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-novita/10 dark:bg-novita/15 text-novita"><card.icon className="h-6 w-6" /></div>
                                 <h3 className="mt-4 text-lg font-bold text-gray-900 dark:text-white">{card.title}</h3>
-                                <div className="mt-3 space-y-2 text-sm text-gray-600 dark:text-gray-400">
-                                    {card.lines && card.lines.map((l) => <div key={l}>{l}</div>)}
-                                    {card.hours && card.hours.map(([k,v]) => <div key={k} className="flex justify-between border-b border-gray-100 dark:border-white/5 py-2 last:border-0"><span>{k}</span><span className="font-medium text-gray-900 dark:text-white">{v}</span></div>)}
-                                </div>
+                                {(card as any).mapUrl ? (
+                                    <a href={(card as any).mapUrl} target="_blank" rel="noopener noreferrer" className="mt-3 block space-y-2 text-sm text-gray-600 dark:text-gray-400 hover:text-novita">
+                                        {card.lines && card.lines.map((l) => <div key={l}>{l}</div>)}
+                                        <span className="inline-flex items-center gap-1 text-xs font-medium text-novita mt-1"><MapPin className="h-3 w-3" /> View on Maps</span>
+                                    </a>
+                                ) : (
+                                    <div className="mt-3 space-y-2 text-sm text-gray-600 dark:text-gray-400">
+                                        {card.lines && card.lines.map((l) => <div key={l}>{l}</div>)}
+                                        {card.hours && card.hours.map(([k,v]: any) => <div key={k} className="flex justify-between border-b border-gray-100 dark:border-white/5 py-2 last:border-0"><span>{k}</span><span className="font-medium text-gray-900 dark:text-white">{v}</span></div>)}
+                                    </div>
+                                )}
                                 {card.phone && <div className="mt-4 flex items-center gap-2 text-sm"><Phone className="h-4 w-4 text-novita" /><a href={`tel:${card.phone.replace(/\s/g,'')}`} className="font-medium text-gray-900 dark:text-white hover:text-novita">{card.phone}</a></div>}
                                 {card.email && <div className="mt-2 flex items-center gap-2 text-sm"><Mail className="h-4 w-4 text-novita" /><a href={`mailto:${card.email}`} className="font-medium text-novita hover:underline">{card.email}</a></div>}
                                 {card.note && <div className="mt-4 rounded-xl bg-amber-50 dark:bg-amber-500/10 border border-amber-200 dark:border-amber-500/20 px-3 py-2 text-xs font-medium text-amber-800 dark:text-amber-200">{card.note}</div>}
@@ -110,9 +132,9 @@ export default function ContactPage({ page }: ContactProps) {
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
                         {[
-                            { icon: MessageSquare, title: 'General Inquiries', email: 'info@novitapharma.com' },
-                            { icon: Globe, title: 'Business Inquiries', email: 'business@novitapharma.com' },
-                            { icon: Mail, title: 'Careers', email: 'careers@novitapharma.com' },
+                            { icon: MessageSquare, title: 'General Inquiries', email: contactEmailDynamic },
+                            { icon: Globe, title: 'Business Inquiries', email: businessEmailDynamic },
+                            { icon: Mail, title: 'Careers', email: careersEmailDynamic },
                         ].map((c) => (
                             <div key={c.title} className="rounded-[24px] border border-gray-200 dark:border-white/10 bg-white dark:bg-gray-800/50 p-6 text-center shadow-sm hover:shadow-lg transition">
                                 <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-xl bg-novita/10 dark:bg-novita/15 text-novita"><c.icon className="h-6 w-6" /></div>
@@ -132,7 +154,21 @@ export default function ContactPage({ page }: ContactProps) {
                         <h2 className="mt-3 text-3xl font-bold text-gray-900 dark:text-white">Our Location</h2>
                     </div>
                     <div className="overflow-hidden rounded-[28px] border border-gray-200 dark:border-white/10 shadow-[0_20px_60px_rgba(15,23,42,0.12)]">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3958.5!2d96.1!3d16.8!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTbCsDQ4JzAwLjAiTiA5NsKwMDYnMDAuMCJF!5e0!3m2!1sen!2smm!4v1234567890" width="100%" height="420" style={{ border: 0 }} allowFullScreen loading="lazy" referrerPolicy="no-referrer-when-downgrade" title="NOVITA Location" />
+                        <iframe
+                            src="https://maps.google.com/maps?q=https://maps.app.goo.gl/HJVXT2ghQCwvZzCB7&z=17&output=embed"
+                            width="100%"
+                            height="420"
+                            style={{ border: 0 }}
+                            allowFullScreen
+                            loading="lazy"
+                            referrerPolicy="no-referrer-when-downgrade"
+                            title="NOVITA Location - No. 216/222 Bo Myat Htun Housing, Pazundaung"
+                        />
+                    </div>
+                    <div className="mt-4 text-center">
+                        <a href="https://maps.app.goo.gl/HJVXT2ghQCwvZzCB7" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm font-medium text-novita hover:underline">
+                            <MapPin className="h-4 w-4" /> Open in Google Maps — No. 216/222 Bo Myat Htun Housing, Pazundaung
+                        </a>
                     </div>
                 </div>
             </section>

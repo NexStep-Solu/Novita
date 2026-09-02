@@ -2,6 +2,7 @@ import { Head, Link } from '@inertiajs/react';
 import PublicLayout from '@/layouts/public/public-layout';
 import { ArrowRight, Pill, Package, FlaskConical, Clock, Shield, Info, Building2, TestTube, HeartPulse, Bug, Brain, Wind, Syringe, Droplets } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { UnderUpgrading } from '@/components/under-upgrading';
 
 const stagger = { animate: { transition: { staggerChildren: 0.08 } } };
 const fadeUp = { initial: { opacity: 0, y: 20 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.5 } };
@@ -25,11 +26,12 @@ interface ProductsPageProps {
     products?: any[];
 }
 
-export default function ProductsPage({ page }: ProductsPageProps) {
+export default function ProductsPage({ page, products }: ProductsPageProps) {
     const hero = ((page as any)?.active_sections || (page as any)?.activeSections)?.find((s) => s.section_type === 'hero');
     const heroTitle = hero?.title || 'Pharmaceutical Products';
     const heroSubtitle = hero?.subtitle || "NOVITA is developing a range of high-quality medicines to meet Myanmar's healthcare needs. Product information will be available following regulatory approval.";
     const heroBadge = hero?.meta?.badge || hero?.meta?.label || 'OUR PRODUCTS';
+    const isProductsEmpty = !products || products.length === 0;
 
     return (
         <PublicLayout>
@@ -132,35 +134,39 @@ export default function ProductsPage({ page }: ProductsPageProps) {
             {/* Pipeline */}
             <section className="py-14 md:py-20 bg-white dark:bg-[#070E1F]">
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-                        <div className="lg:col-span-6">
-                            <div className="inline-flex items-center gap-2 rounded-full bg-novita/10 dark:bg-novita/15 px-3 py-1 text-xs font-semibold tracking-widest text-novita">DEVELOPMENT PIPELINE</div>
-                            <h2 className="mt-3 text-3xl font-bold tracking-tight text-gray-900 dark:text-white">Products Under Development</h2>
-                            <p className="mt-4 text-gray-600 dark:text-gray-300 leading-relaxed">Active pipeline focused on essential medicines — following strict quality protocols and regulatory requirements.</p>
-                            <div className="mt-6 space-y-3">
-                                {[
-                                    { icon: Clock, t: 'Regulatory Submission Phase', d: 'Multiple products in various stages of submission to Myanmar FDA.' },
-                                    { icon: TestTube, t: 'Clinical Evaluation', d: 'Comprehensive quality testing and bioequivalence studies where required.' },
-                                    { icon: Building2, t: 'Scale-Up Planning', d: 'Approved products will be scaled up at our new facility.' },
-                                ].map((item) => (
-                                    <div key={item.t} className="flex gap-3 rounded-2xl border border-gray-200 dark:border-white/10 bg-gray-50/70 dark:bg-white/[0.04] p-4">
-                                        <div className="h-10 w-10 rounded-xl bg-white dark:bg-white/10 border border-gray-200 dark:border-white/10 flex items-center justify-center text-novita shrink-0"><item.icon className="h-5 w-5" /></div>
-                                        <div><div className="text-sm font-bold text-gray-900 dark:text-white">{item.t}</div><div className="text-sm text-gray-600 dark:text-gray-400">{item.d}</div></div>
-                                    </div>
-                                ))}
+                    {isProductsEmpty ? (
+                        <UnderUpgrading title="Products Under Development" message="Product information is being updated. Detailed product portfolio will be available following regulatory approval." />
+                    ) : (
+                        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+                            <div className="lg:col-span-6">
+                                <div className="inline-flex items-center gap-2 rounded-full bg-novita/10 dark:bg-novita/15 px-3 py-1 text-xs font-semibold tracking-widest text-novita">DEVELOPMENT PIPELINE</div>
+                                <h2 className="mt-3 text-3xl font-bold tracking-tight text-gray-900 dark:text-white">Products Under Development</h2>
+                                <p className="mt-4 text-gray-600 dark:text-gray-300 leading-relaxed">Active pipeline focused on essential medicines — following strict quality protocols and regulatory requirements.</p>
+                                <div className="mt-6 space-y-3">
+                                    {[
+                                        { icon: Clock, t: 'Regulatory Submission Phase', d: 'Multiple products in various stages of submission to Myanmar FDA.' },
+                                        { icon: TestTube, t: 'Clinical Evaluation', d: 'Comprehensive quality testing and bioequivalence studies where required.' },
+                                        { icon: Building2, t: 'Scale-Up Planning', d: 'Approved products will be scaled up at our new facility.' },
+                                    ].map((item) => (
+                                        <div key={item.t} className="flex gap-3 rounded-2xl border border-gray-200 dark:border-white/10 bg-gray-50/70 dark:bg-white/[0.04] p-4">
+                                            <div className="h-10 w-10 rounded-xl bg-white dark:bg-white/10 border border-gray-200 dark:border-white/10 flex items-center justify-center text-novita shrink-0"><item.icon className="h-5 w-5" /></div>
+                                            <div><div className="text-sm font-bold text-gray-900 dark:text-white">{item.t}</div><div className="text-sm text-gray-600 dark:text-gray-400">{item.d}</div></div>
+                                        </div>
+                                    ))}
+                                </div>
                             </div>
-                        </div>
-                        <div className="lg:col-span-6">
-                            <div className="relative overflow-hidden rounded-[28px] border border-gray-200 dark:border-white/10 bg-gray-100 dark:bg-gray-800 shadow-[0_20px_60px_rgba(15,23,42,0.12)]">
-                                <img src="/images/products-development.jpg" alt="Product Development" className="h-[420px] w-full object-cover" onError={(e) => { e.currentTarget.src = 'https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=800&h=600&fit=crop'; }} />
-                                <div className="absolute bottom-4 left-4 right-4 rounded-2xl bg-white/95 dark:bg-gray-800/95 backdrop-blur border border-white/20 p-4 flex items-center gap-3 shadow">
-                                    <div className="h-10 w-10 rounded-xl bg-novita text-white flex items-center justify-center"><FlaskConical className="h-5 w-5" /></div>
-                                    <div><div className="text-sm font-bold text-gray-900 dark:text-white">Development Lab</div><div className="text-xs text-gray-500 dark:text-gray-400">Formulation & analytical</div></div>
-                                    <span className="ml-auto text-xs font-bold text-emerald-600 bg-emerald-50 dark:bg-emerald-500/15 px-2 py-1 rounded-full">In Progress</span>
+                            <div className="lg:col-span-6">
+                                <div className="relative overflow-hidden rounded-[28px] border border-gray-200 dark:border-white/10 bg-gray-100 dark:bg-gray-800 shadow-[0_20px_60px_rgba(15,23,42,0.12)]">
+                                    <img src="/images/products-development.jpg" alt="Product Development" className="h-[420px] w-full object-cover" onError={(e) => { e.currentTarget.src = 'https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=800&h=600&fit=crop'; }} />
+                                    <div className="absolute bottom-4 left-4 right-4 rounded-2xl bg-white/95 dark:bg-gray-800/95 backdrop-blur border border-white/20 p-4 flex items-center gap-3 shadow">
+                                        <div className="h-10 w-10 rounded-xl bg-novita text-white flex items-center justify-center"><FlaskConical className="h-5 w-5" /></div>
+                                        <div><div className="text-sm font-bold text-gray-900 dark:text-white">Development Lab</div><div className="text-xs text-gray-500 dark:text-gray-400">Formulation & analytical</div></div>
+                                        <span className="ml-auto text-xs font-bold text-emerald-600 bg-emerald-50 dark:bg-emerald-500/15 px-2 py-1 rounded-full">In Progress</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    )}
                 </div>
             </section>
 
@@ -174,19 +180,23 @@ export default function ProductsPage({ page }: ProductsPageProps) {
                         <h2 className="mt-3 text-3xl font-bold">Future Product Portfolio</h2>
                         <p className="mt-3 text-white/60">Expanding as facility and approvals progress.</p>
                     </div>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        {[
-                            { icon: Syringe, title: 'Injectable Products', desc: 'Parenteral and ophthalmic preparations for hospital and clinical use.' },
-                            { icon: Droplets, title: 'Liquid Dosage Forms', desc: 'Syrups, suspensions, and oral solutions.' },
-                            { icon: Pill, title: 'Specialty Products', desc: 'Extended-release and combination formulations.' },
-                        ].map((c) => (
-                            <div key={c.title} className="rounded-[24px] border border-white/10 bg-white/[0.06] backdrop-blur p-6 text-center hover:bg-white/[0.08] transition">
-                                <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-xl bg-white text-gray-900"><c.icon className="h-6 w-6 text-novita" /></div>
-                                <h4 className="mt-4 text-lg font-bold">{c.title}</h4>
-                                <p className="mt-2 text-sm text-white/60">{c.desc}</p>
-                            </div>
-                        ))}
-                    </div>
+                    {isProductsEmpty ? (
+                        <UnderUpgrading title="Future Portfolio" message="Future portfolio information is currently being updated. Please check back soon." />
+                    ) : (
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            {[
+                                { icon: Syringe, title: 'Injectable Products', desc: 'Parenteral and ophthalmic preparations for hospital and clinical use.' },
+                                { icon: Droplets, title: 'Liquid Dosage Forms', desc: 'Syrups, suspensions, and oral solutions.' },
+                                { icon: Pill, title: 'Specialty Products', desc: 'Extended-release and combination formulations.' },
+                            ].map((c) => (
+                                <div key={c.title} className="rounded-[24px] border border-white/10 bg-white/[0.06] backdrop-blur p-6 text-center hover:bg-white/[0.08] transition">
+                                    <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-xl bg-white text-gray-900"><c.icon className="h-6 w-6 text-novita" /></div>
+                                    <h4 className="mt-4 text-lg font-bold">{c.title}</h4>
+                                    <p className="mt-2 text-sm text-white/60">{c.desc}</p>
+                                </div>
+                            ))}
+                        </div>
+                    )}
                 </div>
             </section>
 

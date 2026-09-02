@@ -62,7 +62,7 @@ export default function QualityPage({ page }: QualityProps) {
                             <div className="mt-5 space-y-3">
                                 {[
                                     'Compliance with all applicable regulatory requirements',
-                                    'Adherence to Good Manufacturing Practices (GMP)',
+                                    'Adherence to international quality standards',
                                     'Continuous improvement of our quality management system',
                                     'Employee training and competency development',
                                 ].map((t) => (
@@ -71,11 +71,12 @@ export default function QualityPage({ page }: QualityProps) {
                                     </div>
                                 ))}
                             </div>
+                            <p className="mt-2 text-[11px] tracking-wide text-gray-400 dark:text-gray-500">Aligned with GMP principles where applicable</p>
                         </motion.div>
                         <motion.div initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="lg:col-span-6">
                             <div className="relative overflow-hidden rounded-[28px] border border-gray-200 dark:border-white/10 bg-gray-100 dark:bg-gray-800 shadow-[0_20px_60px_rgba(15,23,42,0.12)]">
                                 <img src="/images/quality-policy.jpg" alt="Quality Policy" className="h-[400px] w-full object-cover" onError={(e) => { e.currentTarget.src = 'https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?w=800&h=600&fit=crop'; }} />
-                                <div className="absolute bottom-4 left-4 rounded-xl bg-white/95 dark:bg-gray-900/90 backdrop-blur px-4 py-2 text-sm font-medium border border-white/20 shadow flex items-center gap-2 text-gray-900 dark:text-white"><Shield className="h-4 w-4 text-novita" /> GMP & PIC/S Aligned</div>
+                                <div className="absolute bottom-4 left-4 rounded-xl bg-white/95 dark:bg-gray-900/90 backdrop-blur px-4 py-1.5 text-xs font-medium border border-white/20 shadow flex items-center gap-2 text-gray-600 dark:text-gray-300"><Shield className="h-4 w-4 text-gray-500" /> Quality System Aligned</div>
                             </div>
                         </motion.div>
                     </div>
@@ -107,20 +108,22 @@ export default function QualityPage({ page }: QualityProps) {
                 </div>
             </section>
 
-            {/* GMP */}
+            {/* Compliance Ready - subtle, toned down */}
             <section className="py-14 md:py-20 bg-white dark:bg-[#070E1F]">
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                    <div className="rounded-[28px] border border-gray-200 dark:border-white/10 bg-gradient-to-br from-gray-50 to-novita/[0.04] dark:from-white/[0.04] dark:to-novita/10 p-6 md:p-10">
+                    <div className="rounded-[28px] border border-gray-200 dark:border-white/10 bg-gray-50/70 dark:bg-white/[0.03] p-6 md:p-8">
                         <div className="text-center mb-8">
-                            <div className="inline-flex items-center gap-2 rounded-full bg-novita/10 dark:bg-novita/15 px-3 py-1 text-xs font-semibold tracking-widest text-novita">GMP COMPLIANCE</div>
-                            <h2 className="mt-3 text-3xl font-bold text-gray-900 dark:text-white">Good Manufacturing Practices</h2>
+                            <div className="inline-flex items-center gap-2 rounded-full bg-gray-100 dark:bg-white/10 border border-gray-200 dark:border-white/10 px-3 py-1 text-[11px] font-semibold tracking-widest text-gray-600 dark:text-gray-300">COMPLIANCE READY</div>
+                            <h2 className="mt-3 text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">International Quality Standards</h2>
+                            <p className="mt-2 text-sm text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">Designed to meet international quality standards.</p>
                         </div>
                         <div className="mx-auto max-w-4xl">
                             <div className="rounded-[24px] border border-gray-200 dark:border-white/10 bg-white dark:bg-gray-800/50 p-6 shadow-sm flex gap-4">
-                                <div className="h-12 w-12 rounded-xl bg-novita text-white flex items-center justify-center shrink-0"><Award className="h-6 w-6" /></div>
+                                <div className="h-10 w-10 rounded-xl bg-gray-100 dark:bg-white/10 border border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-300 flex items-center justify-center shrink-0"><Award className="h-5 w-5" /></div>
                                 <div>
-                                    <h3 className="text-lg font-bold text-gray-900 dark:text-white">GMP and PIC/S Alignment</h3>
-                                    <p className="mt-2 text-sm leading-relaxed text-gray-600 dark:text-gray-300"><strong className="text-gray-900 dark:text-white">The facility is being planned and developed in alignment with internationally recognized GMP requirements and PIC/S principles.</strong> This ensures our manufacturing processes meet the highest global standards.</p>
+                                    <h3 className="text-base font-bold text-gray-900 dark:text-white">Quality System Aligned</h3>
+                                    <p className="mt-2 text-sm leading-relaxed text-gray-600 dark:text-gray-300">The facility is being planned and developed to meet international quality standards. This ensures our manufacturing processes meet the highest global standards.</p>
+                                    <p className="mt-1 text-[11px] tracking-wide text-gray-400 dark:text-gray-500">Aligned with GMP principles</p>
                                 </div>
                             </div>
                             <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -154,7 +157,7 @@ export default function QualityPage({ page }: QualityProps) {
                             { icon: FlaskConical, title: 'Quality Control Laboratory', desc: 'HPLC, dissolution testing, and stability chambers for comprehensive product testing.' },
                             { icon: Lock, title: 'Data Integrity', desc: 'ALCOA+ principles ensuring data is Attributable, Legible, Contemporaneous, Original, Accurate.' },
                             { icon: FileCheck, title: 'Supplier Qualification', desc: 'Rigorous evaluation ensuring raw materials meet our quality standards.' },
-                            { icon: GraduationCap, title: 'Employee Training', desc: 'Comprehensive GMP, safety, and job-specific programs for workforce competency.' },
+                            { icon: GraduationCap, title: 'Employee Training', desc: 'Comprehensive quality, safety, and job-specific programs for workforce competency.' },
                             { icon: FileCheck, title: 'Validation & Qualification', desc: 'Equipment, process, cleaning, and computer system validation for consistency.' },
                             { icon: RefreshCw, title: 'Continuous Improvement', desc: 'CAPA, trend analysis, and management review for system enhancement.' },
                         ].map((c) => (

@@ -43,6 +43,13 @@ class HandleInertiaRequests extends Middleware
             ],
             'sidebarOpen' => ! $request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',
             'navVisibility' => \App\Models\Setting::where('group', 'navigation')->pluck('value', 'key')->map(fn ($v) => $v === '1' || $v === 1 || $v === true)->toArray(),
+            'contactEmail' => \App\Models\Setting::getValue('contact_email', 'info@novita-myanmar.com.mm'),
+            'businessEmail' => \App\Models\Setting::getValue('business_email', 'business@novita-myanmar.com.mm'),
+            'careersEmail' => \App\Models\Setting::getValue('careers_email', 'careers@novita-myanmar.com.mm'),
+            'contactAddress' => \App\Models\Setting::getValue('contact_address', 'No. 216/222 Bo Myat Htun Housing, Room D3, Corner of 49 Street and Maharbandoola Road, Ward 1, Pazundaung Township, Yangon, Myanmar'),
+            'contactPhone' => \App\Models\Setting::getValue('contact_phone', '(+95) 9 5000144'),
+            'factoryPhone' => \App\Models\Setting::getValue('factory_phone', '09 977225001'),
+            'contactPhone2' => \App\Models\Setting::getValue('contact_phone2', '09 977225004'),
         ];
     }
 }

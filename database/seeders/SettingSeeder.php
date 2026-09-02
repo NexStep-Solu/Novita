@@ -18,9 +18,13 @@ class SettingSeeder extends Seeder
             ['key' => 'site_description', 'value' => 'NOVITA is a leading manufacturer committed to quality, innovation, and sustainability.', 'type' => 'textarea', 'group' => 'general'],
 
             // Contact Settings
-            ['key' => 'contact_email', 'value' => 'info@novita.com', 'type' => 'text', 'group' => 'contact'],
-            ['key' => 'contact_phone', 'value' => '+95 1 234 5678', 'type' => 'text', 'group' => 'contact'],
-            ['key' => 'contact_address', 'value' => 'Industrial Zone, Yangon, Myanmar', 'type' => 'textarea', 'group' => 'contact'],
+            ['key' => 'contact_email', 'value' => 'info@novita-myanmar.com.mm', 'type' => 'text', 'group' => 'contact'],
+            ['key' => 'business_email', 'value' => 'business@novita-myanmar.com.mm', 'type' => 'text', 'group' => 'contact'],
+            ['key' => 'careers_email', 'value' => 'careers@novita-myanmar.com.mm', 'type' => 'text', 'group' => 'contact'],
+            ['key' => 'contact_phone', 'value' => '(+95) 9 5000144', 'type' => 'text', 'group' => 'contact'],
+            ['key' => 'factory_phone', 'value' => '09 977225001', 'type' => 'text', 'group' => 'contact'],
+            ['key' => 'contact_phone2', 'value' => '09 977225004', 'type' => 'text', 'group' => 'contact'],
+            ['key' => 'contact_address', 'value' => 'No. 216/222 Bo Myat Htun Housing, Room D3, Corner of 49 Street and Maharbandoola Road, Ward 1, Pazundaung Township, Yangon, Myanmar', 'type' => 'textarea', 'group' => 'contact'],
             ['key' => 'contact_working_hours', 'value' => 'Mon - Fri: 8:00 AM - 5:00 PM', 'type' => 'text', 'group' => 'contact'],
 
             // Social Media Settings

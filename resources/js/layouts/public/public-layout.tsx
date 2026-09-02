@@ -45,6 +45,11 @@ export default function PublicLayout({ children }: { children: ReactNode }) {
         return v === undefined ? true : !!v;
     };
     const visibleNavItems = navItems.filter((item) => isVisible(item.key));
+    const contactEmail = (props as any).contactEmail || 'info@novita-myanmar.com.mm';
+    const contactAddress = (props as any).contactAddress || 'No. 216/222 Bo Myat Htun Housing, Room D3, Corner of 49 Street and Maharbandoola Road, Ward 1, Pazundaung Township, Yangon, Myanmar';
+    const contactPhone = (props as any).contactPhone || '(+95) 9 5000144';
+    const factoryPhone = (props as any).factoryPhone || '09 977225001';
+    const contactPhone2 = (props as any).contactPhone2 || '09 977225004';
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [aboutOpen, setAboutOpen] = useState(false);
     const [workOpen, setWorkOpen] = useState(false);
@@ -92,7 +97,7 @@ export default function PublicLayout({ children }: { children: ReactNode }) {
 
     return (
         <div className="min-h-screen bg-background text-foreground">
-            {/* Top Bar - collapses smoothly */}
+            {/* Top Bar - collapses smoothly
             <motion.div
                 animate={{ height: scrolled ? 0 : 40, opacity: scrolled ? 0 : 1 }}
                 transition={{ type: 'spring', stiffness: 320, damping: 30, mass: 0.85 }}
@@ -101,16 +106,19 @@ export default function PublicLayout({ children }: { children: ReactNode }) {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex items-center justify-between h-10">
                         <div className="flex items-center space-x-6">
-                            <a href="tel:+95123456789" className="flex items-center space-x-2 hover:text-gray-300 transition-colors">
+                            <a href={`tel:${contactPhone.replace(/\s/g, '')}`} className="flex items-center space-x-2 hover:text-gray-300 transition-colors">
                                 <Phone className="h-3.5 w-3.5" />
-                                <span className="hidden sm:inline">+95 1 234 5678</span>
+                                <span className="hidden sm:inline">{contactPhone}</span>
                             </a>
-                            <a href="mailto:info@novitapharma.com" className="hidden sm:flex items-center space-x-2 hover:text-gray-300 transition-colors">
+                            <a href={`mailto:${contactEmail}`} className="hidden sm:flex items-center space-x-2 hover:text-gray-300 transition-colors">
                                 <Mail className="h-3.5 w-3.5" />
-                                <span>info@novitapharma.com</span>
+                                <span>{contactEmail}</span>
                             </a>
                         </div>
                         <div className="flex items-center space-x-4">
+                            <a href="https://www.kyawtharengg.com.mm" target="_blank" rel="noopener noreferrer" className="hidden md:inline-flex items-center gap-1 text-xs font-medium text-gray-300 hover:text-white transition">
+                                KTECG Group ↗
+                            </a>
                             <button onClick={() => updateAppearance(isDark ? 'light' : 'dark')} className="p-1.5 rounded-md hover:bg-gray-800 transition-colors" aria-label="Toggle dark mode">
                                 {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
                             </button>
@@ -118,10 +126,10 @@ export default function PublicLayout({ children }: { children: ReactNode }) {
                         </div>
                     </div>
                 </div>
-            </motion.div>
+            </motion.div> */}
 
             {/* Sticky header wrapper - morphs into floating dock */}
-            <div className={`sticky top-0 z-40 flex items-center ${scrolled ? 'bg-transparent px-4 h-[76px] pt-2' : 'bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 shadow-sm px-0 h-[64px]'}`}>
+            <div className={`sticky top-0 z-40 flex items-center ${scrolled ? 'bg-transparent px-4 h-[64px]' : 'bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 shadow-sm px-0 h-[64px]'}`}>
                 <motion.div
                     animate={{
                         borderRadius: scrolled ? 9999 : 0,
@@ -131,26 +139,25 @@ export default function PublicLayout({ children }: { children: ReactNode }) {
                     transition={{ type: 'spring', stiffness: 320, damping: 30, mass: 0.85 }}
                     className={`mx-auto flex items-center justify-between will-change-transform w-full ${
                         scrolled
-                            ? 'bg-white/75 dark:bg-gray-900/75 backdrop-blur-xl border border-gray-200/60 dark:border-gray-700/60 shadow-[0_8px_32px_rgba(0,0,0,0.12)] px-2'
+                            ? 'bg-white/75 dark:bg-gray-900/75 backdrop-blur-xl border border-gray-200/60 dark:border-gray-700/60 shadow-[0_8px_32px_rgba(0,0,0,0.12)] pl-4 pr-2'
                             : 'bg-transparent border-transparent px-4 sm:px-6 lg:px-8'
                     }`}
                 >
-                    {/* Logo */}
+                    {/* Logo - Landscape */}
                     <Link href="/" className="flex-shrink-0 flex items-center">
-                        <motion.div layout className={`font-bold tracking-tight text-novita ${scrolled ? 'text-[15px] pl-3' : 'text-xl'}`}>NOVITA</motion.div>
-                        <AnimatePresence initial={false}>
-                            {!scrolled && (
-                                <motion.div
-                                    initial={{ opacity: 0, width: 0 }}
-                                    animate={{ opacity: 1, width: 'auto' }}
-                                    exit={{ opacity: 0, width: 0 }}
-                                    transition={{ duration: 0.2 }}
-                                    className="hidden sm:block ml-2 text-xs text-gray-500 dark:text-gray-400 border-l border-gray-300 dark:border-gray-600 pl-2 leading-tight overflow-hidden whitespace-nowrap"
-                                >
-                                    Pharmaceutical<br />Co., Ltd.
-                                </motion.div>
-                            )}
-                        </AnimatePresence>
+                        <img
+                            src="/logo_landscape.png"
+                            alt="NOVITA Pharmaceutical Co., Ltd."
+                            className={`w-auto object-contain transition-all duration-300 ${scrolled ? 'h-8' : 'h-10'}`}
+                            onError={(e) => {
+                                (e.target as HTMLImageElement).style.display = 'none';
+                                const fallback = (e.target as HTMLImageElement).nextElementSibling as HTMLElement;
+                                if (fallback) fallback.style.display = 'flex';
+                            }}
+                        />
+                        <span className="hidden font-bold tracking-tight text-novita text-xl ml-2" style={{ display: 'none' }}>
+                            NOVITA
+                        </span>
                     </Link>
 
                     {/* Center nav - morphs text <-> icons */}
@@ -296,10 +303,10 @@ export default function PublicLayout({ children }: { children: ReactNode }) {
             <footer className="bg-gray-900 dark:bg-gray-950 text-white">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                        <div><div className="text-2xl font-bold text-white mb-2">NOVITA</div><div className="text-gray-400 text-xs tracking-widest mb-4">PHARMACEUTICAL CO., LTD.</div><p className="text-gray-400 text-sm mb-4">A member of KTECG Group with over 20 years of experience in pharmaceutical construction.</p><p className="text-gray-400 text-sm">Better Health, Longer Life</p></div>
+                        <div><div className="text-2xl font-bold text-white mb-2">NOVITA</div><div className="text-gray-400 text-xs tracking-widest mb-4">PHARMACEUTICAL CO., LTD.</div><p className="text-gray-400 text-sm mb-4">A member of <a href="https://www.kyawtharengg.com.mm" target="_blank" rel="noopener noreferrer" className="text-white hover:text-novita-light underline decoration-white/20 hover:decoration-novita-light">KTECG Group</a> with over 20 years of experience in pharmaceutical construction.</p><p className="text-gray-400 text-sm">Better Health, Longer Life</p></div>
                         <div><h3 className="text-white font-semibold mb-4">Quick Links</h3><ul className="space-y-2"><li><Link href="/about-us" className="text-gray-400 hover:text-white text-sm transition-colors">About Us</Link></li><li><Link href="/our-facility" className="text-gray-400 hover:text-white text-sm transition-colors">Our Facility</Link></li><li><Link href="/quality" className="text-gray-400 hover:text-white text-sm transition-colors">Quality</Link></li><li><Link href="/products" className="text-gray-400 hover:text-white text-sm transition-colors">Products</Link></li><li><Link href="/news" className="text-gray-400 hover:text-white text-sm transition-colors">News & Media</Link></li></ul></div>
                         <div><h3 className="text-white font-semibold mb-4">Legal</h3><ul className="space-y-2"><li><Link href="/privacy" className="text-gray-400 hover:text-white text-sm transition-colors">Privacy Policy</Link></li><li><Link href="/terms" className="text-gray-400 hover:text-white text-sm transition-colors">Terms of Use</Link></li><li><Link href="/medical-disclaimer" className="text-gray-400 hover:text-white text-sm transition-colors">Medical Disclaimer</Link></li></ul></div>
-                        <div><h3 className="text-white font-semibold mb-4">Contact</h3><ul className="space-y-3"><li className="flex items-start space-x-3"><MapPin className="h-4 w-4 text-gray-400 mt-0.5 flex-shrink-0" /><span className="text-gray-400 text-sm">Registered Office: 123 Business Center, Yangon, Myanmar</span></li><li className="flex items-center space-x-3"><Phone className="h-4 w-4 text-gray-400 flex-shrink-0" /><span className="text-gray-400 text-sm">+95 1 234 5678</span></li><li className="flex items-center space-x-3"><Mail className="h-4 w-4 text-gray-400 flex-shrink-0" /><span className="text-gray-400 text-sm">info@novitapharma.com</span></li></ul></div>
+                        <div><h3 className="text-white font-semibold mb-4">Contact</h3><ul className="space-y-3"><li className="flex items-start space-x-3"><MapPin className="h-4 w-4 text-gray-400 mt-0.5 flex-shrink-0" /><a href="https://maps.app.goo.gl/HJVXT2ghQCwvZzCB7" target="_blank" rel="noopener noreferrer" className="text-gray-400 text-sm hover:text-white">{contactAddress}</a></li><li className="flex items-center space-x-3"><Phone className="h-4 w-4 text-gray-400 flex-shrink-0" /><span className="text-gray-400 text-sm">{contactPhone} / {factoryPhone} / {contactPhone2}</span></li><li className="flex items-center space-x-3"><Mail className="h-4 w-4 text-gray-400 flex-shrink-0" /><span className="text-gray-400 text-sm">{contactEmail}</span></li></ul></div>
                     </div>
                     <div className="border-t border-gray-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center"><p className="text-gray-400 text-sm">© 2026 NOVITA Pharmaceutical Co., Ltd. All Rights Reserved.</p><div className="flex items-center space-x-4 mt-4 md:mt-0"><a href="#" className="text-gray-400 hover:text-white transition-colors"><Facebook className="h-5 w-5" /></a><a href="#" className="text-gray-400 hover:text-white transition-colors"><Linkedin className="h-5 w-5" /></a><a href="#" className="text-gray-400 hover:text-white transition-colors"><Youtube className="h-5 w-5" /></a></div></div>
                 </div>

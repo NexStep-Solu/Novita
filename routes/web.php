@@ -80,6 +80,17 @@ Route::get('/contact', function () {
 })->name('contact');
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 
+// Legal Pages
+Route::get('/privacy', function () {
+    return inertia('public/privacy');
+})->name('privacy');
+Route::get('/terms', function () {
+    return inertia('public/terms');
+})->name('terms');
+Route::get('/medical-disclaimer', function () {
+    return inertia('public/medical-disclaimer');
+})->name('medical-disclaimer');
+
 Route::redirect('/dashboard', '/admin')->name('dashboard');
 
 require __DIR__.'/settings.php';

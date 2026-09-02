@@ -71,7 +71,7 @@ export default function HomePage({ page }: HomeProps) {
     const qualityTitle = qualitySec?.title || 'Commitment to Quality';
     const qualityBadge = qualitySec?.subtitle || 'Quality First';
     const qualityDesc = qualitySec?.content || 'Quality is at the heart of everything we do. Our manufacturing facility is designed to meet international GMP standards, and we are committed to obtaining PIC/S GMP certification.';
-    const qualityFeatures: string[] = (qualitySec?.meta as any)?.features || ['International GMP Standards', 'PIC/S GMP Certification Aligned', 'Rigorous Quality Control Testing'];
+    const qualityFeatures: string[] = (qualitySec?.meta as any)?.features || ['International Quality Standards', 'Quality System Aligned', 'Rigorous Quality Control Testing'];
     const qualityLinkText = qualitySec?.link_text || 'Learn about our quality commitment';
     const qualityLinkUrl = qualitySec?.link_url || '/quality';
     const qualityImage = qualitySec?.image_path ? (qualitySec.image_path.startsWith('http') || qualitySec.image_path.startsWith('/') ? qualitySec.image_path : `/storage/${qualitySec.image_path}`) : '/images/quality-lab.jpg';
@@ -83,7 +83,7 @@ export default function HomePage({ page }: HomeProps) {
     const facilityCards: any[] = (facilitySec?.meta as any)?.cards || [
         { title: 'OSD Manufacturing', desc: 'Tablets and hard gelatin capsules production with modern equipment.' },
         { title: 'Quality Control', desc: 'Fully equipped QC laboratory for comprehensive product testing.' },
-        { title: 'GMP Compliance', desc: 'Designed to meet international GMP and PIC/S standards.' },
+        { title: 'Compliance Ready', desc: 'Designed to meet international quality standards.' },
     ];
     const facilityLinkText = facilitySec?.link_text || 'Explore our facility';
     const facilityLinkUrl = facilitySec?.link_url || '/our-facility';
@@ -94,7 +94,7 @@ export default function HomePage({ page }: HomeProps) {
     const whyFeatures: any[] = (whySec?.meta as any)?.features || [
         { title: 'Patient Safety', description: 'Every product undergoes rigorous testing to ensure safety and efficacy for patients.' },
         { title: 'Expert Team', description: 'Our experienced professionals are dedicated to pharmaceutical excellence.' },
-        { title: 'GMP Standards', description: 'Designed to meet international GMP and PIC/S certification requirements.' },
+        { title: 'Quality Systems', description: 'Built with robust quality systems for reliable and consistent results.' },
     ];
 
     const statsSec = sections.find((s) => s.section_type === 'stats');
@@ -167,13 +167,13 @@ export default function HomePage({ page }: HomeProps) {
                         >
                             {/* Eyebrow */}
                             <div className="flex flex-wrap items-center gap-3 mb-6">
-                                <span className="inline-flex items-center gap-2 rounded-full border border-gray-200 dark:border-white/10 bg-white dark:bg-white/[0.06] backdrop-blur px-3 py-1.5 text-xs font-medium text-gray-700 dark:text-gray-200 shadow-sm">
+                                <a href="https://www.kyawtharengg.com.mm" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-full border border-gray-200 dark:border-white/10 bg-white dark:bg-white/[0.06] backdrop-blur px-3 py-1.5 text-xs font-medium text-gray-700 dark:text-gray-200 shadow-sm hover:border-novita/30 hover:text-novita transition">
                                     <span className="relative flex h-2 w-2">
                                         <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
                                         <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
                                     </span>
-                                    {heroBadge}
-                                </span>
+                                    {heroBadge} ↗
+                                </a>
                                 <span className="inline-flex items-center gap-1.5 rounded-full bg-novita/10 dark:bg-novita/20 px-3 py-1.5 text-xs font-semibold tracking-wide text-novita dark:text-blue-200">
                                     <Sparkles className="h-3.5 w-3.5" />
                                     {heroSlogan}
@@ -219,6 +219,10 @@ export default function HomePage({ page }: HomeProps) {
                                 <div className="flex items-center gap-2 text-xs font-medium text-gray-600 dark:text-gray-300">
                                     <Building2 className="h-4 w-4 text-novita" /> Yangon • Under Development
                                 </div>
+                            </div>
+                            <div className="mt-3 text-xs text-gray-500 dark:text-gray-400">
+                                Part of <a href="https://www.kyawtharengg.com.mm" target="_blank" rel="noopener noreferrer" className="font-medium text-novita hover:underline">Kyaw Thar Engineering & Construction Group</a> —{' '}
+                                <a href="https://www.kyawtharengg.com.mm" target="_blank" rel="noopener noreferrer" className="underline decoration-novita/30 hover:decoration-novita">www.kyawtharengg.com.mm ↗</a>
                             </div>
                         </motion.div>
 
@@ -569,7 +573,7 @@ export default function HomePage({ page }: HomeProps) {
                 </div>
             </section>
 
-            {/* CTA Section - Premium Container */}
+            {/* CTA - Contact only (Partner CTA on /partnership) */}
             <section className="py-12 md:py-16 bg-gray-50/70 dark:bg-[#0B1220]">
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="relative overflow-hidden rounded-[32px] bg-gradient-to-br from-gray-900 via-[#0F1E3A] to-novita dark:from-[#070E1F] dark:via-[#0F1E3A] dark:to-[#1E3A8A] p-8 md:p-12">
@@ -577,20 +581,14 @@ export default function HomePage({ page }: HomeProps) {
                             <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.06)_1px,transparent_1px)] bg-[size:32px_32px]" />
                             <div className="absolute -right-20 -top-20 h-[400px] w-[400px] rounded-full bg-novita/30 blur-[80px]" />
                         </div>
-                        <div className="relative grid md:grid-cols-12 gap-8 items-center">
-                            <div className="md:col-span-7">
-                                <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1 text-xs font-semibold tracking-widest text-white">PARTNER WITH US</div>
-                                <h2 className="mt-4 text-3xl md:text-4xl font-bold tracking-tight text-white">{ctaTitle}</h2>
+                        <div className="relative flex flex-col md:flex-row items-center justify-between gap-6">
+                            <div>
+                                <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-white">{ctaTitle}</h2>
                                 <p className="mt-3 text-white/70 max-w-xl">{ctaSubtitle}</p>
                             </div>
-                            <div className="md:col-span-5 flex flex-col sm:flex-row md:justify-end gap-3">
-                                <Link href={ctaBtnUrl} className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-7 py-4 text-sm font-bold text-gray-900 hover:bg-gray-100 transition">
-                                    {ctaBtnText} <ArrowRight className="h-4 w-4" />
-                                </Link>
-                                <Link href={ctaSecondaryBtnUrl} className="inline-flex items-center justify-center rounded-full border border-white/20 bg-white/10 backdrop-blur px-7 py-4 text-sm font-bold text-white hover:bg-white/15 transition">
-                                    {ctaSecondaryBtnText}
-                                </Link>
-                            </div>
+                            <Link href={ctaSecondaryBtnUrl} className="inline-flex items-center justify-center rounded-full border border-white/20 bg-white/10 backdrop-blur px-8 py-4 text-sm font-bold text-white hover:bg-white/15 transition">
+                                {ctaSecondaryBtnText}
+                            </Link>
                         </div>
                     </motion.div>
                 </div>

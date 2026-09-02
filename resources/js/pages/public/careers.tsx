@@ -1,4 +1,4 @@
-import { Head, Link } from '@inertiajs/react';
+import { Head, Link, usePage } from '@inertiajs/react';
 import { useState } from 'react';
 import PublicLayout from '@/layouts/public/public-layout';
 import { ArrowRight, Heart, Users, BookOpen, Briefcase, Mail, Upload, CheckCircle, Building2, Globe, Award, TrendingUp, Send } from 'lucide-react';
@@ -26,6 +26,7 @@ interface CareersProps {
 }
 
 export default function CareersPage({ page }: CareersProps) {
+    const careersEmail = (usePage().props as any).careersEmail || 'careers@novita-myanmar.com.mm';
     const hero = ((page as any)?.active_sections || (page as any)?.activeSections)?.find((s) => s.section_type === 'hero');
     const heroTitle = hero?.title || 'Join Our Team';
     const heroSubtitle = hero?.subtitle || "Be part of Myanmar's pharmaceutical future. Help us build world-class manufacturing capabilities.";
@@ -164,7 +165,7 @@ export default function CareersPage({ page }: CareersProps) {
                             <div className="mt-6 rounded-[24px] border border-novita/15 bg-novita/[0.04] dark:bg-novita/10 p-6">
                                 <div className="flex items-center gap-3">
                                     <div className="h-10 w-10 rounded-xl bg-novita text-white flex items-center justify-center"><Mail className="h-5 w-5" /></div>
-                                    <div><div className="text-sm font-bold text-gray-900 dark:text-white">Email your CV to:</div><a href="mailto:careers@novitapharma.com" className="text-sm font-semibold text-novita hover:underline">careers@novitapharma.com</a></div>
+                                    <div><div className="text-sm font-bold text-gray-900 dark:text-white">Email your CV to:</div><a href={`mailto:${careersEmail}`} className="text-sm font-semibold text-novita hover:underline">{careersEmail}</a></div>
                                 </div>
                                 <p className="mt-3 text-xs text-gray-500 dark:text-gray-400">Include CV, cover letter, and area of interest.</p>
                             </div>
@@ -244,7 +245,7 @@ export default function CareersPage({ page }: CareersProps) {
                         <div className="pointer-events-none absolute -right-20 -top-20 h-[400px] w-[400px] rounded-full bg-white/10 blur-[60px]" />
                         <div className="relative flex flex-col md:flex-row items-center justify-between gap-6">
                             <div><h2 className="text-2xl md:text-3xl font-bold text-white">Ready to Make a Difference?</h2><p className="mt-2 text-white/70">Join NOVITA and be part of Myanmar's pharmaceutical future.</p></div>
-                            <a href="mailto:careers@novitapharma.com" className="inline-flex items-center gap-2 rounded-full bg-white px-7 py-3.5 text-sm font-bold text-gray-900 hover:bg-gray-100 transition">Send Your CV <Mail className="h-4 w-4" /></a>
+                            <a href={`mailto:${careersEmail}`} className="inline-flex items-center gap-2 rounded-full bg-white px-7 py-3.5 text-sm font-bold text-gray-900 hover:bg-gray-100 transition">Send Your CV <Mail className="h-4 w-4" /></a>
                         </div>
                     </div>
                 </div>
