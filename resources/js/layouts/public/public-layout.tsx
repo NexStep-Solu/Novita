@@ -15,16 +15,17 @@ interface NavItem {
 
 const navItems: NavItem[] = [
     { key: 'home', label: 'Home', href: '/', icon: <Home className="h-4 w-4" /> },
-    {
-        key: 'about',
-        label: 'About Us',
-        href: '#',
-        icon: <Building2 className="h-4 w-4" />,
-        children: [
-            { key: 'about-main', label: 'About Us', href: '/about-us', icon: <Building2 className="h-4 w-4" /> },
-            { key: 'leadership', label: 'Our Leadership', href: '/leadership', icon: <Building2 className="h-4 w-4" /> },
-        ],
-    },
+    // {
+    //     key: 'about',
+    //     label: 'About Us',
+    //     href: '#',
+    //     icon: <Building2 className="h-4 w-4" />,
+    //     children: [
+    //         { key: 'about-main', label: 'About Us', href: '/about-us', icon: <Building2 className="h-4 w-4" /> },
+    //         // { key: 'leadership', label: 'Our Leadership', href: '/leadership', icon: <Building2 className="h-4 w-4" /> },
+    //     ],
+    // },
+    { key: 'about', label: 'About Us', href: '/about-us', icon: <Building2 className="h-4 w-4" /> },
     { key: 'facility', label: 'Our Facility', href: '/our-facility', icon: <FlaskConical className="h-4 w-4" /> },
     { key: 'quality', label: 'Quality', href: '/quality', icon: <ShieldCheck className="h-4 w-4" /> },
     { key: 'product_development', label: 'Product Development', href: '/product-development', icon: <Beaker className="h-4 w-4" /> },
