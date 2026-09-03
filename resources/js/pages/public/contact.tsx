@@ -76,8 +76,9 @@ export default function ContactPage({ page }: ContactProps) {
                             {
                                 icon: Factory,
                                 title: 'Factory',
-                                lines: ['No. 92,93 & 94', 'Makhayar Min Thar Gyi Street', 'Thilawa Local Industiral Zon', 'Yangon, Myanmar'],
+                                lines: ['NOVITA Pharmaceutical Factory', 'Industrial Zone (1)', 'Hlaing Tharyar Township', 'Yangon, Myanmar'],
                                 phone: factoryPhoneDynamic,
+                                mapUrl: 'https://maps.app.goo.gl/EHKjgoAaFnA4oSgZA',
                             },
                             {
                                 icon: Phone,
@@ -155,19 +156,19 @@ export default function ContactPage({ page }: ContactProps) {
                     </div>
                     <div className="overflow-hidden rounded-[28px] border border-gray-200 dark:border-white/10 shadow-[0_20px_60px_rgba(15,23,42,0.12)]">
                         <iframe
-                            src="https://maps.google.com/maps?q=https://maps.app.goo.gl/HJVXT2ghQCwvZzCB7&z=17&output=embed"
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3820.0422271533384!2d96.17007459999999!3d16.774574599999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30c1ec8a4118f851%3A0xa6ccb0a1cd234422!2s181%20Bo%20Myat%20Htun%20St%2C%20Yangon%2C%20Myanmar%20(Burma)!5e0!3m2!1sen!2sqa!4v1788407292856!5m2!1sen!2sqa"
                             width="100%"
-                            height="420"
+                            height="450"
                             style={{ border: 0 }}
                             allowFullScreen
                             loading="lazy"
-                            referrerPolicy="no-referrer-when-downgrade"
-                            title="NOVITA Location - No. 216/222 Bo Myat Htun Housing, Pazundaung"
+                            referrerPolicy="strict-origin-when-cross-origin"
+                            title="NOVITA Location - 181 Bo Myat Htun St, Yangon"
                         />
                     </div>
                     <div className="mt-4 text-center">
                         <a href="https://maps.app.goo.gl/HJVXT2ghQCwvZzCB7" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm font-medium text-novita hover:underline">
-                            <MapPin className="h-4 w-4" /> Open in Google Maps — No. 216/222 Bo Myat Htun Housing, Pazundaung
+                            <MapPin className="h-4 w-4" /> Open in Google Maps — 181 Bo Myat Htun St, Yangon
                         </a>
                     </div>
                 </div>
