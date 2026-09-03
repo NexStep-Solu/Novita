@@ -60,16 +60,17 @@ export default function AboutPage({ page }: AboutProps) {
                 </div>
             </section>
 
-            {/* Company Overview */}
+            {/* Company Overview - Dynamic */}
             <section className="py-14 md:py-20 bg-white dark:bg-[#070E1F]">
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
                         <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="lg:col-span-7">
-                            <div className="inline-flex items-center gap-2 rounded-full bg-novita/10 dark:bg-novita/15 px-3 py-1 text-xs font-semibold tracking-widest text-novita">COMPANY OVERVIEW</div>
-                            <h2 className="mt-3 text-3xl md:text-[34px] font-bold tracking-tight text-gray-900 dark:text-white">NOVITA Pharmaceutical Co., Ltd.</h2>
+                            <div className="inline-flex items-center gap-2 rounded-full bg-novita/10 dark:bg-novita/15 px-3 py-1 text-xs font-semibold tracking-widest text-novita">{overviewSec?.subtitle || 'COMPANY OVERVIEW'}</div>
+                            <h2 className="mt-3 text-3xl md:text-[34px] font-bold tracking-tight text-gray-900 dark:text-white">{overviewSec?.title || 'NOVITA Pharmaceutical Co., Ltd.'}</h2>
                             <div className="mt-6 space-y-4 text-[15px] leading-relaxed text-gray-600 dark:text-gray-300">
-                                <p><strong className="text-gray-900 dark:text-white">NOVITA Pharmaceutical Co., Ltd., a member of KTECG Group</strong>, is a leading pharmaceutical company established with the vision of providing high-quality, affordable medicines to the people of Myanmar.</p>
-                                <p>Founded as part of KTECG Group's expansion into the pharmaceutical sector, NOVITA combines decades of construction and engineering expertise with modern pharmaceutical manufacturing capabilities.</p>
+                                {(overviewSec?.content || `NOVITA Pharmaceutical Co., Ltd., a member of KTECG Group, is a leading pharmaceutical company established with the vision of providing high-quality, affordable medicines to the people of Myanmar.\n\nFounded as part of KTECG Group's expansion into the pharmaceutical sector, NOVITA combines decades of construction and engineering expertise with modern pharmaceutical manufacturing capabilities.`).split('\n\n').map((para, idx) => (
+                                    <p key={idx} dangerouslySetInnerHTML={{ __html: para.replace(/NOVITA Pharmaceutical Co., Ltd., a member of KTECG Group/g, '<strong class="text-gray-900 dark:text-white">NOVITA Pharmaceutical Co., Ltd., a member of KTECG Group</strong>') }} />
+                                ))}
                                 <div className="rounded-2xl border border-novita/15 bg-novita/[0.04] dark:bg-novita/10 p-4 flex gap-3">
                                     <div className="h-10 w-10 rounded-xl bg-novita text-white flex items-center justify-center shrink-0"><Building2 className="h-5 w-5" /></div>
                                     <p className="text-sm text-gray-700 dark:text-gray-200">With KTECG Group's <strong>20+ years of pharmaceutical construction experience</strong>, NOVITA benefits from world-class facility design that meets international standards from day one.</p>
