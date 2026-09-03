@@ -33,8 +33,8 @@ export default function ContactPage({ page }: ContactProps) {
     const careersEmailDynamic = sharedProps.careersEmail || 'careers@novita-myanmar.com.mm';
     const contactAddressDynamic = sharedProps.contactAddress || 'No. 216/222 Bo Myat Htun Housing, Room D3, Corner of 49 Street and Maharbandoola Road, Ward 1, Pazundaung Township, Yangon, Myanmar';
     const contactPhoneDynamic = sharedProps.contactPhone || '(+95) 9 5000144';
-    const factoryPhoneDynamic = sharedProps.factoryPhone || '09 977225001';
-    const contactPhone2Dynamic = sharedProps.contactPhone2 || '09 977225004';
+    const factoryPhoneDynamic = sharedProps.factoryPhone || '(+95) 9 977 225 001';
+    const contactPhone2Dynamic = sharedProps.contactPhone2 || '(+95) 9 977 225 004';
 
     const [formData, setFormData] = useState({ name: '', email: '', phone: '', subject: '', message: '' });
     const [submitted, setSubmitted] = useState(false);
@@ -76,7 +76,7 @@ export default function ContactPage({ page }: ContactProps) {
                             {
                                 icon: Factory,
                                 title: 'Factory',
-                                lines: ['NOVITA Pharmaceutical Factory', 'Industrial Zone (1)', 'Hlaing Tharyar Township', 'Yangon, Myanmar'],
+                                lines: ['No. 92,93 & 94', 'Makhayar Min Thar Gyi Street', 'Thilawa Local Industiral Zon', 'Yangon, Myanmar'],
                                 phone: factoryPhoneDynamic,
                             },
                             {
@@ -89,7 +89,7 @@ export default function ContactPage({ page }: ContactProps) {
                             {
                                 icon: Clock,
                                 title: 'Office Hours',
-                                hours: [['Monday - Friday','9:00 AM - 5:00 PM'],['Saturday','9:00 AM - 1:00 PM'],['Sunday','Closed']],
+                                hours: [['Monday - Friday','8:30 AM - 5:00 PM'],['Saturday','8:30 AM - 1:00 PM'],['Sunday','Closed']],
                             },
                         ].map((card) => (
                             <div key={card.title} className="rounded-[28px] border border-gray-200 dark:border-white/10 bg-white dark:bg-gray-800/50 p-6 shadow-sm hover:shadow-xl transition">
@@ -106,7 +106,7 @@ export default function ContactPage({ page }: ContactProps) {
                                         {card.hours && card.hours.map(([k,v]: any) => <div key={k} className="flex justify-between border-b border-gray-100 dark:border-white/5 py-2 last:border-0"><span>{k}</span><span className="font-medium text-gray-900 dark:text-white">{v}</span></div>)}
                                     </div>
                                 )}
-                                {card.phone && <div className="mt-4 flex items-center gap-2 text-sm"><Phone className="h-4 w-4 text-novita" /><a href={`tel:${card.phone.replace(/\s/g,'')}`} className="font-medium text-gray-900 dark:text-white hover:text-novita">{card.phone}</a></div>}
+                                {card.phone && <div className="mt-4 flex items-center gap-2 text-sm"><Phone className="h-4 w-4 text-novita" /><a href={`tel:${card.phone.replace(/[^+\d]/g,'')}`} className="font-medium text-gray-900 dark:text-white hover:text-novita">{card.phone}</a></div>}
                                 {card.email && <div className="mt-2 flex items-center gap-2 text-sm"><Mail className="h-4 w-4 text-novita" /><a href={`mailto:${card.email}`} className="font-medium text-novita hover:underline">{card.email}</a></div>}
                                 {card.note && <div className="mt-4 rounded-xl bg-amber-50 dark:bg-amber-500/10 border border-amber-200 dark:border-amber-500/20 px-3 py-2 text-xs font-medium text-amber-800 dark:text-amber-200">{card.note}</div>}
                                 {card.title === 'Office Hours' && (

@@ -48,8 +48,8 @@ class HandleInertiaRequests extends Middleware
             'careersEmail' => \App\Models\Setting::getValue('careers_email', 'careers@novita-myanmar.com.mm'),
             'contactAddress' => \App\Models\Setting::getValue('contact_address', 'No. 216/222 Bo Myat Htun Housing, Room D3, Corner of 49 Street and Maharbandoola Road, Ward 1, Pazundaung Township, Yangon, Myanmar'),
             'contactPhone' => \App\Models\Setting::getValue('contact_phone', '(+95) 9 5000144'),
-            'factoryPhone' => \App\Models\Setting::getValue('factory_phone', '09 977225001'),
-            'contactPhone2' => \App\Models\Setting::getValue('contact_phone2', '09 977225004'),
+            'factoryPhone' => \App\Models\Setting::getValue('factory_phone', '(+95) 9 977 225 001'),
+            'contactPhone2' => \App\Models\Setting::getValue('contact_phone2', '(+95) 9 977 225 004'),
         ];
     }
 }

@@ -49,8 +49,8 @@ export default function PublicLayout({ children }: { children: ReactNode }) {
     const contactEmail = (props as any).contactEmail || 'info@novita-myanmar.com.mm';
     const contactAddress = (props as any).contactAddress || 'No. 216/222 Bo Myat Htun Housing, Room D3, Corner of 49 Street and Maharbandoola Road, Ward 1, Pazundaung Township, Yangon, Myanmar';
     const contactPhone = (props as any).contactPhone || '(+95) 9 5000144';
-    const factoryPhone = (props as any).factoryPhone || '09 977225001';
-    const contactPhone2 = (props as any).contactPhone2 || '09 977225004';
+    const factoryPhone = (props as any).factoryPhone || '(+95) 9 977 225 001';
+    const contactPhone2 = (props as any).contactPhone2 || '(+95) 9 977 225 004';
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [aboutOpen, setAboutOpen] = useState(false);
     const [workOpen, setWorkOpen] = useState(false);
@@ -107,7 +107,7 @@ export default function PublicLayout({ children }: { children: ReactNode }) {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex items-center justify-between h-10">
                         <div className="flex items-center space-x-6">
-                            <a href={`tel:${contactPhone.replace(/\s/g, '')}`} className="flex items-center space-x-2 hover:text-gray-300 transition-colors">
+                            <a href={`tel:${contactPhone.replace(/[^+\d]/g, '')}`} className="flex items-center space-x-2 hover:text-gray-300 transition-colors">
                                 <Phone className="h-3.5 w-3.5" />
                                 <span className="hidden sm:inline">{contactPhone}</span>
                             </a>

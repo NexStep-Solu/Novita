@@ -200,7 +200,7 @@ export default function HomePage({ page }: HomeProps) {
                                 </Link>
                                 <Link
                                     href={ctaSecondaryUrl}
-                                    className="inline-flex items-center justify-center gap-2 rounded-full border border-gray-200 dark:border-white/15 bg-white dark:bg-white/[0.06] backdrop-blur px-7 py-3.5 text-sm font-semibold text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-white/10 transition-colors"
+                                    className="inline-flex items-center justify-center gap-2 rounded-full bg-novita px-7 py-3.5 text-sm font-semibold text-white shadow-[0_8px_24px_rgba(59,99,175,0.25)] hover:bg-novita-dark transition-colors"
                                 >
                                     {ctaSecondaryText}
                                 </Link>
@@ -573,22 +573,36 @@ export default function HomePage({ page }: HomeProps) {
                 </div>
             </section>
 
-            {/* CTA - Contact only (Partner CTA on /partnership) */}
-            <section className="py-12 md:py-16 bg-gray-50/70 dark:bg-[#0B1220]">
+            {/* CTA — Minimalism Swiss, Logo Hero */}
+            <section className="py-16 md:py-24 bg-white dark:bg-[#070E1F] border-y border-gray-100 dark:border-white/[0.06]">
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                    <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="relative overflow-hidden rounded-[32px] bg-gradient-to-br from-gray-900 via-[#0F1E3A] to-novita dark:from-[#070E1F] dark:via-[#0F1E3A] dark:to-[#1E3A8A] p-8 md:p-12">
-                        <div className="pointer-events-none absolute inset-0">
-                            <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.06)_1px,transparent_1px)] bg-[size:32px_32px]" />
-                            <div className="absolute -right-20 -top-20 h-[400px] w-[400px] rounded-full bg-novita/30 blur-[80px]" />
-                        </div>
-                        <div className="relative flex flex-col md:flex-row items-center justify-between gap-6">
-                            <div>
-                                <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-white">{ctaTitle}</h2>
-                                <p className="mt-3 text-white/70 max-w-xl">{ctaSubtitle}</p>
+                    <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }} className="relative overflow-hidden rounded-[32px] border border-gray-200 dark:border-white/10 bg-white dark:bg-gray-800/40 shadow-sm">
+                        <div className="grid md:grid-cols-12 gap-0">
+                            <div className="md:col-span-5 bg-gray-50/50 dark:bg-white/[0.03] p-8 md:p-10 flex flex-col items-center justify-center border-b md:border-b-0 md:border-r border-gray-200 dark:border-white/10">
+                                <div className="relative">
+                                    <div className="absolute inset-0 bg-novita/[0.04] dark:bg-novita/10 blur-2xl rounded-full scale-110" />
+                                    <img src="/logo.png" alt="NOVITA Pharmaceutical Co., Ltd." fetchPriority="high" className="relative h-48 w-48 md:h-56 md:w-56 lg:h-64 lg:w-64 object-contain bg-white p-6 rounded-[32px] shadow-[0_8px_32px_rgba(15,23,42,0.08)] dark:shadow-[0_16px_48px_rgba(0,0,0,0.3)] border border-gray-200 dark:border-white/15" onError={(e) => ((e.target as HTMLImageElement).style.display = 'none')} />
+                                </div>
+                                <div className="mt-5 text-center">
+                                    <div className="text-base font-bold tracking-tight text-gray-900 dark:text-white">NOVITA</div>
+                                    <div className="text-xs tracking-[0.2em] text-gray-500 dark:text-gray-400">PHARMACEUTICAL CO., LTD.</div>
+                                    <div className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/20 px-3 py-1.5 text-xs font-semibold text-emerald-700 dark:text-emerald-300">● Better Health, Longer Life</div>
+                                </div>
                             </div>
-                            <Link href={ctaSecondaryBtnUrl} className="inline-flex items-center justify-center rounded-full border border-white/20 bg-white/10 backdrop-blur px-8 py-4 text-sm font-bold text-white hover:bg-white/15 transition">
-                                {ctaSecondaryBtnText}
-                            </Link>
+                            <div className="md:col-span-7 p-8 md:p-10 flex flex-col justify-center">
+                                <div className="inline-flex w-fit items-center gap-2 rounded-full bg-gray-900 dark:bg-white px-3 py-1 text-xs font-semibold tracking-widest text-white dark:text-gray-900">PARTNER WITH US</div>
+                                <h2 className="mt-4 text-3xl md:text-4xl font-bold tracking-tight text-gray-900 dark:text-white" style={{ fontFamily: 'var(--font-heading)' }}>{ctaTitle}</h2>
+                                <p className="mt-3 text-sm md:text-base leading-relaxed text-gray-600 dark:text-gray-400 max-w-xl">{ctaSubtitle}</p>
+                                <div className="mt-6 flex flex-wrap gap-3">
+                                    <Link href={ctaSecondaryBtnUrl} className="inline-flex items-center justify-center gap-2 rounded-full bg-novita px-7 py-3 text-sm font-bold text-white hover:bg-novita-dark transition shadow">
+                                        {ctaSecondaryBtnText} <ArrowRight className="h-4 w-4" />
+                                    </Link>
+                                    <a href="https://www.kyawtharengg.com.mm" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center rounded-full border border-gray-200 dark:border-white/15 bg-white dark:bg-white/5 px-7 py-3 text-sm font-semibold text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-white/10 transition">
+                                        Visit KTECG Group ↗
+                                    </a>
+                                </div>
+                                <p className="mt-4 text-xs text-gray-500 dark:text-gray-400">Part of KTECG Group • 20+ years pharmaceutical construction</p>
+                            </div>
                         </div>
                     </motion.div>
                 </div>

@@ -11,7 +11,7 @@ export function UnderUpgrading({ title = 'Information Updating', message = 'Info
             <p className="mt-2 text-sm text-amber-800/80 dark:text-amber-200/80">{message}</p>
             {showHome && (
                 <Link href="/" className="mt-4 inline-flex items-center gap-2 rounded-full bg-gray-900 dark:bg-white text-white dark:text-gray-900 px-5 py-2.5 text-sm font-bold hover:opacity-90">
-                    <Home className="h-4 w-4" /> Home သို့ ပြန်သွားရန်
+                    <Home className="h-4 w-4" /> Go Back to Home
                 </Link>
             )}
         </div>
