@@ -76,7 +76,7 @@ export default function ContactPage({ page }: ContactProps) {
                             {
                                 icon: Factory,
                                 title: 'Factory',
-                                lines: ['NOVITA Pharmaceutical Factory', 'Industrial Zone (1)', 'Hlaing Tharyar Township', 'Yangon, Myanmar'],
+                                lines: ['No. 92,93 & 94', 'Makhayar Min Thar Gyi Street', 'Thilawa Local Industiral Zone', 'Yangon, Myanmar'],
                                 phone: factoryPhoneDynamic,
                                 mapUrl: 'https://maps.app.goo.gl/EHKjgoAaFnA4oSgZA',
                             },
