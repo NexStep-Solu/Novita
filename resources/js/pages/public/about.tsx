@@ -29,11 +29,77 @@ export default function AboutPage({ page }: AboutProps) {
     const hero = sections.find((s) => s.section_type === 'hero');
     const heroTitle = hero?.title || 'Our Story';
     const heroSubtitle = hero?.subtitle || 'NOVITA Pharmaceutical Co., Ltd., a member of KTECG Group, is dedicated to developing safe, effective, and accessible medicines for a healthier Myanmar.';
+    const heroBadge = hero?.meta?.badge || hero?.meta?.label || 'ABOUT US';
+
     const overviewSec = sections.find((s) => s.section_type === 'overview');
     const overviewImage = overviewSec?.image_path ? (overviewSec.image_path.startsWith('http') || overviewSec.image_path.startsWith('/') ? overviewSec.image_path : `/storage/${overviewSec.image_path}`) : '/images/about-company.jpg';
+    const overviewTitle = overviewSec?.title || 'NOVITA Pharmaceutical Co., Ltd.';
+    const overviewSubtitle = overviewSec?.subtitle || 'COMPANY OVERVIEW';
+    const overviewContent = overviewSec?.content || `NOVITA Pharmaceutical Co., Ltd., a member of KTECG Group, is a leading pharmaceutical company established with the vision of providing high-quality, affordable medicines to the people of Myanmar.\n\nFounded as part of KTECG Group's expansion into the pharmaceutical sector, NOVITA combines decades of construction and engineering expertise with modern pharmaceutical manufacturing capabilities.`;
+
+    // Purpose & KTECG - section_type 'purpose' with meta purpose_title/desc, ktecg_title/desc
+    const purposeSec = sections.find((s) => s.section_type === 'purpose');
+    const purposeTag = purposeSec?.subtitle || 'Founding purpose and KTECG legacy';
+    const purposeTitle = (purposeSec?.meta as any)?.purpose_title || 'Founding Purpose';
+    const purposeDesc = (purposeSec?.meta as any)?.purpose_desc || "NOVITA was established to bridge the gap in Myanmar's pharmaceutical market by providing safe, effective, and affordable medicines.";
+    const purposeDesc2 = (purposeSec?.meta as any)?.purpose_desc_2 || 'We deliver a locally-manufactured solution that meets international quality standards while remaining accessible to all.';
+    const ktecgTitle = (purposeSec?.meta as any)?.ktecg_title || 'KTECG Group Legacy';
+    const ktecgDesc = (purposeSec?.meta as any)?.ktecg_desc || 'As part of KTECG Group, NOVITA leverages 20+ years of pharmaceutical construction experience building world-class facilities across the region.';
+    const ktecgDesc2 = (purposeSec?.meta as any)?.ktecg_desc_2 || 'This ensures our manufacturing facility is designed to the highest standards from the ground up.';
+
+    // Vision & Mission - section_type 'vision_mission' with meta vision, mission (array)
+    const vmSec = sections.find((s) => s.section_type === 'vision_mission');
+    const vmVision = (vmSec?.meta as any)?.vision || "To become one of Myanmar's most trusted pharmaceutical companies, improving lives through quality, accessible, and reliable medicines.";
+    const vmMission: string[] = (vmSec?.meta as any)?.mission || [
+        'To manufacture safe, effective, and consistently high-quality pharmaceutical products.',
+        'To develop our operations in alignment with internationally recognized GMP and PIC/S principles.',
+        'To make essential medicines more accessible and affordable for the people of Myanmar.',
+        'To build a skilled, responsible, and quality-driven pharmaceutical team.',
+        'To continuously improve through innovation and professional collaboration.',
+        'To conduct business with integrity, accountability, and respect.',
+    ];
+
+    // Core Values - section_type 'core_values' with meta values array
+    const coreValuesSec = sections.find((s) => s.section_type === 'core_values');
+    const coreValuesTitle = coreValuesSec?.title || 'Our Core Values';
+    const coreValuesSubtitle = coreValuesSec?.subtitle || 'Guiding every decision and every process.';
+    const coreValuesBadge = (coreValuesSec?.meta as any)?.badge || 'CORE VALUES';
+    const fallbackValues = [
+        { icon: Shield, title: 'Quality First', desc: 'We place product quality and patient safety at the heart of every decision and every process.', color: 'from-novita to-blue-500' },
+        { icon: Heart, title: 'Integrity', desc: 'We conduct business honestly, ethically, and transparently, and take responsibility for our actions.', color: 'from-rose-500 to-pink-500' },
+        { icon: Handshake, title: 'Patient Commitment', desc: 'We remain focused on the health, safety, and well-being of the people who rely on our medicines.', color: 'from-emerald-500 to-teal-500' },
+        { icon: Lightbulb, title: 'Continuous Improvement', desc: 'We continually strengthen our people, systems, technology, and manufacturing practices.', color: 'from-amber-500 to-orange-500' },
+        { icon: Users, title: 'Collaboration', desc: 'Lasting success comes from teamwork, mutual respect, knowledge sharing, and strong partnerships.', color: 'from-violet-500 to-purple-500' },
+        { icon: Target, title: 'Social Responsibility', desc: "We contribute positively to Myanmar's healthcare sector, local communities, and the environment.", color: 'from-cyan-500 to-blue-500' },
+    ];
+    const iconMap: Record<string, any> = { Shield, Heart, Handshake, Lightbulb, Users, Target };
+    const colorMap: string[] = ['from-novita to-blue-500','from-rose-500 to-pink-500','from-emerald-500 to-teal-500','from-amber-500 to-orange-500','from-violet-500 to-purple-500','from-cyan-500 to-blue-500'];
+    const coreValuesMeta: any[] = (coreValuesSec?.meta as any)?.values || [];
+    const coreValuesDisplay = coreValuesMeta.length ? coreValuesMeta.map((v: any, idx: number) => ({
+        icon: v.icon ? (iconMap[v.icon] || Shield) : fallbackValues[idx % fallbackValues.length].icon,
+        title: v.title || fallbackValues[idx % fallbackValues.length].title,
+        desc: v.desc || v.description || fallbackValues[idx % fallbackValues.length].desc,
+        color: v.color || colorMap[idx % colorMap.length],
+    })) : fallbackValues;
+
+    // MD Message - section_type 'md_message' with title/subtitle/content/image_path/meta md_name
     const mdSec = sections.find((s) => s.section_type === 'md_message');
     const mdImage = mdSec?.image_path ? (mdSec.image_path.startsWith('http') || mdSec.image_path.startsWith('/') ? mdSec.image_path : `/storage/${mdSec.image_path}`) : '/images/md-portrait.jpg';
-    const heroBadge = hero?.meta?.badge || hero?.meta?.label || 'ABOUT US';
+    const mdTitle = mdSec?.title || 'Welcome to NOVITA';
+    const mdSubtitle = mdSec?.subtitle || 'MESSAGE FROM THE MANAGING DIRECTOR';
+    const mdContent = mdSec?.content || `NOVITA was established with a clear purpose: to contribute to the development of Myanmar's healthcare sector by providing safe, effective, high-quality, and accessible medicines. We believe that every patient deserves medicine they can trust, and this belief guides the way we plan, develop, and operate our business.\n\nSupported by the extensive pharmaceutical construction experience of KTECG Group, NOVITA is developing a modern pharmaceutical manufacturing facility with a strong focus on quality systems, appropriate technology, skilled personnel, and internationally recognized GMP and PIC/S principles. Our goal is not simply to manufacture products, but to build a responsible and sustainable company that earns long-term confidence of patients, healthcare professionals, and regulators.\n\nAs we move forward, we will continue to invest in our people, strengthen our technical capabilities, and work closely with experienced local and international partners. With integrity, dedication, and an unwavering commitment to quality, we aim to make a meaningful contribution to public health and become a trusted pharmaceutical brand in Myanmar.\n\nThank you for your interest in NOVITA Pharmaceutical Co., Ltd. We look forward to building a healthier future together.`;
+    const mdName = (mdSec?.meta as any)?.md_name || 'U Maung Aye';
+    const mdRole = (mdSec?.meta as any)?.md_title || (mdSec?.meta as any)?.md_role || 'Managing Director';
+    const mdInitials = mdName.split(' ').map((w: string) => w[0]).join('').slice(0,2).toUpperCase() || 'MA';
+
+    // CTA - section_type 'cta'
+    const ctaSec = sections.find((s) => s.section_type === 'cta');
+    const ctaTitle = ctaSec?.title || 'Partner with NOVITA';
+    const ctaSubtitle = ctaSec?.subtitle || "Whether you're looking for quality medicines or partnership opportunities, we're here to help.";
+    const ctaPrimaryText = ctaSec?.link_text || 'Contact Us Today';
+    const ctaPrimaryUrl = ctaSec?.link_url || '/contact';
+    const ctaSecondaryText = (ctaSec?.meta as any)?.secondary_text || (ctaSec?.meta as any)?.secondaryText || 'View Our Products';
+    const ctaSecondaryUrl = (ctaSec?.meta as any)?.secondary_url || (ctaSec?.meta as any)?.secondaryUrl || '/products';
 
     return (
         <PublicLayout>
@@ -65,10 +131,10 @@ export default function AboutPage({ page }: AboutProps) {
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
                         <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="lg:col-span-7">
-                            <div className="inline-flex items-center gap-2 rounded-full bg-novita/10 dark:bg-novita/15 px-3 py-1 text-xs font-semibold tracking-widest text-novita">{overviewSec?.subtitle || 'COMPANY OVERVIEW'}</div>
-                            <h2 className="mt-3 text-3xl md:text-[34px] font-bold tracking-tight text-gray-900 dark:text-white">{overviewSec?.title || 'NOVITA Pharmaceutical Co., Ltd.'}</h2>
+                            <div className="inline-flex items-center gap-2 rounded-full bg-novita/10 dark:bg-novita/15 px-3 py-1 text-xs font-semibold tracking-widest text-novita">{overviewSubtitle}</div>
+                            <h2 className="mt-3 text-3xl md:text-[34px] font-bold tracking-tight text-gray-900 dark:text-white">{overviewTitle}</h2>
                             <div className="mt-6 space-y-4 text-[15px] leading-relaxed text-gray-600 dark:text-gray-300">
-                                {(overviewSec?.content || `NOVITA Pharmaceutical Co., Ltd., a member of KTECG Group, is a leading pharmaceutical company established with the vision of providing high-quality, affordable medicines to the people of Myanmar.\n\nFounded as part of KTECG Group's expansion into the pharmaceutical sector, NOVITA combines decades of construction and engineering expertise with modern pharmaceutical manufacturing capabilities.`).split('\n\n').map((para, idx) => (
+                                {overviewContent.split('\n\n').map((para, idx) => (
                                     <p key={idx} dangerouslySetInnerHTML={{ __html: para.replace(/NOVITA Pharmaceutical Co., Ltd., a member of KTECG Group/g, '<strong class="text-gray-900 dark:text-white">NOVITA Pharmaceutical Co., Ltd., a member of KTECG Group</strong>') }} />
                                 ))}
                                 <div className="rounded-2xl border border-novita/15 bg-novita/[0.04] dark:bg-novita/10 p-4 flex gap-3">
@@ -94,7 +160,7 @@ export default function AboutPage({ page }: AboutProps) {
                 </div>
             </section>
 
-            {/* Purpose & KTECG */}
+            {/* Purpose & KTECG - Dynamic */}
             <section className="py-14 md:py-20 bg-gray-50/70 dark:bg-[#0B1220] relative overflow-hidden">
                 <div className="pointer-events-none absolute top-0 left-1/2 h-px w-full max-w-5xl -translate-x-1/2 bg-gradient-to-r from-transparent via-gray-200 dark:via-white/10 to-transparent" />
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative">
@@ -103,43 +169,39 @@ export default function AboutPage({ page }: AboutProps) {
                             <div className="absolute top-0 left-0 h-1 w-full bg-gradient-to-r from-novita to-blue-400" />
                             <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-novita text-white shadow"><Target className="h-7 w-7" /></div>
                             <div className="mt-6 text-xs font-semibold tracking-widest text-novita">01 — OUR PURPOSE</div>
-                            <h3 className="mt-2 text-xl font-bold text-gray-900 dark:text-white">Founding Purpose</h3>
-                            <p className="mt-3 text-sm leading-relaxed text-gray-600 dark:text-gray-300">NOVITA was established to bridge the gap in Myanmar's pharmaceutical market by providing safe, effective, and affordable medicines.</p>
-                            <p className="mt-3 text-sm leading-relaxed text-gray-600 dark:text-gray-300">We deliver a locally-manufactured solution that meets international quality standards while remaining accessible to all.</p>
+                            <h3 className="mt-2 text-xl font-bold text-gray-900 dark:text-white">{purposeTitle}</h3>
+                            <p className="mt-3 text-sm leading-relaxed text-gray-600 dark:text-gray-300">{purposeDesc}</p>
+                            <p className="mt-3 text-sm leading-relaxed text-gray-600 dark:text-gray-300">{purposeDesc2}</p>
                         </motion.div>
                         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.1 }} className="group relative overflow-hidden rounded-[28px] border border-gray-200 dark:border-white/10 bg-white dark:bg-gray-800/50 p-8 shadow-sm hover:shadow-xl transition">
                             <div className="absolute top-0 left-0 h-1 w-full bg-gradient-to-r from-emerald-500 to-teal-400" />
                             <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-600 text-white shadow"><Users className="h-7 w-7" /></div>
                             <div className="mt-6 text-xs font-semibold tracking-widest text-emerald-600">02 — LEGACY</div>
-                            <h3 className="mt-2 text-xl font-bold text-gray-900 dark:text-white">KTECG Group Legacy</h3>
-                            <p className="mt-3 text-sm leading-relaxed text-gray-600 dark:text-gray-300">As part of KTECG Group, NOVITA leverages <strong className="text-gray-900 dark:text-white">20+ years of pharmaceutical construction experience</strong> building world-class facilities across the region.</p>
-                            <p className="mt-3 text-sm leading-relaxed text-gray-600 dark:text-gray-300">This ensures our manufacturing facility is designed to the highest standards from the ground up.</p>
+                            <h3 className="mt-2 text-xl font-bold text-gray-900 dark:text-white">{ktecgTitle}</h3>
+                            <p className="mt-3 text-sm leading-relaxed text-gray-600 dark:text-gray-300">{ktecgDesc}</p>
+                            <p className="mt-3 text-sm leading-relaxed text-gray-600 dark:text-gray-300">{ktecgDesc2}</p>
                         </motion.div>
                     </div>
+                    {purposeSec?.title && purposeSec.title !== 'Company Purpose & Background' && (
+                        <p className="sr-only">{purposeTag}</p>
+                    )}
                 </div>
             </section>
 
-            {/* Vision & Mission - Premium */}
+            {/* Vision & Mission - Premium - Dynamic */}
             <section className="py-14 md:py-20 bg-white dark:bg-[#070E1F]">
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="relative overflow-hidden rounded-[28px] bg-gradient-to-br from-gray-900 via-[#0F1E3A] to-novita p-8 md:p-10 text-white">
                             <div className="pointer-events-none absolute -right-20 -top-20 h-[300px] w-[300px] rounded-full bg-white/10 blur-[50px]" />
                             <div className="flex items-center gap-3"><div className="h-10 w-10 rounded-xl bg-white/15 backdrop-blur flex items-center justify-center"><Eye className="h-5 w-5" /></div><span className="text-xs font-semibold tracking-widest text-white/70">OUR VISION</span></div>
-                            <p className="mt-6 text-xl md:text-2xl font-medium leading-relaxed">To become one of Myanmar's most trusted pharmaceutical companies, improving lives through quality, accessible, and reliable medicines.</p>
+                            <p className="mt-6 text-xl md:text-2xl font-medium leading-relaxed">{vmVision}</p>
                             <div className="mt-6 inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-xs font-medium text-white/80"><BadgeCheck className="h-4 w-4" /> Better Health, Longer Life</div>
                         </motion.div>
                         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }} className="rounded-[28px] border border-gray-200 dark:border-white/10 bg-gray-50/70 dark:bg-white/[0.04] p-8 md:p-10">
                             <div className="flex items-center gap-3"><div className="h-10 w-10 rounded-xl bg-novita text-white flex items-center justify-center"><Target className="h-5 w-5" /></div><span className="text-xs font-semibold tracking-widest text-novita">OUR MISSION</span></div>
                             <ul className="mt-6 space-y-3">
-                                {[
-                                    'To manufacture safe, effective, and consistently high-quality pharmaceutical products.',
-                                    'To develop our operations in alignment with internationally recognized GMP and PIC/S principles.',
-                                    'To make essential medicines more accessible and affordable for the people of Myanmar.',
-                                    'To build a skilled, responsible, and quality-driven pharmaceutical team.',
-                                    'To continuously improve through innovation and professional collaboration.',
-                                    'To conduct business with integrity, accountability, and respect.',
-                                ].map((t) => (
+                                {vmMission.map((t) => (
                                     <li key={t} className="flex gap-3 rounded-xl bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 p-3">
                                         <Shield className="h-5 w-5 text-novita shrink-0 mt-0.5" /><span className="text-sm text-gray-700 dark:text-gray-300">{t}</span>
                                     </li>
@@ -150,25 +212,18 @@ export default function AboutPage({ page }: AboutProps) {
                 </div>
             </section>
 
-            {/* Core Values */}
+            {/* Core Values - Dynamic */}
             <section className="relative py-14 md:py-20 bg-gray-900 dark:bg-black text-white overflow-hidden">
                 <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.04)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.04)_1px,transparent_1px)] bg-[size:32px_32px] opacity-30" />
                 <div className="absolute -top-24 right-0 h-[500px] w-[500px] rounded-full bg-novita/20 blur-[80px]" />
                 <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-10">
-                        <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1 text-xs font-semibold tracking-widest text-white/80">CORE VALUES</div>
-                        <h2 className="mt-4 text-3xl md:text-4xl font-bold tracking-tight">Our Core Values</h2>
-                        <p className="mt-3 text-white/60 max-w-2xl mx-auto">Guiding every decision and every process.</p>
+                        <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1 text-xs font-semibold tracking-widest text-white/80">{coreValuesBadge}</div>
+                        <h2 className="mt-4 text-3xl md:text-4xl font-bold tracking-tight">{coreValuesTitle}</h2>
+                        <p className="mt-3 text-white/60 max-w-2xl mx-auto">{coreValuesSubtitle}</p>
                     </motion.div>
                     <motion.div variants={stagger} initial="initial" whileInView="animate" viewport={{ once: true }} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {[
-                            { icon: Shield, title: 'Quality First', desc: 'We place product quality and patient safety at the heart of every decision and every process.', color: 'from-novita to-blue-500' },
-                            { icon: Heart, title: 'Integrity', desc: 'We conduct business honestly, ethically, and transparently, and take responsibility for our actions.', color: 'from-rose-500 to-pink-500' },
-                            { icon: Handshake, title: 'Patient Commitment', desc: 'We remain focused on the health, safety, and well-being of the people who rely on our medicines.', color: 'from-emerald-500 to-teal-500' },
-                            { icon: Lightbulb, title: 'Continuous Improvement', desc: 'We continually strengthen our people, systems, technology, and manufacturing practices.', color: 'from-amber-500 to-orange-500' },
-                            { icon: Users, title: 'Collaboration', desc: 'Lasting success comes from teamwork, mutual respect, knowledge sharing, and strong partnerships.', color: 'from-violet-500 to-purple-500' },
-                            { icon: Target, title: 'Social Responsibility', desc: "We contribute positively to Myanmar's healthcare sector, local communities, and the environment.", color: 'from-cyan-500 to-blue-500' },
-                        ].map((v) => (
+                        {coreValuesDisplay.map((v: any) => (
                             <motion.div key={v.title} variants={fadeInUp} className="group rounded-[24px] border border-white/10 bg-white/[0.06] backdrop-blur p-6 hover:bg-white/[0.08] hover:border-white/15 transition">
                                 <div className={`flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br ${v.color} text-white shadow`}> <v.icon className="h-6 w-6" /> </div>
                                 <h4 className="mt-4 text-lg font-bold">{v.title}</h4>
@@ -179,36 +234,35 @@ export default function AboutPage({ page }: AboutProps) {
                 </div>
             </section>
 
-            {/* MD Message */}
+            {/* MD Message - Dynamic */}
             <section className="py-14 md:py-20 bg-white dark:bg-[#070E1F]">
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
                         <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="lg:col-span-4">
                             <div className="relative overflow-hidden rounded-[28px] border border-gray-200 dark:border-white/10 bg-gray-100 dark:bg-gray-800 shadow-xl">
-                                <img src={mdImage} alt="U Maung Aye" className="h-[420px] w-full object-cover" onError={(e) => { e.currentTarget.src = 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&h=500&fit=crop'; }} />
+                                <img src={mdImage} alt={mdName} className="h-[420px] w-full object-cover" onError={(e) => { e.currentTarget.src = 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&h=500&fit=crop'; }} />
                                 <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-gray-900 via-gray-900/60 to-transparent p-6">
-                                    <div className="text-white font-bold">U Maung Aye</div>
-                                    <div className="text-xs tracking-widest text-white/70">MANAGING DIRECTOR</div>
+                                    <div className="text-white font-bold">{mdName}</div>
+                                    <div className="text-xs tracking-widest text-white/70">{mdRole.toUpperCase()}</div>
                                     <div className="text-xs text-white/60">NOVITA Pharmaceutical Co., Ltd.</div>
                                 </div>
                             </div>
                         </motion.div>
                         <motion.div initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="lg:col-span-8">
-                            <div className="inline-flex items-center gap-2 rounded-full bg-novita/10 dark:bg-novita/15 px-3 py-1 text-xs font-semibold tracking-widest text-novita">MESSAGE FROM THE MANAGING DIRECTOR</div>
-                            <h2 className="mt-3 text-3xl md:text-4xl font-bold tracking-tight text-gray-900 dark:text-white">Welcome to NOVITA</h2>
+                            <div className="inline-flex items-center gap-2 rounded-full bg-novita/10 dark:bg-novita/15 px-3 py-1 text-xs font-semibold tracking-widest text-novita">{mdSubtitle}</div>
+                            <h2 className="mt-3 text-3xl md:text-4xl font-bold tracking-tight text-gray-900 dark:text-white">{mdTitle}</h2>
                             <div className="relative mt-6 rounded-[24px] border border-gray-200 dark:border-white/10 bg-gray-50/70 dark:bg-white/[0.04] p-6 md:p-8">
                                 <Quote className="absolute -top-3 -left-3 h-8 w-8 text-novita/20 bg-white dark:bg-gray-900 rounded-full p-1.5 border border-gray-200 dark:border-white/10" />
                                 <div className="space-y-4 text-[15px] leading-relaxed text-gray-600 dark:text-gray-300">
-                                    <p>NOVITA was established with a clear purpose: to contribute to the development of Myanmar's healthcare sector by providing safe, effective, high-quality, and accessible medicines. We believe that every patient deserves medicine they can trust, and this belief guides the way we plan, develop, and operate our business.</p>
-                                    <p>Supported by the extensive pharmaceutical construction experience of KTECG Group, NOVITA is developing a modern pharmaceutical manufacturing facility with a strong focus on quality systems, appropriate technology, skilled personnel, and internationally recognized GMP and PIC/S principles. Our goal is not simply to manufacture products, but to build a responsible and sustainable company that earns long-term confidence of patients, healthcare professionals, and regulators.</p>
-                                    <p>As we move forward, we will continue to invest in our people, strengthen our technical capabilities, and work closely with experienced local and international partners. With integrity, dedication, and an unwavering commitment to quality, we aim to make a meaningful contribution to public health and become a trusted pharmaceutical brand in Myanmar.</p>
-                                    <p>Thank you for your interest in NOVITA Pharmaceutical Co., Ltd. We look forward to building a healthier future together.</p>
+                                    {mdContent.split('\n\n').map((para: string, idx: number) => (
+                                        <p key={idx}>{para}</p>
+                                    ))}
                                 </div>
                                 <div className="mt-8 flex items-center gap-4 border-t border-gray-200 dark:border-white/10 pt-6">
-                                    <div className="h-12 w-12 rounded-full bg-gray-900 dark:bg-white text-white dark:text-gray-900 flex items-center justify-center font-bold">MA</div>
+                                    <div className="h-12 w-12 rounded-full bg-gray-900 dark:bg-white text-white dark:text-gray-900 flex items-center justify-center font-bold">{mdInitials}</div>
                                     <div>
-                                        <div className="text-sm font-bold text-gray-900 dark:text-white">U Maung Aye</div>
-                                        <div className="text-xs text-gray-500 dark:text-gray-400">Managing Director, NOVITA Pharmaceutical Co., Ltd.</div>
+                                        <div className="text-sm font-bold text-gray-900 dark:text-white">{mdName}</div>
+                                        <div className="text-xs text-gray-500 dark:text-gray-400">{mdRole}, NOVITA Pharmaceutical Co., Ltd.</div>
                                     </div>
                                 </div>
                             </div>
@@ -217,19 +271,19 @@ export default function AboutPage({ page }: AboutProps) {
                 </div>
             </section>
 
-            {/* CTA */}
+            {/* CTA - Dynamic */}
             <section className="py-12 md:py-16 bg-gray-50/70 dark:bg-[#0B1220]">
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <div className="relative overflow-hidden rounded-[32px] bg-gradient-to-br from-gray-900 via-[#0F1E3A] to-novita p-8 md:p-12">
                         <div className="pointer-events-none absolute -right-20 -top-20 h-[400px] w-[400px] rounded-full bg-white/10 blur-[60px]" />
                         <div className="relative flex flex-col md:flex-row items-center justify-between gap-6">
                             <div>
-                                <h2 className="text-2xl md:text-3xl font-bold text-white">Partner with NOVITA</h2>
-                                <p className="mt-2 text-white/70">Whether you're looking for quality medicines or partnership opportunities, we're here to help.</p>
+                                <h2 className="text-2xl md:text-3xl font-bold text-white">{ctaTitle}</h2>
+                                <p className="mt-2 text-white/70">{ctaSubtitle}</p>
                             </div>
                             <div className="flex flex-col sm:flex-row gap-3">
-                                <Link href="/products" className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-7 py-3.5 text-sm font-bold text-gray-900 hover:bg-gray-100 transition">View Our Products <ArrowRight className="h-4 w-4" /></Link>
-                                <Link href="/contact" className="inline-flex items-center justify-center gap-2 rounded-full border border-white/20 bg-white/10 backdrop-blur px-7 py-3.5 text-sm font-bold text-white hover:bg-white/15 transition">Contact Us Today</Link>
+                                <Link href={ctaSecondaryUrl} className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-7 py-3.5 text-sm font-bold text-gray-900 hover:bg-gray-100 transition">{ctaSecondaryText} <ArrowRight className="h-4 w-4" /></Link>
+                                <Link href={ctaPrimaryUrl} className="inline-flex items-center justify-center gap-2 rounded-full border border-white/20 bg-white/10 backdrop-blur px-7 py-3.5 text-sm font-bold text-white hover:bg-white/15 transition">{ctaPrimaryText}</Link>
                             </div>
                         </div>
                     </div>

@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react';
 import { router } from '@inertiajs/react';
+import { toast } from 'sonner';
 import { Save, Plus, Trash2 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -102,7 +103,11 @@ export function LeadershipEditor({ page }: { page: Page & { sections: PageSectio
         payload.sections.push({ id: boardSec?.id, section_type: 'board', title: 'Board of Directors', meta: { members: boardWithImages.filter((m) => m.name.trim()) }, sort_order: 3, is_active: true });
         payload.sections.push({ id: directorsSec?.id, section_type: 'directors', title: 'Directors', meta: { members: directorsWithImages.filter((m) => m.name.trim()) }, sort_order: 4, is_active: true });
         payload.sections.push({ id: seniorSec?.id, section_type: 'senior_management', title: 'Senior Management', meta: { members: seniorWithImages.filter((m) => m.name.trim()) }, sort_order: 5, is_active: true });
-        router.put(`/admin/pages/${page.id}/sections`, payload, { preserveScroll: true });
+        router.put(`/admin/pages/${page.id}/sections`, payload, {
+            preserveScroll: true,
+            onSuccess: () => toast.success('Leadership sections saved'),
+            onError: () => toast.error('Failed to save leadership sections'),
+        });
     };
 
     const renderMemberList = (

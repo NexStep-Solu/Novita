@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react';
 import { router } from '@inertiajs/react';
+import { toast } from 'sonner';
 import { Save, Sparkles, Eye, ExternalLink } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -91,7 +92,11 @@ export function HomeEditor({ page }: { page: Page & { sections: PageSection[] } 
         payload.sections.push({ id: whySec?.id, section_type: whySec?.section_type || 'why', title: whyForm.title, subtitle: whyForm.subtitle, meta: (whySec?.meta as any), sort_order: 5, is_active: true });
         try { payload.sections.push({ id: statsSec?.id, section_type: 'stats', meta: { stats: JSON.parse(statsForm.stats) }, sort_order: 6, is_active: true }); } catch {}
         payload.sections.push({ id: ctaSec?.id, section_type: 'cta', title: ctaForm.title, subtitle: ctaForm.subtitle, link_text: ctaForm.link_text, link_url: ctaForm.link_url, meta: (ctaSec?.meta as any), sort_order: 7, is_active: true });
-        router.put(`/admin/pages/${page.id}/sections`, payload, { preserveScroll: true });
+        router.put(`/admin/pages/${page.id}/sections`, payload, {
+            preserveScroll: true,
+            onSuccess: () => toast.success('Home sections saved'),
+            onError: () => toast.error('Failed to save home sections'),
+        });
     };
 
     return (

@@ -1,44 +1,84 @@
-import { Head, usePage } from '@inertiajs/react';
+import { Head, usePage, router } from '@inertiajs/react';
 import { useState } from 'react';
+import { toast } from 'sonner';
 import PublicLayout from '@/layouts/public/public-layout';
 import { Mail, Phone, MapPin, Clock, Send, CheckCircle, Building2, Factory, Globe, Facebook, Linkedin, Youtube, MessageSquare } from 'lucide-react';
 import { motion } from 'framer-motion';
+import type { PageSection } from '@/types';
 
-interface PageSection {
-    id: number;
-    section_type: string;
-    title: string | null;
-    subtitle: string | null;
-    content: string | null;
-    image_path: string | null;
-    link_url: string | null;
-    link_text: string | null;
-    meta: any;
-    sort_order?: number;
-    is_active?: boolean;
-}
+const stagger = { animate: { transition: { staggerChildren: 0.08 } } };
+const fadeUp = { initial: { opacity: 0, y: 20 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.5 } };
+const iconMap: Record<string, any> = { 'building-2': Building2, factory: Factory, phone: Phone, mail: Mail, clock: Clock, 'map-pin': MapPin, 'message-square': MessageSquare, globe: Globe };
 
 interface ContactProps {
-    page?: { id: number; title: string; slug: string; activeSections?: PageSection[] };
+    page?: any;
 }
 
 export default function ContactPage({ page }: ContactProps) {
-    const hero = ((page as any)?.active_sections || (page as any)?.activeSections)?.find((s) => s.section_type === 'hero');
+    const sections: PageSection[] = ((page as any)?.active_sections || (page as any)?.activeSections || []) as PageSection[];
+    const find = (types: string[]) => sections.find((s) => types.includes(s.section_type));
+
+    const hero = find(['hero']);
     const heroTitle = hero?.title || 'Contact Us';
-    const heroSubtitle = hero?.subtitle || "We'd love to hear from you. Get in touch for any inquiries.";
+    const heroSubtitle = hero?.subtitle || "We'd love to hear from you. Get in touch with our team.";
     const heroBadge = hero?.meta?.badge || hero?.meta?.label || 'GET IN TOUCH';
-    const sharedProps = (usePage().props as any);
-    const contactEmailDynamic = sharedProps.contactEmail || 'info@novita-myanmar.com.mm';
-    const businessEmailDynamic = sharedProps.businessEmail || 'business@novita-myanmar.com.mm';
-    const careersEmailDynamic = sharedProps.careersEmail || 'careers@novita-myanmar.com.mm';
-    const contactAddressDynamic = sharedProps.contactAddress || 'No. 216/222 Bo Myat Htun Housing, Room D3, Corner of 49 Street and Maharbandoola Road, Ward 1, Pazundaung Township, Yangon, Myanmar';
-    const contactPhoneDynamic = sharedProps.contactPhone || '(+95) 9 5000144';
-    const factoryPhoneDynamic = sharedProps.factoryPhone || '(+95) 9 977 225 001';
-    const contactPhone2Dynamic = sharedProps.contactPhone2 || '(+95) 9 977 225 004';
+
+    const infoCardsSec = find(['info_cards']);
+    const infoBadge = (infoCardsSec?.meta as any)?.badge || 'CONTACT INFO';
+    const infoCards: any[] = (infoCardsSec?.meta as any)?.cards || [
+        { title: 'Registered Office', company: 'NOVITA Pharmaceutical Co., Ltd.', address: 'No. 216/222 Bo Myat Htun Housing, Room D3, Corner of 49 Street and Maharbandoola Road, Ward 1, Pazundaung Township, Yangon, Myanmar', phone: '(+95) 9 5000144', email: 'info@novita-myanmar.com.mm', map_url: 'https://maps.app.goo.gl/HJVXT2ghQCwvZzCB7' },
+        { title: 'Factory', address_lines: ['No. 92,93 & 94', 'Makhayar Min Thar Gyi Street', 'Thilawa Local Industrial Zone', 'Yangon, Myanmar'], phone: '(+95) 9 977 225 001', map_url: 'https://maps.app.goo.gl/EHKjgoAaFnA4oSgZA' },
+        { title: 'Additional Phone', lines: ['For general inquiries'], phone: '(+95) 9 977 225 004', note: 'Factory under development. Visits by appointment only.' },
+        { title: 'Office Hours', hours: [['Monday - Friday', '8:30 AM - 5:00 PM'], ['Saturday', '8:30 AM - 1:00 PM'], ['Sunday', 'Closed']], social: true },
+    ];
+
+    const deptSec = find(['department_emails']);
+    const deptBadge = (deptSec?.meta as any)?.badge || 'CONTACT BY DEPARTMENT';
+    const depts: any[] = (deptSec?.meta as any)?.departments || [
+        { title: 'General Inquiries', email: 'info@novita-myanmar.com.mm', icon: 'message-square' },
+        { title: 'Business Inquiries', email: 'business@novita-myanmar.com.mm', icon: 'globe' },
+        { title: 'Careers', email: 'careers@novita-myanmar.com.mm', icon: 'mail' },
+    ];
+
+    const mapSec = find(['map']);
+    const mapBadge = (mapSec?.meta as any)?.badge || 'FIND US';
+    const mapTitle = mapSec?.title || 'Our Location';
+    const mapEmbed = (mapSec?.meta as any)?.embed_url || 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3820.0422271533384!2d96.17007459999999!3d16.774574599999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30c1ec8a4118f851%3A0xa6ccb0a1cd234422!2s181%20Bo%20Myat%20Htun%20St%2C%20Yangon%2C%20Myanmar%20(Burma)!5e0!3m2!1sen!2sqa!4v1788407292856!5m2!1sen!2sqa';
+    const mapUrl = (mapSec?.meta as any)?.map_url || 'https://maps.app.goo.gl/HJVXT2ghQCwvZzCB7';
+    const mapLabel = (mapSec?.meta as any)?.map_label || 'Open in Google Maps — 181 Bo Myat Htun St, Yangon';
+    const mapHeight = (mapSec?.meta as any)?.height || 450;
+
+    const formSec = find(['contact_form']);
+    const formBadge = (formSec?.meta as any)?.badge || 'SEND A MESSAGE';
+    const formTitle = formSec?.title || 'Contact Form';
+    const formContent = formSec?.content || "Have a question? Fill out the form and we'll reply within 2 business days.";
+    const commitments: string[] = (formSec?.meta as any)?.commitments || ['Response within 2 business days', 'Confidential handling of all inquiries', 'Dedicated support for business partners'];
+    const subjects: any[] = (formSec?.meta as any)?.subjects || [
+        { value: 'general', label: 'General Inquiry' },
+        { value: 'business', label: 'Business Partnership' },
+        { value: 'products', label: 'Product Information' },
+        { value: 'careers', label: 'Career Opportunities' },
+        { value: 'other', label: 'Other' },
+    ];
 
     const [formData, setFormData] = useState({ name: '', email: '', phone: '', subject: '', message: '' });
     const [submitted, setSubmitted] = useState(false);
-    const handleSubmit = (e: React.FormEvent) => { e.preventDefault(); setSubmitted(true); };
+    const [processing, setProcessing] = useState(false);
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        setProcessing(true);
+        router.post('/contact', formData, {
+            preserveScroll: true,
+            onSuccess: () => {
+                setSubmitted(true);
+                toast.success('Message sent successfully!');
+            },
+            onError: () => {
+                toast.error('Failed to send message. Please try again.');
+            },
+            onFinish: () => setProcessing(false),
+        });
+    };
 
     return (
         <PublicLayout>
@@ -60,65 +100,46 @@ export default function ContactPage({ page }: ContactProps) {
                 </div>
             </section>
 
-            {/* Contact Info */}
+            {/* Contact Info Cards */}
             <section className="py-14 md:py-20 bg-white dark:bg-[#070E1F]">
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                        {[
-                            {
-                                icon: Building2,
-                                title: 'Registered Office',
-                                lines: ['NOVITA Pharmaceutical Co., Ltd.', ...contactAddressDynamic.split(',').map((s: string) => s.trim())],
-                                phone: contactPhoneDynamic,
-                                email: contactEmailDynamic,
-                                mapUrl: 'https://maps.app.goo.gl/HJVXT2ghQCwvZzCB7',
-                            },
-                            {
-                                icon: Factory,
-                                title: 'Factory',
-                                lines: ['No. 92,93 & 94', 'Makhayar Min Thar Gyi Street', 'Thilawa Local Industiral Zone', 'Yangon, Myanmar'],
-                                phone: factoryPhoneDynamic,
-                                mapUrl: 'https://maps.app.goo.gl/EHKjgoAaFnA4oSgZA',
-                            },
-                            {
-                                icon: Phone,
-                                title: 'Additional Phone',
-                                lines: ['For general inquiries'],
-                                phone: contactPhone2Dynamic,
-                                note: 'Factory under development. Visits by appointment only.',
-                            },
-                            {
-                                icon: Clock,
-                                title: 'Office Hours',
-                                hours: [['Monday - Friday','8:30 AM - 5:00 PM'],['Saturday','8:30 AM - 1:00 PM'],['Sunday','Closed']],
-                            },
-                        ].map((card) => (
-                            <div key={card.title} className="rounded-[28px] border border-gray-200 dark:border-white/10 bg-white dark:bg-gray-800/50 p-6 shadow-sm hover:shadow-xl transition">
-                                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-novita/10 dark:bg-novita/15 text-novita"><card.icon className="h-6 w-6" /></div>
-                                <h3 className="mt-4 text-lg font-bold text-gray-900 dark:text-white">{card.title}</h3>
-                                {(card as any).mapUrl ? (
-                                    <a href={(card as any).mapUrl} target="_blank" rel="noopener noreferrer" className="mt-3 block space-y-2 text-sm text-gray-600 dark:text-gray-400 hover:text-novita">
-                                        {card.lines && card.lines.map((l) => <div key={l}>{l}</div>)}
-                                        <span className="inline-flex items-center gap-1 text-xs font-medium text-novita mt-1"><MapPin className="h-3 w-3" /> View on Maps</span>
-                                    </a>
-                                ) : (
-                                    <div className="mt-3 space-y-2 text-sm text-gray-600 dark:text-gray-400">
-                                        {card.lines && card.lines.map((l) => <div key={l}>{l}</div>)}
-                                        {card.hours && card.hours.map(([k,v]: any) => <div key={k} className="flex justify-between border-b border-gray-100 dark:border-white/5 py-2 last:border-0"><span>{k}</span><span className="font-medium text-gray-900 dark:text-white">{v}</span></div>)}
-                                    </div>
-                                )}
-                                {card.phone && <div className="mt-4 flex items-center gap-2 text-sm"><Phone className="h-4 w-4 text-novita" /><a href={`tel:${card.phone.replace(/[^+\d]/g,'')}`} className="font-medium text-gray-900 dark:text-white hover:text-novita">{card.phone}</a></div>}
-                                {card.email && <div className="mt-2 flex items-center gap-2 text-sm"><Mail className="h-4 w-4 text-novita" /><a href={`mailto:${card.email}`} className="font-medium text-novita hover:underline">{card.email}</a></div>}
-                                {card.note && <div className="mt-4 rounded-xl bg-amber-50 dark:bg-amber-500/10 border border-amber-200 dark:border-amber-500/20 px-3 py-2 text-xs font-medium text-amber-800 dark:text-amber-200">{card.note}</div>}
-                                {card.title === 'Office Hours' && (
-                                    <div className="mt-6 flex gap-2">
-                                        <a href="#" className="h-9 w-9 rounded-full border border-gray-200 dark:border-white/10 flex items-center justify-center hover:bg-novita hover:text-white hover:border-novita transition text-gray-600 dark:text-gray-300"><Facebook className="h-4 w-4" /></a>
-                                        <a href="#" className="h-9 w-9 rounded-full border border-gray-200 dark:border-white/10 flex items-center justify-center hover:bg-novita hover:text-white hover:border-novita transition text-gray-600 dark:text-gray-300"><Linkedin className="h-4 w-4" /></a>
-                                        <a href="#" className="h-9 w-9 rounded-full border border-gray-200 dark:border-white/10 flex items-center justify-center hover:bg-novita hover:text-white hover:border-novita transition text-gray-600 dark:text-gray-300"><Youtube className="h-4 w-4" /></a>
-                                    </div>
-                                )}
-                            </div>
-                        ))}
+                        {infoCards.map((card: any) => {
+                            const isOffice = card.title?.includes('Office') || card.title?.includes('Registered');
+                            const isFactory = card.title?.includes('Factory');
+                            const Icon = isFactory ? Factory : isOffice ? Building2 : card.hours ? Clock : Phone;
+                            const addressLines: string[] = card.address_lines || (card.address ? card.address.split(',').map((s: string) => s.trim()) : []);
+                            return (
+                                <div key={card.title} className="rounded-[28px] border border-gray-200 dark:border-white/10 bg-white dark:bg-gray-800/50 p-6 shadow-sm hover:shadow-xl transition">
+                                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-novita/10 dark:bg-novita/15 text-novita"><Icon className="h-6 w-6" /></div>
+                                    <h3 className="mt-4 text-lg font-bold text-gray-900 dark:text-white">{card.title}</h3>
+                                    {card.map_url ? (
+                                        <a href={card.map_url} target="_blank" rel="noopener noreferrer" className="mt-3 block space-y-2 text-sm text-gray-600 dark:text-gray-400 hover:text-novita">
+                                            {card.company && <div className="font-medium text-gray-900 dark:text-white">{card.company}</div>}
+                                            {card.lines && card.lines.map((l: string) => <div key={l}>{l}</div>)}
+                                            {addressLines.map((l: string) => <div key={l}>{l}</div>)}
+                                            <span className="inline-flex items-center gap-1 text-xs font-medium text-novita mt-1"><MapPin className="h-3 w-3" /> View on Maps</span>
+                                        </a>
+                                    ) : (
+                                        <div className="mt-3 space-y-2 text-sm text-gray-600 dark:text-gray-400">
+                                            {card.lines && card.lines.map((l: string) => <div key={l}>{l}</div>)}
+                                            {addressLines.map((l: string) => <div key={l}>{l}</div>)}
+                                            {card.hours && card.hours.map((h: [string, string]) => <div key={h[0]} className="flex justify-between border-b border-gray-100 dark:border-white/5 py-2 last:border-0"><span>{h[0]}</span><span className="font-medium text-gray-900 dark:text-white">{h[1]}</span></div>)}
+                                        </div>
+                                    )}
+                                    {card.phone && <div className="mt-4 flex items-center gap-2 text-sm"><Phone className="h-4 w-4 text-novita" /><a href={`tel:${card.phone.replace(/[^+\d]/g, '')}`} className="font-medium text-gray-900 dark:text-white hover:text-novita">{card.phone}</a></div>}
+                                    {card.email && <div className="mt-2 flex items-center gap-2 text-sm"><Mail className="h-4 w-4 text-novita" /><a href={`mailto:${card.email}`} className="font-medium text-novita hover:underline">{card.email}</a></div>}
+                                    {card.note && <div className="mt-4 rounded-xl bg-amber-50 dark:bg-amber-500/10 border border-amber-200 dark:border-amber-500/20 px-3 py-2 text-xs font-medium text-amber-800 dark:text-amber-200">{card.note}</div>}
+                                    {card.social && (
+                                        <div className="mt-6 flex gap-2">
+                                            <a href="#" className="h-9 w-9 rounded-full border border-gray-200 dark:border-white/10 flex items-center justify-center hover:bg-novita hover:text-white hover:border-novita transition text-gray-600 dark:text-gray-300"><Facebook className="h-4 w-4" /></a>
+                                            <a href="#" className="h-9 w-9 rounded-full border border-gray-200 dark:border-white/10 flex items-center justify-center hover:bg-novita hover:text-white hover:border-novita transition text-gray-600 dark:text-gray-300"><Linkedin className="h-4 w-4" /></a>
+                                            <a href="#" className="h-9 w-9 rounded-full border border-gray-200 dark:border-white/10 flex items-center justify-center hover:bg-novita hover:text-white hover:border-novita transition text-gray-600 dark:text-gray-300"><Youtube className="h-4 w-4" /></a>
+                                        </div>
+                                    )}
+                                </div>
+                            );
+                        })}
                     </div>
                 </div>
             </section>
@@ -128,21 +149,20 @@ export default function ContactPage({ page }: ContactProps) {
                 <div className="pointer-events-none absolute top-0 left-1/2 h-px w-full max-w-5xl -translate-x-1/2 bg-gradient-to-r from-transparent via-gray-200 dark:via-white/10 to-transparent" />
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative">
                     <div className="text-center mb-10">
-                        <div className="inline-flex items-center gap-2 rounded-full border border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 px-3 py-1 text-xs font-semibold tracking-widest text-gray-600 dark:text-gray-300">CONTACT BY DEPARTMENT</div>
-                        <h2 className="mt-3 text-3xl font-bold text-gray-900 dark:text-white">Department Contacts</h2>
+                        <div className="inline-flex items-center gap-2 rounded-full border border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 px-3 py-1 text-xs font-semibold tracking-widest text-gray-600 dark:text-gray-300">{deptBadge}</div>
+                        <h2 className="mt-3 text-3xl font-bold text-gray-900 dark:text-white">{deptSec?.title || 'Department Contacts'}</h2>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-                        {[
-                            { icon: MessageSquare, title: 'General Inquiries', email: contactEmailDynamic },
-                            { icon: Globe, title: 'Business Inquiries', email: businessEmailDynamic },
-                            { icon: Mail, title: 'Careers', email: careersEmailDynamic },
-                        ].map((c) => (
-                            <div key={c.title} className="rounded-[24px] border border-gray-200 dark:border-white/10 bg-white dark:bg-gray-800/50 p-6 text-center shadow-sm hover:shadow-lg transition">
-                                <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-xl bg-novita/10 dark:bg-novita/15 text-novita"><c.icon className="h-6 w-6" /></div>
-                                <h3 className="mt-4 font-bold text-gray-900 dark:text-white">{c.title}</h3>
-                                <a href={`mailto:${c.email}`} className="mt-1 inline-block text-sm font-medium text-novita hover:underline">{c.email}</a>
-                            </div>
-                        ))}
+                        {depts.map((dept: any) => {
+                            const Icon = iconMap[dept.icon || 'mail'] || Mail;
+                            return (
+                                <div key={dept.title} className="rounded-[24px] border border-gray-200 dark:border-white/10 bg-white dark:bg-gray-800/50 p-6 text-center shadow-sm hover:shadow-lg transition">
+                                    <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-xl bg-novita/10 dark:bg-novita/15 text-novita"><Icon className="h-6 w-6" /></div>
+                                    <h3 className="mt-4 font-bold text-gray-900 dark:text-white">{dept.title}</h3>
+                                    <a href={`mailto:${dept.email}`} className="mt-1 inline-block text-sm font-medium text-novita hover:underline">{dept.email}</a>
+                                </div>
+                            );
+                        })}
                     </div>
                 </div>
             </section>
@@ -151,26 +171,28 @@ export default function ContactPage({ page }: ContactProps) {
             <section className="py-14 md:py-20 bg-white dark:bg-[#070E1F]">
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <div className="text-center mb-8">
-                        <div className="inline-flex items-center gap-2 rounded-full bg-novita/10 dark:bg-novita/15 px-3 py-1 text-xs font-semibold tracking-widest text-novita">FIND US</div>
-                        <h2 className="mt-3 text-3xl font-bold text-gray-900 dark:text-white">Our Location</h2>
+                        <div className="inline-flex items-center gap-2 rounded-full bg-novita/10 dark:bg-novita/15 px-3 py-1 text-xs font-semibold tracking-widest text-novita">{mapBadge}</div>
+                        <h2 className="mt-3 text-3xl font-bold text-gray-900 dark:text-white">{mapTitle}</h2>
                     </div>
                     <div className="overflow-hidden rounded-[28px] border border-gray-200 dark:border-white/10 shadow-[0_20px_60px_rgba(15,23,42,0.12)]">
                         <iframe
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3820.0422271533384!2d96.17007459999999!3d16.774574599999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30c1ec8a4118f851%3A0xa6ccb0a1cd234422!2s181%20Bo%20Myat%20Htun%20St%2C%20Yangon%2C%20Myanmar%20(Burma)!5e0!3m2!1sen!2sqa!4v1788407292856!5m2!1sen!2sqa"
+                            src={mapEmbed}
                             width="100%"
-                            height="450"
+                            height={mapHeight}
                             style={{ border: 0 }}
                             allowFullScreen
                             loading="lazy"
                             referrerPolicy="strict-origin-when-cross-origin"
-                            title="NOVITA Location - 181 Bo Myat Htun St, Yangon"
+                            title="NOVITA Location"
                         />
                     </div>
-                    <div className="mt-4 text-center">
-                        <a href="https://maps.app.goo.gl/HJVXT2ghQCwvZzCB7" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm font-medium text-novita hover:underline">
-                            <MapPin className="h-4 w-4" /> Open in Google Maps — 181 Bo Myat Htun St, Yangon
-                        </a>
-                    </div>
+                    {mapUrl && (
+                        <div className="mt-4 text-center">
+                            <a href={mapUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm font-medium text-novita hover:underline">
+                                <MapPin className="h-4 w-4" /> {mapLabel}
+                            </a>
+                        </div>
+                    )}
                 </div>
             </section>
 
@@ -179,13 +201,13 @@ export default function ContactPage({ page }: ContactProps) {
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
                         <div className="lg:col-span-5">
-                            <div className="inline-flex items-center gap-2 rounded-full bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 px-3 py-1 text-xs font-semibold tracking-widest text-gray-600 dark:text-gray-300">SEND A MESSAGE</div>
-                            <h2 className="mt-3 text-3xl font-bold tracking-tight text-gray-900 dark:text-white">Contact Form</h2>
-                            <p className="mt-3 text-gray-600 dark:text-gray-400">Have a question? Fill out the form and we'll reply within 2 business days.</p>
+                            <div className="inline-flex items-center gap-2 rounded-full bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 px-3 py-1 text-xs font-semibold tracking-widest text-gray-600 dark:text-gray-300">{formBadge}</div>
+                            <h2 className="mt-3 text-3xl font-bold tracking-tight text-gray-900 dark:text-white">{formTitle}</h2>
+                            <p className="mt-3 text-gray-600 dark:text-gray-400">{formContent}</p>
                             <div className="mt-6 rounded-[24px] border border-gray-200 dark:border-white/10 bg-white dark:bg-white/[0.04] p-6">
                                 <h3 className="font-bold text-gray-900 dark:text-white">Our Commitment:</h3>
                                 <div className="mt-3 space-y-2">
-                                    {['Response within 2 business days','Confidential handling of all inquiries','Dedicated support for business partners'].map((t) => (
+                                    {commitments.map((t: string) => (
                                         <div key={t} className="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300"><CheckCircle className="h-4 w-4 text-emerald-500" />{t}</div>
                                     ))}
                                 </div>
@@ -218,18 +240,14 @@ export default function ContactPage({ page }: ContactProps) {
                                         <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Subject *</label>
                                         <select required className="mt-1 w-full rounded-xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 px-4 py-3 text-sm focus:ring-2 focus:ring-novita focus:border-transparent outline-none" value={formData.subject} onChange={(e) => setFormData({ ...formData, subject: e.target.value })}>
                                             <option value="">Select a subject</option>
-                                            <option value="general">General Inquiry</option>
-                                            <option value="business">Business Partnership</option>
-                                            <option value="products">Product Information</option>
-                                            <option value="careers">Career Opportunities</option>
-                                            <option value="other">Other</option>
+                                            {subjects.map((s: any) => <option key={s.value} value={s.value}>{s.label}</option>)}
                                         </select>
                                     </div>
                                     <div>
                                         <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Message *</label>
                                         <textarea rows={4} required className="mt-1 w-full rounded-xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 px-4 py-3 text-sm focus:ring-2 focus:ring-novita focus:border-transparent outline-none" placeholder="How can we help you?" value={formData.message} onChange={(e) => setFormData({ ...formData, message: e.target.value })} />
                                     </div>
-                                    <button type="submit" className="w-full inline-flex items-center justify-center gap-2 rounded-full bg-novita px-6 py-3.5 text-sm font-bold text-white shadow-[0_8px_24px_rgba(59,99,175,0.25)] hover:bg-novita-dark transition">Send Message <Send className="h-4 w-4" /></button>
+                                    <button type="submit" disabled={processing} className="w-full inline-flex items-center justify-center gap-2 rounded-full bg-novita px-6 py-3.5 text-sm font-bold text-white shadow-[0_8px_24px_rgba(59,99,175,0.25)] hover:bg-novita-dark transition disabled:opacity-50 disabled:cursor-not-allowed">{processing ? 'Sending...' : <><Send className="h-4 w-4" /> Send Message</>}</button>
                                 </form>
                             )}
                         </div>

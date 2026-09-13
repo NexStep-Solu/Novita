@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react';
 import { router } from '@inertiajs/react';
+import { toast } from 'sonner';
 import { Save } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -54,7 +55,11 @@ export function AboutEditor({ page }: { page: Page & { sections: PageSection[] }
         payload.sections.push({ id: purpose?.id, section_type: 'purpose', meta: { purpose_title: purposeForm.purpose_title, purpose_desc: purposeForm.purpose_desc, ktecg_title: purposeForm.ktecg_title, ktecg_desc: purposeForm.ktecg_desc }, sort_order: 3, is_active: true });
         payload.sections.push({ id: vm?.id, section_type: 'vision_mission', meta: { vision: vmForm.vision, mission: vmForm.mission.split('\n').filter(Boolean) }, sort_order: 4, is_active: true });
         payload.sections.push({ id: md?.id, section_type: 'md_message', title: mdForm.title, subtitle: mdForm.subtitle, content: mdForm.content, image_path: mdPath, sort_order: 6, is_active: true });
-        router.put(`/admin/pages/${page.id}/sections`, payload, { preserveScroll: true });
+        router.put(`/admin/pages/${page.id}/sections`, payload, {
+            preserveScroll: true,
+            onSuccess: () => toast.success('About sections saved'),
+            onError: () => toast.error('Failed to save about sections'),
+        });
     };
 
     return (

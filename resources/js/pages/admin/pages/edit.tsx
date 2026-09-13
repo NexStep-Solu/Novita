@@ -10,6 +10,15 @@ import { Badge } from '@/components/ui/badge';
 import { HomeEditor } from '@/components/admin/editors/home-editor';
 import { AboutEditor } from '@/components/admin/editors/about-editor';
 import { LeadershipEditor } from '@/components/admin/editors/leadership-editor';
+import { FacilityEditor } from '@/components/admin/editors/facility-editor';
+import { QualityEditor } from '@/components/admin/editors/quality-editor';
+import { ProductsEditor } from '@/components/admin/editors/products-editor';
+import { RndEditor } from '@/components/admin/editors/rnd-editor';
+import { PartnershipEditor } from '@/components/admin/editors/partnership-editor';
+import { SustainabilityEditor } from '@/components/admin/editors/sustainability-editor';
+import { NewsEditor } from '@/components/admin/editors/news-editor';
+import { CareersEditor } from '@/components/admin/editors/careers-editor';
+import { ContactEditor } from '@/components/admin/editors/contact-editor';
 import type { Page, PageSection } from '@/types';
 
 interface PageEditProps {
@@ -28,6 +37,15 @@ export default function PageEdit({ page }: PageEditProps) {
     const isHome = page.slug === 'home';
     const isAbout = page.slug === 'about-us';
     const isLeadership = page.slug === 'leadership';
+    const isFacility = page.slug === 'our-facility';
+    const isQuality = page.slug === 'quality';
+    const isProducts = page.slug === 'products';
+    const isRnd = page.slug === 'product-development';
+    const isPartnership = page.slug === 'partnership';
+    const isSustainability = page.slug === 'sustainability';
+    const isNews = page.slug === 'news';
+    const isCareers = page.slug === 'careers';
+    const isContact = page.slug === 'contact';
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
@@ -96,6 +114,24 @@ export default function PageEdit({ page }: PageEditProps) {
                 <AboutEditor page={page} />
             ) : isLeadership ? (
                 <LeadershipEditor page={page} />
+            ) : isFacility ? (
+                <FacilityEditor page={page} />
+            ) : isQuality ? (
+                <QualityEditor page={page} />
+            ) : isProducts ? (
+                <ProductsEditor page={page} />
+            ) : isRnd ? (
+                <RndEditor page={page} />
+            ) : isPartnership ? (
+                <PartnershipEditor page={page} />
+            ) : isSustainability ? (
+                <SustainabilityEditor page={page} />
+            ) : isNews ? (
+                <NewsEditor page={page} />
+            ) : isCareers ? (
+                <CareersEditor page={page} />
+            ) : isContact ? (
+                <ContactEditor page={page} />
             ) : (
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                     <div className="lg:col-span-2">
