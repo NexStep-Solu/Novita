@@ -1,11 +1,18 @@
 import { Head } from '@inertiajs/react';
 import PublicLayout from '@/layouts/public/public-layout';
+import { SeoHead, organizationSchema, breadcrumbSchema } from '@/components/seo-head';
 import { FileText, Scale, AlertTriangle, Copyright } from 'lucide-react';
 
 export default function TermsPage() {
     return (
         <PublicLayout>
-            <Head title="Terms of Use - NOVITA Pharmaceutical Co., Ltd." />
+            <SeoHead
+                title="Terms of Use"
+                description="NOVITA Pharmaceutical's terms of use - conditions for using our website and services."
+                canonical="/terms"
+                noIndex={true}
+                jsonLd={[organizationSchema(), breadcrumbSchema([{ name: 'Home', url: '/' }, { name: 'Terms of Use', url: '/terms' }])]}
+            />
             <section className="relative overflow-hidden bg-white dark:bg-[#070E1F] border-b border-gray-100 dark:border-white/[0.06]">
                 <div className="pointer-events-none absolute inset-0">
                     <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(148,163,184,0.12)_1px,transparent_1px),linear-gradient(to_bottom,rgba(148,163,184,0.12)_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,rgba(255,255,255,0.04)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.04)_1px,transparent_1px)] bg-[size:32px_32px] [mask-image:radial-gradient(ellipse_80%_60%_at_50%_0%,#000_70%,transparent_110%)]" />

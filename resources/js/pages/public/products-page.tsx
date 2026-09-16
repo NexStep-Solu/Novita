@@ -2,6 +2,7 @@ import { Head, Link } from '@inertiajs/react';
 import { motion } from 'framer-motion';
 import { ArrowRight, Pill, Package, HeartPulse, Bug, Brain, Wind, Clock, TestTube, Building2, FlaskConical, Syringe, Droplets, Shield, Info } from 'lucide-react';
 import PublicLayout from '@/layouts/public/public-layout';
+import { SeoHead, organizationSchema, productSchema, breadcrumbSchema } from '@/components/seo-head';
 import { UnderUpgrading } from '@/components/under-upgrading';
 import type { PageSection } from '@/types';
 
@@ -84,7 +85,17 @@ export default function ProductsPage({ page, products }: ProductsPageProps) {
 
     return (
         <PublicLayout>
-            <Head title={page?.title ? `${page.title} - NOVITA Pharmaceutical Co., Ltd.` : `${heroTitle} - NOVITA Pharmaceutical Co., Ltd.`} />
+            <SeoHead
+                title={page?.title || 'Our Products'}
+                description="Explore NOVITA Pharmaceutical's product categories - prescription medicines, therapeutic categories, and our growing pipeline."
+                keywords="pharmaceutical products, medicines, drugs, therapeutic categories, Myanmar pharmaceutical"
+                canonical="/products"
+                jsonLd={[organizationSchema(), breadcrumbSchema([{ name: 'Home', url: '/' }, { name: 'Products', url: '/products' }]), productSchema({
+                    name: 'NOVITA Pharmaceutical Products',
+                    description: 'Quality pharmaceutical products manufactured by NOVITA Pharmaceutical Co., Ltd. in Myanmar.',
+                    category: 'Pharmaceutical Products',
+                })]}
+            />
 
             {/* Hero */}
             <section className="relative overflow-hidden bg-white dark:bg-[#070E1F] border-b border-gray-100 dark:border-white/[0.06]">

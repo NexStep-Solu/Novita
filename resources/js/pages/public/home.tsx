@@ -1,5 +1,6 @@
 import { Head, Link, usePage } from '@inertiajs/react';
 import PublicLayout from '@/layouts/public/public-layout';
+import { SeoHead, organizationSchema, websiteSchema, breadcrumbSchema } from '@/components/seo-head';
 import { ArrowRight, Shield, Beaker, Factory, Award, CheckCircle, Heart, Users, Sparkles, Building2, FlaskConical, BadgeCheck, Pencil } from 'lucide-react';
 import { motion } from 'framer-motion';
 
@@ -130,7 +131,12 @@ export default function HomePage({ page }: HomeProps) {
 
     return (
         <PublicLayout>
-            <Head title="NOVITA - Better Health, Longer Life" />
+            <SeoHead
+                title="NOVITA - Better Health, Longer Life"
+                description="NOVITA Pharmaceutical Co., Ltd. is a leading pharmaceutical manufacturer in Myanmar, committed to quality, innovation, and better healthcare outcomes. KTECG Group member."
+                keywords="pharmaceutical, Myanmar, healthcare, medicine, manufacturing, quality, NOVITA, KTECG"
+                jsonLd={[organizationSchema(), websiteSchema(), breadcrumbSchema([{ name: 'Home', url: '/' }])]}
+            />
 
             {/* Admin Edit Link - visible only when logged in */}
             {auth?.user && page?.id && (

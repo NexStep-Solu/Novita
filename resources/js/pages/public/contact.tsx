@@ -2,6 +2,7 @@ import { Head, usePage, router } from '@inertiajs/react';
 import { useState } from 'react';
 import { toast } from 'sonner';
 import PublicLayout from '@/layouts/public/public-layout';
+import { SeoHead, organizationSchema, breadcrumbSchema, faqSchema } from '@/components/seo-head';
 import { Mail, Phone, MapPin, Clock, Send, CheckCircle, Building2, Factory, Globe, Facebook, Linkedin, Youtube, MessageSquare } from 'lucide-react';
 import { motion } from 'framer-motion';
 import type { PageSection } from '@/types';
@@ -82,7 +83,17 @@ export default function ContactPage({ page }: ContactProps) {
 
     return (
         <PublicLayout>
-            <Head title={page?.title ? `${page.title} - NOVITA Pharmaceutical Co., Ltd.` : `${heroTitle} - NOVITA Pharmaceutical Co., Ltd.`} />
+            <SeoHead
+                title={page?.title || 'Contact Us'}
+                description="Get in touch with NOVITA Pharmaceutical Co., Ltd. in Yangon, Myanmar. Contact us for inquiries, partnerships, and career opportunities."
+                keywords="contact NOVITA, pharmaceutical Yangon, Myanmar contact, business inquiry"
+                canonical="/contact"
+                jsonLd={[organizationSchema(), breadcrumbSchema([{ name: 'Home', url: '/' }, { name: 'Contact', url: '/contact' }]), faqSchema([
+                    { question: 'Where is NOVITA Pharmaceutical located?', answer: 'NOVITA Pharmaceutical Co., Ltd. is located at No. 216/222 Bo Myat Htun Housing, Room D3, Corner of 49 Street and Maharbandoola Road, Ward 1, Pazundaung Township, Yangon, Myanmar.' },
+                    { question: 'What are NOVITA\'s office hours?', answer: 'Monday to Friday: 8:30 AM - 5:00 PM, Saturday: 8:30 AM - 1:00 PM, Sunday: Closed.' },
+                    { question: 'How can I contact NOVITA Pharmaceutical?', answer: 'You can reach us by phone at (+95) 9 5000144, by email at info@novita-myanmar.com.mm, or through our contact form on this page.' },
+                ])]}
+            />
 
             {/* Hero */}
             <section className="relative overflow-hidden bg-white dark:bg-[#070E1F] border-b border-gray-100 dark:border-white/[0.06]">

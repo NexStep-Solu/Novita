@@ -1,5 +1,6 @@
 import { Head, Link } from '@inertiajs/react';
 import PublicLayout from '@/layouts/public/public-layout';
+import { SeoHead, organizationSchema, breadcrumbSchema } from '@/components/seo-head';
 import { ArrowRight, Shield, Leaf, Droplets, Zap, Users, Heart, Scale, Recycle, TreePine, Factory } from 'lucide-react';
 
 interface PageSection {
@@ -92,7 +93,13 @@ export default function SustainabilityPage({ page }: SustainabilityProps) {
 
     return (
         <PublicLayout>
-            <Head title={page?.title ? `${page.title} - NOVITA Pharmaceutical Co., Ltd.` : `${heroTitle} - NOVITA Pharmaceutical Co., Ltd.`} />
+            <SeoHead
+                title={page?.title || 'Sustainability'}
+                description="NOVITA's commitment to sustainability - environmental stewardship, employee safety, energy management, and community engagement."
+                keywords="pharmaceutical sustainability, environmental responsibility, green manufacturing, EHS, community"
+                canonical="/sustainability"
+                jsonLd={[organizationSchema(), breadcrumbSchema([{ name: 'Home', url: '/' }, { name: 'Sustainability', url: '/sustainability' }])]}
+            />
 
             {/* Hero Section */}
             <section className="relative bg-gradient-to-br from-green-900 via-green-800 to-green-600 text-white py-24 md:py-32">

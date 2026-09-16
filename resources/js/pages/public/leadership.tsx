@@ -1,6 +1,7 @@
 import { Head, Link, usePage } from '@inertiajs/react';
 import { useState } from 'react';
 import PublicLayout from '@/layouts/public/public-layout';
+import { SeoHead, organizationSchema, breadcrumbSchema } from '@/components/seo-head';
 import { ArrowRight, Linkedin, Mail } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
@@ -142,7 +143,13 @@ export default function LeadershipPage({ page }: LeadershipProps) {
 
     return (
         <PublicLayout>
-            <Head title="Our Leadership - NOVITA Pharmaceutical Co., Ltd." />
+            <SeoHead
+                title="Our Leadership"
+                description="Meet NOVITA Pharmaceutical's leadership team - Managing Director, Board of Directors, and senior management driving pharmaceutical excellence."
+                keywords="NOVITA leadership, pharmaceutical executives, managing director, board of directors"
+                canonical="/leadership"
+                jsonLd={[organizationSchema(), breadcrumbSchema([{ name: 'Home', url: '/' }, { name: 'Leadership', url: '/leadership' }])]}
+            />
 
             {/* Hero - Swiss minimal */}
             <section className="relative overflow-hidden bg-white dark:bg-[#070E1F] border-b border-gray-100 dark:border-white/[0.06]">

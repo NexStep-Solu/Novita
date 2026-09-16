@@ -1,6 +1,7 @@
 import { Head, Link, usePage } from '@inertiajs/react';
 import { useState } from 'react';
 import PublicLayout from '@/layouts/public/public-layout';
+import { SeoHead, organizationSchema, breadcrumbSchema } from '@/components/seo-head';
 import { ArrowRight, Heart, Users, BookOpen, Briefcase, Mail, Upload, CheckCircle, Building2, Globe, Award, TrendingUp, Send } from 'lucide-react';
 import { motion } from 'framer-motion';
 import type { PageSection } from '@/types';
@@ -83,7 +84,13 @@ export default function CareersPage({ page }: CareersProps) {
 
     return (
         <PublicLayout>
-            <Head title={page?.title ? `${page.title} - NOVITA Pharmaceutical Co., Ltd.` : `${heroTitle} - NOVITA Pharmaceutical Co., Ltd.`} />
+            <SeoHead
+                title={page?.title || 'Careers'}
+                description="Join NOVITA Pharmaceutical - explore career opportunities in pharmaceutical manufacturing, quality, and regulatory affairs in Myanmar."
+                keywords="pharmaceutical jobs, NOVITA careers, Myanmar pharmaceutical, manufacturing jobs, healthcare careers"
+                canonical="/careers"
+                jsonLd={[organizationSchema(), breadcrumbSchema([{ name: 'Home', url: '/' }, { name: 'Careers', url: '/careers' }])]}
+            />
 
             {/* Hero */}
             <section className="relative overflow-hidden bg-white dark:bg-[#070E1F] border-b border-gray-100 dark:border-white/[0.06]">

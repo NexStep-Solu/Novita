@@ -1,5 +1,6 @@
 import { Head, Link } from '@inertiajs/react';
 import PublicLayout from '@/layouts/public/public-layout';
+import { SeoHead, organizationSchema, breadcrumbSchema } from '@/components/seo-head';
 import { ArrowRight, Beaker, FlaskConical, Microscope, TestTube, Users, Lightbulb, Target, TrendingUp } from 'lucide-react';
 
 interface PageSection {
@@ -91,7 +92,13 @@ export default function RndPage({ page }: RndProps) {
 
     return (
         <PublicLayout>
-            <Head title={page?.title ? `${page.title} - NOVITA Pharmaceutical Co., Ltd.` : `${heroTitle} - NOVITA Pharmaceutical Co., Ltd.`} />
+            <SeoHead
+                title={page?.title || 'Product Development'}
+                description="NOVITA's research and product development initiatives - advancing pharmaceutical innovation for Myanmar's healthcare needs."
+                keywords="pharmaceutical R&D, product development, drug research, innovation, Myanmar healthcare"
+                canonical="/product-development"
+                jsonLd={[organizationSchema(), breadcrumbSchema([{ name: 'Home', url: '/' }, { name: 'Product Development', url: '/product-development' }])]}
+            />
 
             {/* Hero Section */}
             <section className="relative bg-gradient-to-br from-gray-900 via-gray-800 to-novita text-white py-24 md:py-32">

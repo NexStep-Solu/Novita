@@ -1,5 +1,6 @@
 import { Head, Link } from '@inertiajs/react';
 import PublicLayout from '@/layouts/public/public-layout';
+import { SeoHead, organizationSchema, breadcrumbSchema } from '@/components/seo-head';
 import { ArrowRight, Calendar, MapPin, Tag, ChevronRight, Building2, Users, Briefcase, Milestone } from 'lucide-react';
 import { motion } from 'framer-motion';
 
@@ -83,7 +84,13 @@ export default function NewsPage({ page }: NewsIndexProps) {
     const regularNews = newsItems.filter(item => !item.featured);
     return (
         <PublicLayout>
-            <Head title={page?.title ? `${page.title} - NOVITA Pharmaceutical Co., Ltd.` : `${heroTitle} - NOVITA Pharmaceutical Co., Ltd.`} />
+            <SeoHead
+                title={page?.title || 'News & Media'}
+                description="Stay updated with the latest news, exhibition visits, factory updates, and company milestones from NOVITA Pharmaceutical."
+                keywords="pharmaceutical news, NOVITA updates, Myanmar healthcare, company news, exhibitions"
+                canonical="/news"
+                jsonLd={[organizationSchema(), breadcrumbSchema([{ name: 'Home', url: '/' }, { name: 'News', url: '/news' }])]}
+            />
 
             {/* Hero */}
             <section className="relative overflow-hidden bg-white dark:bg-[#070E1F] border-b border-gray-100 dark:border-white/[0.06]">

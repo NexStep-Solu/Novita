@@ -50,6 +50,16 @@ class HandleInertiaRequests extends Middleware
             'contactPhone' => \App\Models\Setting::getValue('contact_phone', '(+95) 9 5000144'),
             'factoryPhone' => \App\Models\Setting::getValue('factory_phone', '(+95) 9 977 225 001'),
             'contactPhone2' => \App\Models\Setting::getValue('contact_phone2', '(+95) 9 977 225 004'),
+            'seo' => [
+                'title' => \App\Models\Setting::getValue('seo_title', 'NOVITA - Leading Manufacturing Excellence'),
+                'description' => \App\Models\Setting::getValue('seo_description', 'NOVITA is a leading manufacturer committed to quality, innovation, and sustainability.'),
+                'keywords' => \App\Models\Setting::getValue('seo_keywords', 'pharmaceutical, manufacturing, quality, Myanmar, healthcare'),
+            ],
+            'social' => [
+                'facebook' => \App\Models\Setting::getValue('social_facebook', ''),
+                'linkedin' => \App\Models\Setting::getValue('social_linkedin', ''),
+                'youtube' => \App\Models\Setting::getValue('social_youtube', ''),
+            ],
         ];
     }
 }

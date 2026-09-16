@@ -1,5 +1,6 @@
 import { Head, Link } from '@inertiajs/react';
 import PublicLayout from '@/layouts/public/public-layout';
+import { SeoHead, organizationSchema, breadcrumbSchema } from '@/components/seo-head';
 import { ArrowRight, Shield, Heart, Users, Target, Eye, Handshake, Lightbulb, Building2, BadgeCheck, Quote } from 'lucide-react';
 import { motion } from 'framer-motion';
 
@@ -103,7 +104,13 @@ export default function AboutPage({ page }: AboutProps) {
 
     return (
         <PublicLayout>
-            <Head title={page?.title ? `${page.title} - NOVITA Pharmaceutical Co., Ltd.` : `${heroTitle} - NOVITA Pharmaceutical Co., Ltd.`} />
+            <SeoHead
+                title={page?.title || 'About Us'}
+                description="Learn about NOVITA Pharmaceutical Co., Ltd. - our mission, vision, values, and commitment to quality healthcare in Myanmar."
+                keywords="about NOVITA, pharmaceutical Myanmar, company profile, mission vision values"
+                canonical="/about-us"
+                jsonLd={[organizationSchema(), breadcrumbSchema([{ name: 'Home', url: '/' }, { name: 'About Us', url: '/about-us' }])]}
+            />
 
             {/* Hero */}
             <section className="relative overflow-hidden bg-white dark:bg-[#070E1F] border-b border-gray-100 dark:border-white/[0.06]">

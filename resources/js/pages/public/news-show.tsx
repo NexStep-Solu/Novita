@@ -1,5 +1,6 @@
 import { Head, Link } from '@inertiajs/react';
 import PublicLayout from '@/layouts/public/public-layout';
+import { SeoHead, organizationSchema, breadcrumbSchema } from '@/components/seo-head';
 import { ArrowLeft, ArrowRight, Calendar, MapPin, Tag, ChevronRight, Building2, Award, Users, Briefcase, Milestone, Share2, Facebook, Linkedin, Mail } from 'lucide-react';
 
 interface NewsItem {
@@ -195,7 +196,27 @@ export default function NewsShowPage({ slug }: { slug: string }) {
 
     return (
         <PublicLayout>
-            <Head title={`${newsItem.title} - NOVITA Pharmaceutical`} />
+            <SeoHead
+                title={newsItem.title}
+                description={newsItem.excerpt || newsItem.title}
+                keywords={`NOVITA news, ${newsItem.category || 'pharmaceutical'}, Myanmar, ${newsItem.title}`}
+                canonical={`/news/${newsItem.slug}`}
+                ogImage={newsItem.image_path || undefined}
+                jsonLd={[organizationSchema(), breadcrumbSchema([
+                    { name: 'Home', url: '/' },
+                    { name: 'News', url: '/news' },
+                    { name: newsItem.title, url: `/news/${newsItem.slug}` },
+                ]), {
+                    '@context': 'https://schema.org',
+                    '@type': 'NewsArticle',
+                    headline: newsItem.title,
+                    description: newsItem.excerpt,
+                    author: { '@type': 'Organization', name: newsItem.author || 'NOVITA Pharmaceutical' },
+                    publisher: { '@type': 'Organization', name: 'NOVITA Pharmaceutical Co., Ltd.', logo: { '@type': 'ImageObject', url: '/logo.png' } },
+                    datePublished: newsItem.published_at,
+                    dateModified: newsItem.updated_at,
+                }]}
+            />
 
             {/* Hero Section */}
             <section className="relative bg-gray-900 dark:bg-gray-950 text-white">

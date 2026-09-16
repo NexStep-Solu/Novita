@@ -1,5 +1,6 @@
 import { Head, Link } from '@inertiajs/react';
 import PublicLayout from '@/layouts/public/public-layout';
+import { SeoHead, organizationSchema, breadcrumbSchema } from '@/components/seo-head';
 import { ArrowRight, Shield, CheckCircle, FlaskConical, Users, FileCheck, GraduationCap, Leaf, Heart, Award, Lock, RefreshCw } from 'lucide-react';
 import { motion } from 'framer-motion';
 
@@ -127,7 +128,13 @@ export default function QualityPage({ page }: QualityProps) {
 
     return (
         <PublicLayout>
-            <Head title={page?.title ? `${page.title} - NOVITA Pharmaceutical Co., Ltd.` : `${heroTitle} - NOVITA Pharmaceutical Co., Ltd.`} />
+            <SeoHead
+                title={page?.title || 'Quality Assurance'}
+                description="NOVITA's commitment to pharmaceutical quality - GMP compliance, quality systems, patient safety, and environmental health & safety."
+                keywords="pharmaceutical quality, GMP, quality assurance, patient safety, EHS, quality management"
+                canonical="/quality"
+                jsonLd={[organizationSchema(), breadcrumbSchema([{ name: 'Home', url: '/' }, { name: 'Quality', url: '/quality' }])]}
+            />
 
             {/* Hero */}
             <section className="relative overflow-hidden bg-white dark:bg-[#070E1F] border-b border-gray-100 dark:border-white/[0.06]">

@@ -95,3 +95,4 @@ Route::redirect('/dashboard', '/admin')->name('dashboard');
 
 require __DIR__.'/settings.php';
 require __DIR__.'/admin.php';
+require __DIR__.'/seo.php';

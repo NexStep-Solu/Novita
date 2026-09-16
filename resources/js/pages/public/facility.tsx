@@ -1,5 +1,6 @@
 import { Head, Link } from '@inertiajs/react';
 import PublicLayout from '@/layouts/public/public-layout';
+import { SeoHead, organizationSchema, breadcrumbSchema } from '@/components/seo-head';
 import { ArrowRight, MapPin, Ruler, Building2, FlaskConical, Warehouse, Wrench, TrendingUp, Clock, CheckCircle, Sparkles, Shield } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { UnderUpgrading } from '@/components/under-upgrading';
@@ -139,7 +140,13 @@ export default function FacilityPage({ page }: FacilityProps) {
 
     return (
         <PublicLayout>
-            <Head title={page?.title ? `${page.title} - NOVITA Pharmaceutical Co., Ltd.` : `${heroTitle} - NOVITA Pharmaceutical Co., Ltd.`} />
+            <SeoHead
+                title={page?.title || 'Our Facility'}
+                description="Explore NOVITA's world-class pharmaceutical manufacturing facility in Thilawa Industrial Zone, Yangon, Myanmar."
+                keywords="pharmaceutical factory, manufacturing facility, Thilawa, Yangon, GMP, PIC/S"
+                canonical="/our-facility"
+                jsonLd={[organizationSchema(), breadcrumbSchema([{ name: 'Home', url: '/' }, { name: 'Our Facility', url: '/our-facility' }])]}
+            />
 
             {/* Hero */}
             <section className="relative overflow-hidden bg-white dark:bg-[#070E1F] border-b border-gray-100 dark:border-white/[0.06]">

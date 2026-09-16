@@ -3,6 +3,7 @@ import { Head, Link } from '@inertiajs/react';
 import { motion } from 'framer-motion';
 import { Handshake, Settings, Package, Truck, Mail, Send, CheckCircle, Award, Globe, Users } from 'lucide-react';
 import PublicLayout from '@/layouts/public/public-layout';
+import { SeoHead, organizationSchema, breadcrumbSchema } from '@/components/seo-head';
 import type { PageSection } from '@/types';
 
 const fadeUp = { initial: { opacity: 0, y: 20 }, animate: { opacity: 1, y: 0 } };
@@ -70,7 +71,13 @@ export default function PartnershipPage({ page }: PartnershipProps) {
 
     return (
         <PublicLayout>
-            <Head title={page?.title ? `${page.title} - NOVITA Pharmaceutical Co., Ltd.` : `${heroTitle} - NOVITA Pharmaceutical Co., Ltd.`} />
+            <SeoHead
+                title={page?.title || 'Business Partnership'}
+                description="Partner with NOVITA Pharmaceutical - contract manufacturing, distribution opportunities, and business collaborations in Myanmar."
+                keywords="pharmaceutical partnership, contract manufacturing, business collaboration, Myanmar distribution"
+                canonical="/partnership"
+                jsonLd={[organizationSchema(), breadcrumbSchema([{ name: 'Home', url: '/' }, { name: 'Partnership', url: '/partnership' }])]}
+            />
 
             {/* Hero */}
             <section className="relative bg-gradient-to-br from-gray-900 via-gray-800 to-novita text-white py-24 md:py-32">
