@@ -66,15 +66,15 @@ export default function AboutPage({ page }: AboutProps) {
     const coreValuesSubtitle = coreValuesSec?.subtitle || 'Guiding every decision and every process.';
     const coreValuesBadge = (coreValuesSec?.meta as any)?.badge || 'CORE VALUES';
     const fallbackValues = [
-        { icon: Shield, title: 'Quality First', desc: 'We place product quality and patient safety at the heart of every decision and every process.', color: 'from-novita to-blue-500' },
+        { icon: Shield, title: 'Quality First', desc: 'We place product quality and patient safety at the heart of every decision and every process.', color: 'from-novita to-novita-light' },
         { icon: Heart, title: 'Integrity', desc: 'We conduct business honestly, ethically, and transparently, and take responsibility for our actions.', color: 'from-rose-500 to-pink-500' },
         { icon: Handshake, title: 'Patient Commitment', desc: 'We remain focused on the health, safety, and well-being of the people who rely on our medicines.', color: 'from-emerald-500 to-teal-500' },
         { icon: Lightbulb, title: 'Continuous Improvement', desc: 'We continually strengthen our people, systems, technology, and manufacturing practices.', color: 'from-amber-500 to-orange-500' },
         { icon: Users, title: 'Collaboration', desc: 'Lasting success comes from teamwork, mutual respect, knowledge sharing, and strong partnerships.', color: 'from-violet-500 to-purple-500' },
-        { icon: Target, title: 'Social Responsibility', desc: "We contribute positively to Myanmar's healthcare sector, local communities, and the environment.", color: 'from-cyan-500 to-blue-500' },
+        { icon: Target, title: 'Social Responsibility', desc: "We contribute positively to Myanmar's healthcare sector, local communities, and the environment.", color: 'from-cyan-500 to-teal-500' },
     ];
     const iconMap: Record<string, any> = { Shield, Heart, Handshake, Lightbulb, Users, Target };
-    const colorMap: string[] = ['from-novita to-blue-500','from-rose-500 to-pink-500','from-emerald-500 to-teal-500','from-amber-500 to-orange-500','from-violet-500 to-purple-500','from-cyan-500 to-blue-500'];
+    const colorMap: string[] = ['from-novita to-novita-light','from-rose-500 to-pink-500','from-emerald-500 to-teal-500','from-amber-500 to-orange-500','from-violet-500 to-purple-500','from-cyan-500 to-teal-500'];
     const coreValuesMeta: any[] = (coreValuesSec?.meta as any)?.values || [];
     const coreValuesDisplay = coreValuesMeta.length ? coreValuesMeta.map((v: any, idx: number) => ({
         icon: v.icon ? (iconMap[v.icon] || Shield) : fallbackValues[idx % fallbackValues.length].icon,
@@ -125,7 +125,7 @@ export default function AboutPage({ page }: AboutProps) {
                         <h1 className="mt-4 text-4xl md:text-5xl font-bold tracking-tight text-gray-900 dark:text-white">{heroTitle}</h1>
                         <p className="mt-4 max-w-3xl text-lg leading-relaxed text-gray-600 dark:text-gray-300">{heroSubtitle}</p>
                         <div className="mt-6 flex flex-wrap gap-2">
-                            <span className="inline-flex items-center gap-2 rounded-full bg-novita/10 dark:bg-novita/20 px-3 py-1.5 text-xs font-semibold text-novita dark:text-blue-200"><Building2 className="h-3.5 w-3.5" />KTECG Group Member</span>
+                            <span className="inline-flex items-center gap-2 rounded-full bg-novita/10 dark:bg-novita/20 px-3 py-1.5 text-xs font-semibold text-novita dark:text-novita-light"><Building2 className="h-3.5 w-3.5" />KTECG Group Member</span>
                             <span className="inline-flex items-center gap-2 rounded-full border border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 px-3 py-1.5 text-xs font-medium text-gray-700 dark:text-gray-200">20+ Years Pharma Construction</span>
                             <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 dark:bg-emerald-500/15 px-3 py-1.5 text-xs font-semibold text-emerald-700 dark:text-emerald-300"><BadgeCheck className="h-3.5 w-3.5" />Better Health, Longer Life</span>
                         </div>
@@ -173,7 +173,7 @@ export default function AboutPage({ page }: AboutProps) {
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative">
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }} className="group relative overflow-hidden rounded-[28px] border border-gray-200 dark:border-white/10 bg-white dark:bg-gray-800/50 p-8 shadow-sm hover:shadow-xl transition">
-                            <div className="absolute top-0 left-0 h-1 w-full bg-gradient-to-r from-novita to-blue-400" />
+                            <div className="absolute top-0 left-0 h-1 w-full bg-gradient-to-r from-novita to-novita-light" />
                             <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-novita text-white shadow"><Target className="h-7 w-7" /></div>
                             <div className="mt-6 text-xs font-semibold tracking-widest text-novita">01 — OUR PURPOSE</div>
                             <h3 className="mt-2 text-xl font-bold text-gray-900 dark:text-white">{purposeTitle}</h3>
@@ -199,7 +199,7 @@ export default function AboutPage({ page }: AboutProps) {
             <section className="py-14 md:py-20 bg-white dark:bg-[#070E1F]">
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="relative overflow-hidden rounded-[28px] bg-gradient-to-br from-gray-900 via-[#0F1E3A] to-novita p-8 md:p-10 text-white">
+                        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="relative overflow-hidden rounded-[28px] bg-gradient-to-br from-gray-900 via-[#0B3B39] to-novita p-8 md:p-10 text-white">
                             <div className="pointer-events-none absolute -right-20 -top-20 h-[300px] w-[300px] rounded-full bg-white/10 blur-[50px]" />
                             <div className="flex items-center gap-3"><div className="h-10 w-10 rounded-xl bg-white/15 backdrop-blur flex items-center justify-center"><Eye className="h-5 w-5" /></div><span className="text-xs font-semibold tracking-widest text-white/70">OUR VISION</span></div>
                             <p className="mt-6 text-xl md:text-2xl font-medium leading-relaxed">{vmVision}</p>
@@ -281,7 +281,7 @@ export default function AboutPage({ page }: AboutProps) {
             {/* CTA - Dynamic */}
             <section className="py-12 md:py-16 bg-gray-50/70 dark:bg-[#0B1220]">
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                    <div className="relative overflow-hidden rounded-[32px] bg-gradient-to-br from-gray-900 via-[#0F1E3A] to-novita p-8 md:p-12">
+                    <div className="relative overflow-hidden rounded-[32px] bg-gradient-to-br from-gray-900 via-[#0B3B39] to-novita p-8 md:p-12">
                         <div className="pointer-events-none absolute -right-20 -top-20 h-[400px] w-[400px] rounded-full bg-white/10 blur-[60px]" />
                         <div className="relative flex flex-col md:flex-row items-center justify-between gap-6">
                             <div>

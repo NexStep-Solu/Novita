@@ -59,6 +59,7 @@ class CareerController extends Controller
 
         return Inertia::render('public/careers/show', [
             'job' => $job,
+            'isExpired' => $job->deadline?->isPast() ?? false,
         ]);
     }
 }

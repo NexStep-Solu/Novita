@@ -25,7 +25,7 @@ export default function HeroSection({ title, subtitle, image, linkUrl, linkText,
                     {linkUrl && linkText && (
                         <a
                             href={linkUrl}
-                            className="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
+                            className="inline-block bg-novita text-white px-6 py-3 rounded-lg font-semibold hover:bg-novita-dark transition-colors"
                         >
                             {linkText}
                         </a>

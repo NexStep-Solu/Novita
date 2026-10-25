@@ -47,7 +47,7 @@ export default function JobCreate({ departments, locations, types }: JobCreatePr
                                         type="text"
                                         value={data.title}
                                         onChange={(e) => setData('title', e.target.value)}
-                                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-novita"
                                         required
                                     />
                                     {errors.title && <p className="text-red-500 text-sm mt-1">{errors.title}</p>}
@@ -59,7 +59,7 @@ export default function JobCreate({ departments, locations, types }: JobCreatePr
                                         value={data.description}
                                         onChange={(e) => setData('description', e.target.value)}
                                         rows={8}
-                                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-novita"
                                     />
                                 </div>
                             </div>
@@ -78,7 +78,7 @@ export default function JobCreate({ departments, locations, types }: JobCreatePr
                                         value={data.department}
                                         onChange={(e) => setData('department', e.target.value)}
                                         list="departments"
-                                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-novita"
                                     />
                                     <datalist id="departments">
                                         {departments.map((dept) => (
@@ -94,7 +94,7 @@ export default function JobCreate({ departments, locations, types }: JobCreatePr
                                         value={data.location}
                                         onChange={(e) => setData('location', e.target.value)}
                                         list="locations"
-                                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-novita"
                                     />
                                     <datalist id="locations">
                                         {locations.map((loc) => (
@@ -108,7 +108,7 @@ export default function JobCreate({ departments, locations, types }: JobCreatePr
                                     <select
                                         value={data.type}
                                         onChange={(e) => setData('type', e.target.value)}
-                                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-novita"
                                     >
                                         {types.map((type) => (
                                             <option key={type} value={type}>{type}</option>
@@ -122,7 +122,7 @@ export default function JobCreate({ departments, locations, types }: JobCreatePr
                                         type="text"
                                         value={data.salary_range}
                                         onChange={(e) => setData('salary_range', e.target.value)}
-                                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-novita"
                                     />
                                 </div>
 
@@ -132,7 +132,7 @@ export default function JobCreate({ departments, locations, types }: JobCreatePr
                                         type="date"
                                         value={data.deadline}
                                         onChange={(e) => setData('deadline', e.target.value)}
-                                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-novita"
                                     />
                                 </div>
 
@@ -141,7 +141,7 @@ export default function JobCreate({ departments, locations, types }: JobCreatePr
                                         type="checkbox"
                                         checked={data.is_active}
                                         onChange={(e) => setData('is_active', e.target.checked)}
-                                        className="h-4 w-4 text-blue-600 rounded"
+                                        className="h-4 w-4 text-novita rounded"
                                     />
                                     <span className="ml-2 text-sm text-gray-700">Active</span>
                                 </label>
@@ -151,7 +151,7 @@ export default function JobCreate({ departments, locations, types }: JobCreatePr
                                 <button
                                     type="submit"
                                     disabled={processing}
-                                    className="w-full bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 disabled:opacity-50 flex items-center justify-center"
+                                    className="w-full bg-novita text-white px-4 py-2 rounded-lg hover:bg-novita-dark disabled:opacity-50 flex items-center justify-center"
                                 >
                                     <Save className="h-4 w-4 mr-2" />
                                     {processing ? 'Creating...' : 'Create Job'}

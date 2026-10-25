@@ -23,7 +23,7 @@ export default function ProductShow({ product, relatedProducts }: ProductShowPro
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <Link
                         href="/products"
-                        className="inline-flex items-center text-blue-600 hover:text-blue-700 mb-8"
+                        className="inline-flex items-center text-novita hover:text-novita-dark mb-8"
                     >
                         <ArrowLeft className="h-4 w-4 mr-2" />
                         Back to Products
@@ -44,7 +44,7 @@ export default function ProductShow({ product, relatedProducts }: ProductShowPro
                         {/* Product Info */}
                         <div>
                             <div className="flex items-center gap-4 mb-4">
-                                <span className="text-sm text-blue-600 bg-blue-50 px-3 py-1 rounded-full">{product.category}</span>
+                                <span className="text-sm text-novita bg-novita/10 px-3 py-1 rounded-full">{product.category}</span>
                                 {product.sku && (
                                     <span className="text-sm text-gray-500">SKU: {product.sku}</span>
                                 )}
@@ -96,7 +96,7 @@ export default function ProductShow({ product, relatedProducts }: ProductShowPro
 
                             <a
                                 href="/contact"
-                                className="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
+                                className="inline-block bg-novita text-white px-6 py-3 rounded-lg font-semibold hover:bg-novita-dark transition-colors"
                             >
                                 Request Quote
                             </a>

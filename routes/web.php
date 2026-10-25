@@ -56,14 +56,8 @@ Route::get('/products', function () {
 })->name('products');
 
 // News & Media - dynamic
-Route::get('/news', function () {
-    $page = Page::where('slug', 'news')->with(['activeSections' => fn($q) => $q->orderBy('sort_order')])->first();
-    return inertia('public/news-index', ['page' => $page]);
-})->name('news');
-
-Route::get('/news/{slug}', function ($slug) {
-    return inertia('public/news-show', ['slug' => $slug]);
-})->name('news.show');
+Route::get('/news', [NewsController::class, 'index'])->name('news');
+Route::get('/news/{slug}', [NewsController::class, 'show'])->name('news.show');
 
 // Careers
 Route::get('/careers', function () {

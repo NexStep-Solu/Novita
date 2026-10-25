@@ -228,7 +228,7 @@ export default function SettingsIndex({ settings, groups }: SettingsIndexProps) 
                                         </Button>
                                     </div>
                                 </div>
-                                <div className="absolute inset-x-0 bottom-0 h-0.5 bg-gradient-to-r from-novita to-blue-500 opacity-0 group-hover:opacity-100 transition" />
+                                <div className="absolute inset-x-0 bottom-0 h-0.5 bg-gradient-to-r from-novita to-novita-light opacity-0 group-hover:opacity-100 transition" />
                             </div>
                         ))}
                     </div>

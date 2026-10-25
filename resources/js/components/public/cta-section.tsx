@@ -14,7 +14,7 @@ export default function CTASection({ title, subtitle, linkUrl, linkText }: CTASe
                 {linkUrl && linkText && (
                     <a
                         href={linkUrl}
-                        className="inline-block bg-blue-600 text-white px-8 py-4 rounded-lg font-semibold hover:bg-blue-700 transition-colors text-lg"
+                        className="inline-block bg-novita text-white px-8 py-4 rounded-lg font-semibold hover:bg-novita-dark transition-colors text-lg"
                     >
                         {linkText}
                     </a>

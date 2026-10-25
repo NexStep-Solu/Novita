@@ -257,7 +257,7 @@ export default function CareersPage({ page }: CareersProps) {
                                                 <input type="file" accept=".pdf,.doc,.docx" className="absolute inset-0 h-full w-full opacity-0 cursor-pointer" onChange={(e) => setCvFile(e.target.files?.[0] || null)} />
                                             </div>
                                         </div>
-                                        <button type="submit" className="w-full inline-flex items-center justify-center gap-2 rounded-full bg-novita px-6 py-3.5 text-sm font-bold text-white shadow-[0_8px_24px_rgba(59,99,175,0.25)] hover:bg-novita-dark transition">Submit Application <Send className="h-4 w-4" /></button>
+                                        <button type="submit" className="w-full inline-flex items-center justify-center gap-2 rounded-full bg-novita px-6 py-3.5 text-sm font-bold text-white shadow-[0_8px_24px_rgba(9,127,124,0.25)] hover:bg-novita-dark transition">Submit Application <Send className="h-4 w-4" /></button>
                                     </form>
                                 )}
                             </div>
@@ -269,7 +269,7 @@ export default function CareersPage({ page }: CareersProps) {
             {/* CTA */}
             <section className="py-10 bg-gray-50/70 dark:bg-[#0B1220]">
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                    <div className="relative overflow-hidden rounded-[32px] bg-gradient-to-br from-gray-900 via-[#0F1E3A] to-novita p-8 md:p-10">
+                    <div className="relative overflow-hidden rounded-[32px] bg-gradient-to-br from-gray-900 via-[#0B3B39] to-novita p-8 md:p-10">
                         <div className="pointer-events-none absolute -right-20 -top-20 h-[400px] w-[400px] rounded-full bg-white/10 blur-[60px]" />
                         <div className="relative flex flex-col md:flex-row items-center justify-between gap-6">
                             <div><h2 className="text-2xl md:text-3xl font-bold text-white">{ctaTitle}</h2><p className="mt-2 text-white/70">{ctaSubtitle}</p></div>

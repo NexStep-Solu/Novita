@@ -48,7 +48,7 @@ export default function ProductCreate({ categories }: ProductCreateProps) {
                                         type="text"
                                         value={data.name}
                                         onChange={(e) => setData('name', e.target.value)}
-                                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-novita"
                                         required
                                     />
                                     {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
@@ -62,7 +62,7 @@ export default function ProductCreate({ categories }: ProductCreateProps) {
                                             value={data.category}
                                             onChange={(e) => setData('category', e.target.value)}
                                             list="categories"
-                                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-novita"
                                             required
                                         />
                                         <datalist id="categories">
@@ -79,7 +79,7 @@ export default function ProductCreate({ categories }: ProductCreateProps) {
                                             type="text"
                                             value={data.sku}
                                             onChange={(e) => setData('sku', e.target.value)}
-                                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-novita"
                                         />
                                     </div>
                                 </div>
@@ -90,7 +90,7 @@ export default function ProductCreate({ categories }: ProductCreateProps) {
                                         value={data.short_description}
                                         onChange={(e) => setData('short_description', e.target.value)}
                                         rows={3}
-                                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-novita"
                                     />
                                 </div>
 
@@ -100,7 +100,7 @@ export default function ProductCreate({ categories }: ProductCreateProps) {
                                         value={data.description}
                                         onChange={(e) => setData('description', e.target.value)}
                                         rows={6}
-                                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-novita"
                                     />
                                 </div>
                             </div>
@@ -118,7 +118,7 @@ export default function ProductCreate({ categories }: ProductCreateProps) {
                                         type="number"
                                         value={data.sort_order}
                                         onChange={(e) => setData('sort_order', parseInt(e.target.value))}
-                                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-novita"
                                     />
                                 </div>
 
@@ -127,7 +127,7 @@ export default function ProductCreate({ categories }: ProductCreateProps) {
                                         type="checkbox"
                                         checked={data.is_featured}
                                         onChange={(e) => setData('is_featured', e.target.checked)}
-                                        className="h-4 w-4 text-blue-600 rounded"
+                                        className="h-4 w-4 text-novita rounded"
                                     />
                                     <span className="ml-2 text-sm text-gray-700">Featured Product</span>
                                 </label>
@@ -137,7 +137,7 @@ export default function ProductCreate({ categories }: ProductCreateProps) {
                                         type="checkbox"
                                         checked={data.is_active}
                                         onChange={(e) => setData('is_active', e.target.checked)}
-                                        className="h-4 w-4 text-blue-600 rounded"
+                                        className="h-4 w-4 text-novita rounded"
                                     />
                                     <span className="ml-2 text-sm text-gray-700">Active</span>
                                 </label>
@@ -147,7 +147,7 @@ export default function ProductCreate({ categories }: ProductCreateProps) {
                                 <button
                                     type="submit"
                                     disabled={processing}
-                                    className="w-full bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 disabled:opacity-50 flex items-center justify-center"
+                                    className="w-full bg-novita text-white px-4 py-2 rounded-lg hover:bg-novita-dark disabled:opacity-50 flex items-center justify-center"
                                 >
                                     <Save className="h-4 w-4 mr-2" />
                                     {processing ? 'Creating...' : 'Create Product'}

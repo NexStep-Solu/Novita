@@ -41,7 +41,7 @@ export default function FeaturesSection({ title, subtitle, features, linkUrl, li
                         const IconComponent = iconMap[feature.icon] || Award;
                         return (
                             <div key={index} className="text-center p-6 rounded-lg bg-gray-50 hover:shadow-lg transition-shadow">
-                                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-blue-100 text-blue-600 mb-4">
+                                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-novita/10 text-novita mb-4">
                                     <IconComponent className="h-8 w-8" />
                                 </div>
                                 <h3 className="text-xl font-semibold text-gray-900 mb-2">{feature.title}</h3>
@@ -54,7 +54,7 @@ export default function FeaturesSection({ title, subtitle, features, linkUrl, li
                     <div className="text-center mt-12">
                         <a
                             href={linkUrl}
-                            className="inline-block text-blue-600 font-semibold hover:text-blue-700"
+                            className="inline-block text-novita font-semibold hover:text-novita-dark"
                         >
                             {linkText} →
                         </a>

@@ -1,4 +1,4 @@
-import { Head, Link, usePage } from '@inertiajs/react';
+import { Link, usePage } from '@inertiajs/react';
 import PublicLayout from '@/layouts/public/public-layout';
 import { SeoHead, organizationSchema, websiteSchema, breadcrumbSchema } from '@/components/seo-head';
 import { ArrowRight, Shield, Beaker, Factory, Award, CheckCircle, Heart, Users, Sparkles, Building2, FlaskConical, BadgeCheck, Pencil } from 'lucide-react';
@@ -49,8 +49,7 @@ export default function HomePage({ page }: HomeProps) {
     const auth = (props as any).auth;
     const sections: PageSection[] = ((page as any)?.active_sections as PageSection[]) || ((page as any)?.activeSections as PageSection[]) || [];
     const hero = sections.find((s) => s.section_type === 'hero');
-    console.log(hero);
-    
+
     const heroTitle = hero?.title || 'Building Trust Through Quality Medicines';
     const heroSubtitle = hero?.subtitle || 'NOVITA Pharmaceutical Co., Ltd. is committed to developing safe, effective, and accessible medicines for a healthier Myanmar — from OSD manufacturing to rigorous quality control.';
     const heroSlogan = hero?.meta?.slogan || 'Better Health, Longer Life';
@@ -109,8 +108,6 @@ export default function HomePage({ page }: HomeProps) {
     const ctaSec = sections.find((s) => s.section_type === 'cta');
     const ctaTitle = ctaSec?.title || 'Partner with NOVITA';
     const ctaSubtitle = ctaSec?.subtitle || "We're looking for partners who share our vision of providing quality medicines for Myanmar.";
-    const ctaBtnText = ctaSec?.link_text || 'Business Partnership';
-    const ctaBtnUrl = ctaSec?.link_url || '/partnership';
     const ctaSecondaryBtnText = (ctaSec?.meta as any)?.cta_secondary_text || 'Contact Us';
     const ctaSecondaryBtnUrl = (ctaSec?.meta as any)?.cta_secondary_url || '/contact';
 
@@ -121,7 +118,7 @@ export default function HomePage({ page }: HomeProps) {
             return (
                 <>
                     {parts[0]}
-                    <span className="bg-gradient-to-r from-novita to-blue-500 bg-clip-text text-transparent dark:from-[#5A8DEF] dark:to-[#3B63AF]">Quality Medicines</span>
+                    <span className="bg-gradient-to-r from-novita to-novita-light bg-clip-text text-transparent dark:from-[#4ad1cb] dark:to-[#2fb8b3]">Quality Medicines</span>
                     {parts[1]}
                 </>
             );
@@ -158,7 +155,7 @@ export default function HomePage({ page }: HomeProps) {
                 <div className="pointer-events-none absolute inset-0">
                     <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(148,163,184,0.12)_1px,transparent_1px),linear-gradient(to_bottom,rgba(148,163,184,0.12)_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,rgba(255,255,255,0.04)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.04)_1px,transparent_1px)] bg-[size:32px_32px] [mask-image:radial-gradient(ellipse_80%_60%_at_50%_0%,#000_70%,transparent_110%)]" />
                     <div className="absolute -top-32 -right-32 h-[640px] w-[640px] rounded-full bg-novita/[0.07] dark:bg-novita/20 blur-[90px]" />
-                    <div className="absolute left-[-120px] top-[280px] h-[520px] w-[520px] rounded-full bg-blue-200/40 dark:bg-blue-600/10 blur-[90px]" />
+                    <div className="absolute left-[-120px] top-[280px] h-[520px] w-[520px] rounded-full bg-teal-200/40 dark:bg-teal-600/10 blur-[90px]" />
                     <div className="absolute bottom-0 left-1/2 h-px w-full -translate-x-1/2 bg-gradient-to-r from-transparent via-gray-200 dark:via-white/10 to-transparent" />
                 </div>
 
@@ -180,7 +177,7 @@ export default function HomePage({ page }: HomeProps) {
                                     </span>
                                     {heroBadge} ↗
                                 </a>
-                                <span className="inline-flex items-center gap-1.5 rounded-full bg-novita/10 dark:bg-novita/20 px-3 py-1.5 text-xs font-semibold tracking-wide text-novita dark:text-blue-200">
+                                <span className="inline-flex items-center gap-1.5 rounded-full bg-novita/10 dark:bg-novita/20 px-3 py-1.5 text-xs font-semibold tracking-wide text-novita dark:text-novita-light">
                                     <Sparkles className="h-3.5 w-3.5" />
                                     {heroSlogan}
                                 </span>
@@ -199,14 +196,14 @@ export default function HomePage({ page }: HomeProps) {
                             <div className="mt-8 flex flex-col sm:flex-row gap-3">
                                 <Link
                                     href={ctaPrimaryUrl}
-                                    className="inline-flex items-center justify-center gap-2 rounded-full bg-novita px-7 py-3.5 text-sm font-semibold text-white shadow-[0_8px_24px_rgba(59,99,175,0.25)] hover:bg-novita-dark transition-colors"
+                                    className="inline-flex items-center justify-center gap-2 rounded-full bg-novita px-7 py-3.5 text-sm font-semibold text-white shadow-[0_8px_24px_rgba(9,127,124,0.25)] hover:bg-novita-dark transition-colors"
                                 >
                                     {ctaPrimaryText}
                                     <ArrowRight className="h-4 w-4" />
                                 </Link>
                                 <Link
                                     href={ctaSecondaryUrl}
-                                    className="inline-flex items-center justify-center gap-2 rounded-full bg-novita px-7 py-3.5 text-sm font-semibold text-white shadow-[0_8px_24px_rgba(59,99,175,0.25)] hover:bg-novita-dark transition-colors"
+                                    className="inline-flex items-center justify-center gap-2 rounded-full bg-novita px-7 py-3.5 text-sm font-semibold text-white shadow-[0_8px_24px_rgba(9,127,124,0.25)] hover:bg-novita-dark transition-colors"
                                 >
                                     {ctaSecondaryText}
                                 </Link>
@@ -357,7 +354,7 @@ export default function HomePage({ page }: HomeProps) {
                         viewport={{ once: true }}
                     >
                         <motion.div variants={fadeInUp} className="group relative overflow-hidden rounded-[28px] border border-gray-200 dark:border-white/10 bg-white dark:bg-gray-800/50 p-8 md:p-9 shadow-sm hover:shadow-[0_20px_60px_rgba(15,23,42,0.08)] dark:hover:shadow-[0_20px_60px_rgba(0,0,0,0.4)] transition-all">
-                            <div className="absolute top-0 left-0 h-1 w-full bg-gradient-to-r from-novita to-blue-400" />
+                            <div className="absolute top-0 left-0 h-1 w-full bg-gradient-to-r from-novita to-novita-light" />
                             <div className="absolute -right-8 -top-8 h-32 w-32 rounded-full bg-novita/5 dark:bg-novita/10 blur-2xl group-hover:bg-novita/10 transition" />
                             <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-novita text-white shadow-lg">
                                 <Award className="h-7 w-7" />
@@ -497,7 +494,7 @@ export default function HomePage({ page }: HomeProps) {
                     >
                         {facilityCards.map((card: any, idx: number) => {
                             const icons = [Factory, Beaker, Shield];
-                            const grads = ['from-novita to-blue-500', 'from-emerald-500 to-teal-500', 'from-violet-500 to-purple-500'];
+                            const grads = ['from-novita to-novita-light', 'from-emerald-500 to-teal-500', 'from-violet-500 to-purple-500'];
                             const Icon = icons[idx % icons.length] as any;
                             const grad = grads[idx % grads.length];
                             const n = String(idx + 1).padStart(2, '0');
@@ -560,11 +557,11 @@ export default function HomePage({ page }: HomeProps) {
             </section>
 
             {/* Stats Section - Premium */}
-            <section className="relative overflow-hidden bg-novita dark:bg-[#0E1E3E] py-16 md:py-20">
+            <section className="relative overflow-hidden bg-novita dark:bg-[#072A29] py-16 md:py-20">
                 <div className="pointer-events-none absolute inset-0">
                     <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.07)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.07)_1px,transparent_1px)] bg-[size:32px_32px] opacity-30" />
                     <div className="absolute -top-24 right-0 h-[500px] w-[500px] rounded-full bg-white/10 blur-[80px]" />
-                    <div className="absolute -bottom-32 left-0 h-[500px] w-[500px] rounded-full bg-blue-300/20 blur-[80px]" />
+                    <div className="absolute -bottom-32 left-0 h-[500px] w-[500px] rounded-full bg-teal-300/20 blur-[80px]" />
                 </div>
                 <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <motion.div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6" variants={staggerContainer} initial="initial" whileInView="animate" viewport={{ once: true }}>
@@ -572,7 +569,7 @@ export default function HomePage({ page }: HomeProps) {
                             <motion.div key={s.label || s.l} variants={scaleIn} className="rounded-[20px] border border-white/15 bg-white/10 backdrop-blur p-6 text-center">
                                 <div className="text-3xl md:text-4xl font-bold text-white">{s.value || s.v}</div>
                                 <div className="mt-1 text-sm font-semibold text-white">{s.label || s.l}</div>
-                                <div className="text-xs text-blue-100/80">{s.sub || ''}</div>
+                                <div className="text-xs text-teal-100/80">{s.sub || ''}</div>
                             </motion.div>
                         ))}
                     </motion.div>

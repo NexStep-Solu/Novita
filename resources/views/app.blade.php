@@ -33,13 +33,26 @@
         <link rel="icon" href="/favicon.ico" sizes="any">
         <link rel="icon" href="/favicon.svg" type="image/svg+xml">
         <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+        <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
 
         @fonts
 
         @viteReactRefresh
         @vite(['resources/css/app.css', 'resources/js/app.tsx', "resources/js/pages/{$page['component']}.tsx"])
         <x-inertia::head>
-            <title>{{ config('app.name', 'Laravel') }}</title>
+            {{-- Fallback metadata for when the SSR server is unavailable. --}}
+            <title>NOVITA Pharmaceutical Co., Ltd. - Better Health, Longer Life</title>
+            <meta name="description" content="NOVITA Pharmaceutical Co., Ltd. is a leading pharmaceutical manufacturer in Myanmar, committed to quality, innovation, and better healthcare outcomes. A KTECG Group member.">
+            <meta property="og:type" content="website">
+            <meta property="og:title" content="NOVITA Pharmaceutical Co., Ltd. - Better Health, Longer Life">
+            <meta property="og:description" content="NOVITA Pharmaceutical Co., Ltd. is a leading pharmaceutical manufacturer in Myanmar, committed to quality, innovation, and better healthcare outcomes. A KTECG Group member.">
+            <meta property="og:image" content="{{ url('/og-default.png') }}">
+            <meta property="og:url" content="{{ url()->current() }}">
+            <meta property="og:site_name" content="NOVITA Pharmaceutical Co., Ltd.">
+            <meta name="twitter:card" content="summary_large_image">
+            <meta name="twitter:title" content="NOVITA Pharmaceutical Co., Ltd. - Better Health, Longer Life">
+            <meta name="twitter:description" content="NOVITA Pharmaceutical Co., Ltd. is a leading pharmaceutical manufacturer in Myanmar, committed to quality, innovation, and better healthcare outcomes.">
+            <meta name="twitter:image" content="{{ url('/og-default.png') }}">
         </x-inertia::head>
     </head>
     <body class="font-sans antialiased">

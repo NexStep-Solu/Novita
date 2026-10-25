@@ -258,7 +258,7 @@ export default function ContactPage({ page }: ContactProps) {
                                         <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Message *</label>
                                         <textarea rows={4} required className="mt-1 w-full rounded-xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 px-4 py-3 text-sm focus:ring-2 focus:ring-novita focus:border-transparent outline-none" placeholder="How can we help you?" value={formData.message} onChange={(e) => setFormData({ ...formData, message: e.target.value })} />
                                     </div>
-                                    <button type="submit" disabled={processing} className="w-full inline-flex items-center justify-center gap-2 rounded-full bg-novita px-6 py-3.5 text-sm font-bold text-white shadow-[0_8px_24px_rgba(59,99,175,0.25)] hover:bg-novita-dark transition disabled:opacity-50 disabled:cursor-not-allowed">{processing ? 'Sending...' : <><Send className="h-4 w-4" /> Send Message</>}</button>
+                                    <button type="submit" disabled={processing} className="w-full inline-flex items-center justify-center gap-2 rounded-full bg-novita px-6 py-3.5 text-sm font-bold text-white shadow-[0_8px_24px_rgba(9,127,124,0.25)] hover:bg-novita-dark transition disabled:opacity-50 disabled:cursor-not-allowed">{processing ? 'Sending...' : <><Send className="h-4 w-4" /> Send Message</>}</button>
                                 </form>
                             )}
                         </div>

@@ -4,10 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class News extends Model
 {
     use HasFactory;
+
+    protected $appends = [
+        'image_url',
+    ];
 
     protected $fillable = [
         'title',
@@ -61,6 +67,24 @@ class News extends Model
             ->pluck('category')
             ->filter()
             ->toArray();
+    }
+
+    /**
+     * Get a publicly accessible URL for the article image.
+     */
+    public function getImageUrlAttribute(): ?string
+    {
+        if (! $this->image_path) {
+            return null;
+        }
+
+        if (Str::startsWith($this->image_path, ['http://', 'https://', '/'])) {
+            return $this->image_path;
+        }
+
+        return Storage::disk('public')->exists($this->image_path)
+            ? Storage::disk('public')->url($this->image_path)
+            : null;
     }
 
     /**

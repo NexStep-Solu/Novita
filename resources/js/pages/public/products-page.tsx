@@ -137,7 +137,7 @@ export default function ProductsPage({ page, products }: ProductsPageProps) {
                     <motion.div variants={stagger} initial="initial" whileInView="animate" viewport={{ once: true }} className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         {catItems.map((cat: any, idx: number) => (
                             <motion.div key={cat.title + idx} variants={fadeUp} className="group relative overflow-hidden rounded-[28px] border border-gray-200 dark:border-white/10 bg-white dark:bg-gray-800/50 p-8 shadow-sm hover:shadow-xl transition">
-                                <div className="absolute top-0 left-0 h-1 w-full bg-gradient-to-r from-novita to-blue-400" />
+                                <div className="absolute top-0 left-0 h-1 w-full bg-gradient-to-r from-novita to-novita-light" />
                                 <div className="flex items-center gap-4">
                                     <div className="h-14 w-14 rounded-2xl bg-novita text-white flex items-center justify-center shadow">{idx === 0 ? <Pill className="h-7 w-7" /> : <Package className="h-7 w-7" />}</div>
                                     <h3 className="text-2xl font-bold text-gray-900 dark:text-white">{cat.title}</h3>
@@ -270,7 +270,7 @@ export default function ProductsPage({ page, products }: ProductsPageProps) {
             {/* CTA */}
             <section className="py-12 bg-gray-50/70 dark:bg-[#0B1220]">
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                    <div className="relative overflow-hidden rounded-[32px] bg-gradient-to-br from-gray-900 via-[#0F1E3A] to-novita p-8 md:p-10">
+                    <div className="relative overflow-hidden rounded-[32px] bg-gradient-to-br from-gray-900 via-[#0B3B39] to-novita p-8 md:p-10">
                         <div className="pointer-events-none absolute -right-20 -top-20 h-[400px] w-[400px] rounded-full bg-white/10 blur-[60px]" />
                         <div className="relative flex flex-col md:flex-row items-center justify-between gap-6">
                             <div><h2 className="text-2xl md:text-3xl font-bold text-white">{ctaTitle}</h2><p className="mt-2 text-white/70">{ctaSubtitle}</p></div>

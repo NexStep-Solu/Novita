@@ -311,7 +311,7 @@ export default function QualityPage({ page }: QualityProps) {
             {/* CTA - Dynamic */}
             <section className="py-12 bg-gray-50/70 dark:bg-[#0B1220]">
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                    <div className="relative overflow-hidden rounded-[32px] bg-gradient-to-br from-gray-900 via-[#0F1E3A] to-novita p-8 md:p-10">
+                    <div className="relative overflow-hidden rounded-[32px] bg-gradient-to-br from-gray-900 via-[#0B3B39] to-novita p-8 md:p-10">
                         <div className="pointer-events-none absolute -right-20 -top-20 h-[400px] w-[400px] rounded-full bg-white/10 blur-[60px]" />
                         <div className="relative flex flex-col md:flex-row items-center justify-between gap-6">
                             <div><h2 className="text-2xl md:text-3xl font-bold text-white">{ctaTitle}</h2><p className="mt-2 text-white/70">{ctaSubtitle}</p></div>

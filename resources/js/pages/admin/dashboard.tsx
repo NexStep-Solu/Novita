@@ -23,7 +23,7 @@ interface DashboardProps {
 
 export default function Dashboard({ stats, recentContacts, recentNews }: DashboardProps) {
     const statCards = [
-        { label: 'Pages', value: stats.pages, icon: FileText, href: '/admin/pages', color: 'bg-blue-500' },
+        { label: 'Pages', value: stats.pages, icon: FileText, href: '/admin/pages', color: 'bg-novita' },
         { label: 'Products', value: stats.products, icon: Package, href: '/admin/products', color: 'bg-green-500' },
         { label: 'News', value: stats.news, icon: Newspaper, href: '/admin/news', color: 'bg-purple-500' },
         { label: 'Jobs', value: stats.jobs, icon: Briefcase, href: '/admin/jobs', color: 'bg-orange-500' },

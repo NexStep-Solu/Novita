@@ -64,21 +64,24 @@
     --color-sidebar-border: var(--sidebar-border);
     --color-sidebar-ring: var(--sidebar-ring);
 
-    /* NOVITA Brand Colors */
-    --color-novita: #3B63AF;
-    --color-novita-light: #5A7EC2;
-    --color-novita-dark: #2D4B87;
+    /* NOVITA Brand Colors — from novita_new_logo/Color Code-01 */
+    --color-novita: #097f7c;
+    --color-novita-light: #14a39f;
+    --color-novita-dark: #065e5c;
+    --color-novita-gold: #d39f23;
+    --color-novita-yellow: #e7cb23;
+    --color-novita-bronze: #c78123;
 }
 
 :root {
-    /* Light Theme - Monochrome with #3B63AF primary */
+    /* Light Theme - Monochrome with #097f7c primary */
     --background: oklch(1 0 0);
     --foreground: oklch(0.145 0 0);
     --card: oklch(1 0 0);
     --card-foreground: oklch(0.145 0 0);
     --popover: oklch(1 0 0);
     --popover-foreground: oklch(0.145 0 0);
-    --primary: oklch(0.45 0.12 250); /* #3B63AF */
+    --primary: oklch(0.5398 0.091 191.85); /* #097f7c */
     --primary-foreground: oklch(0.985 0 0);
     --secondary: oklch(0.96 0 0);
     --secondary-foreground: oklch(0.205 0 0);
@@ -90,32 +93,32 @@
     --destructive-foreground: oklch(0.577 0.245 27.325);
     --border: oklch(0.922 0 0);
     --input: oklch(0.922 0 0);
-    --ring: oklch(0.45 0.12 250); /* #3B63AF */
-    --chart-1: oklch(0.45 0.12 250); /* #3B63AF */
-    --chart-2: oklch(0.55 0.12 250);
-    --chart-3: oklch(0.65 0.12 250);
-    --chart-4: oklch(0.75 0.12 250);
-    --chart-5: oklch(0.85 0.12 250);
+    --ring: oklch(0.5398 0.091 191.85); /* #097f7c */
+    --chart-1: oklch(0.5398 0.091 191.85); /* #097f7c */
+    --chart-2: oklch(0.6478 0.1083 191.66); /* #14a39f */
+    --chart-3: oklch(0.7324 0.1416 83.25); /* #d39f23 */
+    --chart-4: oklch(0.8407 0.1672 98.62); /* #e7cb23 */
+    --chart-5: oklch(0.6612 0.1331 68.28); /* #c78123 */
     --radius: 0.625rem;
     --sidebar: oklch(0.985 0 0);
     --sidebar-foreground: oklch(0.145 0 0);
-    --sidebar-primary: oklch(0.45 0.12 250);
+    --sidebar-primary: oklch(0.5398 0.091 191.85);
     --sidebar-primary-foreground: oklch(0.985 0 0);
     --sidebar-accent: oklch(0.96 0 0);
     --sidebar-accent-foreground: oklch(0.205 0 0);
     --sidebar-border: oklch(0.922 0 0);
-    --sidebar-ring: oklch(0.45 0.12 250);
+    --sidebar-ring: oklch(0.5398 0.091 191.85);
 }
 
 .dark {
-    /* Dark Theme - Monochrome with #3B63AF primary */
+    /* Dark Theme - Monochrome with #097f7c primary */
     --background: oklch(0.13 0 0);
     --foreground: oklch(0.985 0 0);
     --card: oklch(0.16 0 0);
     --card-foreground: oklch(0.985 0 0);
     --popover: oklch(0.16 0 0);
     --popover-foreground: oklch(0.985 0 0);
-    --primary: oklch(0.65 0.12 250); /* Lighter #3B63AF for dark mode */
+    --primary: oklch(0.7118 0.1122 191.22); /* Lighter #097f7c for dark mode */
     --primary-foreground: oklch(0.13 0 0);
     --secondary: oklch(0.22 0 0);
     --secondary-foreground: oklch(0.985 0 0);
@@ -127,20 +130,20 @@
     --destructive-foreground: oklch(0.637 0.237 25.331);
     --border: oklch(0.22 0 0);
     --input: oklch(0.22 0 0);
-    --ring: oklch(0.65 0.12 250); /* Lighter #3B63AF for dark mode */
-    --chart-1: oklch(0.65 0.12 250);
-    --chart-2: oklch(0.55 0.12 250);
-    --chart-3: oklch(0.45 0.12 250);
-    --chart-4: oklch(0.35 0.12 250);
-    --chart-5: oklch(0.25 0.12 250);
+    --ring: oklch(0.7118 0.1122 191.22); /* Lighter #097f7c for dark mode */
+    --chart-1: oklch(0.7118 0.1122 191.22); /* #2fb8b3 */
+    --chart-2: oklch(0.787 0.1154 190.85); /* #4ad1cb */
+    --chart-3: oklch(0.7324 0.1416 83.25); /* #d39f23 */
+    --chart-4: oklch(0.8407 0.1672 98.62); /* #e7cb23 */
+    --chart-5: oklch(0.6612 0.1331 68.28); /* #c78123 */
     --sidebar: oklch(0.16 0 0);
     --sidebar-foreground: oklch(0.985 0 0);
-    --sidebar-primary: oklch(0.65 0.12 250);
+    --sidebar-primary: oklch(0.7118 0.1122 191.22);
     --sidebar-primary-foreground: oklch(0.13 0 0);
     --sidebar-accent: oklch(0.22 0 0);
     --sidebar-accent-foreground: oklch(0.985 0 0);
     --sidebar-border: oklch(0.22 0 0);
-    --sidebar-ring: oklch(0.65 0.12 250);
+    --sidebar-ring: oklch(0.7118 0.1122 191.22);
 }
 
 @layer base {

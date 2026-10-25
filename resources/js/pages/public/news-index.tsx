@@ -1,3 +1,4 @@
+// Legacy hardcoded news page. The /news route now uses public/news/index.tsx.
 import { Head, Link } from '@inertiajs/react';
 import PublicLayout from '@/layouts/public/public-layout';
 import { SeoHead, organizationSchema, breadcrumbSchema } from '@/components/seo-head';
@@ -75,7 +76,7 @@ interface NewsIndexProps {
 }
 
 export default function NewsPage({ page }: NewsIndexProps) {
-    const hero = ((page as any)?.active_sections || (page as any)?.activeSections)?.find((s) => s.section_type === 'hero');
+    const hero = ((page as any)?.active_sections || (page as any)?.activeSections)?.find((s: PageSection) => s.section_type === 'hero');
     const heroTitle = hero?.title || 'News & Updates';
     const heroSubtitle = hero?.subtitle || 'Stay updated with facility developments, exhibition visits, and company milestones.';
     const heroBadge = hero?.meta?.badge || hero?.meta?.label || 'NEWS & UPDATES';
@@ -170,7 +171,7 @@ export default function NewsPage({ page }: NewsIndexProps) {
             {/* CTA */}
             <section className="py-12 bg-white dark:bg-[#070E1F]">
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                    <div className="relative overflow-hidden rounded-[32px] bg-gradient-to-br from-gray-900 via-[#0F1E3A] to-novita p-8 md:p-10">
+                    <div className="relative overflow-hidden rounded-[32px] bg-gradient-to-br from-gray-900 via-[#0B3B39] to-novita p-8 md:p-10">
                         <div className="pointer-events-none absolute -right-20 -top-20 h-[400px] w-[400px] rounded-full bg-white/10 blur-[60px]" />
                         <div className="relative flex flex-col md:flex-row items-center justify-between gap-6">
                             <div><h2 className="text-2xl md:text-3xl font-bold text-white">Stay Connected</h2><p className="mt-2 text-white/70">Follow us for facility and company updates.</p></div>

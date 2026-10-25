@@ -1,3 +1,4 @@
+// Legacy hardcoded news article page. The /news/{slug} route now uses public/news-show.tsx.
 import { Head, Link } from '@inertiajs/react';
 import PublicLayout from '@/layouts/public/public-layout';
 import HeroSection from '@/components/public/hero-section';
@@ -23,7 +24,7 @@ export default function NewsShow({ article, relatedNews }: NewsShowProps) {
                 <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
                     <Link
                         href="/news"
-                        className="inline-flex items-center text-blue-600 hover:text-blue-700 mb-8"
+                        className="inline-flex items-center text-novita hover:text-novita-dark mb-8"
                     >
                         <ArrowLeft className="h-4 w-4 mr-2" />
                         Back to News
@@ -96,7 +97,7 @@ export default function NewsShow({ article, relatedNews }: NewsShowProps) {
                                         <div className="text-sm text-gray-500 mb-2">
                                             {item.published_at ? new Date(item.published_at).toLocaleDateString() : ''}
                                         </div>
-                                        <h3 className="font-semibold text-gray-900 group-hover:text-blue-600">{item.title}</h3>
+                                        <h3 className="font-semibold text-gray-900 group-hover:text-novita">{item.title}</h3>
                                     </div>
                                 </Link>
                             ))}

@@ -1,4 +1,4 @@
-import { Head } from '@inertiajs/react';
+import { Head, usePage } from '@inertiajs/react';
 
 interface SeoProps {
     title?: string;
@@ -12,8 +12,93 @@ interface SeoProps {
 }
 
 const SITE_NAME = 'NOVITA Pharmaceutical Co., Ltd.';
-const SITE_URL = typeof window !== 'undefined' ? window.location.origin : 'https://novita-myanmar.com.mm';
+const SITE_URL = (import.meta.env.VITE_APP_URL || 'https://novita-myanmar.com.mm').replace(/\/$/, '');
 const DEFAULT_OG_IMAGE = '/og-default.png';
+const DEFAULT_TITLE = `${SITE_NAME} - Better Health, Longer Life`;
+const DEFAULT_DESCRIPTION =
+    'NOVITA Pharmaceutical Co., Ltd. is a leading pharmaceutical manufacturer in Myanmar, committed to quality, innovation, and better healthcare outcomes. A KTECG Group member.';
+
+function absoluteUrl(value: string): string {
+    if (/^https?:\/\//i.test(value)) {
+        return value;
+    }
+
+    return `${SITE_URL}${value.startsWith('/') ? value : `/${value}`}`;
+}
+
+function canonicalUrlFor(url: string): string {
+    const [path, query = ''] = url.split('?');
+    const params = new URLSearchParams(query);
+    const page = params.get('page');
+
+    return absoluteUrl(page && page !== '1' ? `${path || '/'}?page=${page}` : path || '/');
+}
+
+const PLACEHOLDER_SOCIAL_URLS = new Set([
+    'https://facebook.com/novita',
+    'https://www.facebook.com/novita',
+    'https://linkedin.com/company/novita',
+    'https://www.linkedin.com/company/novita',
+    'https://youtube.com/novita',
+    'https://www.youtube.com/novita',
+    'https://twitter.com/novita',
+    'https://x.com/novita',
+    'https://instagram.com/novita',
+]);
+
+function socialUrlsFrom(social: Record<string, unknown> | undefined): string[] {
+    if (!social) {
+        return [];
+    }
+
+    return Object.values(social).filter((value): value is string => {
+        if (typeof value !== 'string' || !/^https?:\/\//i.test(value.trim())) {
+            return false;
+        }
+
+        const normalized = value.trim().replace(/\/+$/, '').toLowerCase();
+
+        return !PLACEHOLDER_SOCIAL_URLS.has(normalized);
+    });
+}
+
+function attachSocialProfiles(
+    jsonLd: SeoProps['jsonLd'],
+    socialUrls: string[],
+): SeoProps['jsonLd'] {
+    if (!jsonLd || socialUrls.length === 0) {
+        return jsonLd;
+    }
+
+    const enrich = (node: unknown): unknown => {
+        if (Array.isArray(node)) {
+            return node.map(enrich);
+        }
+
+        if (!node || typeof node !== 'object') {
+            return node;
+        }
+
+        const record = { ...(node as Record<string, any>) };
+
+        if (
+            record['@type'] === 'Organization' &&
+            (record.name === SITE_NAME || record.url === SITE_URL)
+        ) {
+            record.sameAs = socialUrls;
+        }
+
+        for (const [key, value] of Object.entries(record)) {
+            if (value && typeof value === 'object') {
+                record[key] = enrich(value);
+            }
+        }
+
+        return record;
+    };
+
+    return enrich(jsonLd) as SeoProps['jsonLd'];
+}
 
 export function SeoHead({
     title,
@@ -25,45 +110,82 @@ export function SeoHead({
     jsonLd,
     noIndex = false,
 }: SeoProps) {
-    const fullTitle = title ? `${title} | ${SITE_NAME}` : `${SITE_NAME} - Better Health, Longer Life`;
-    const ogUrl = canonical || (typeof window !== 'undefined' ? window.location.href : SITE_URL);
-    const ogImg = ogImage || DEFAULT_OG_IMAGE;
+    const page = usePage();
+    const shared = page.props as Record<string, any>;
+    const sharedSeo = (shared.seo || {}) as Record<string, string | undefined>;
+
+    const pageTitle = title || sharedSeo.title || DEFAULT_TITLE;
+    const pageDescription = description || sharedSeo.description || DEFAULT_DESCRIPTION;
+    const pageKeywords = keywords || sharedSeo.keywords;
+
+    // Avoid repeating the company name when a page already includes it.
+    const fullTitle = pageTitle.includes('NOVITA')
+        ? pageTitle
+        : `${pageTitle} | ${SITE_NAME}`;
+
+    const canonicalUrl = canonical
+        ? absoluteUrl(canonical)
+        : canonicalUrlFor(page.url || '/');
+    const imageUrl = absoluteUrl(ogImage || DEFAULT_OG_IMAGE);
+    const usesDefaultImage = !ogImage;
+    const socialUrls = socialUrlsFrom(shared.social);
+    const finalJsonLd = attachSocialProfiles(jsonLd, socialUrls);
 
     return (
         <Head>
             <title>{fullTitle}</title>
-            {description && <meta name="description" content={description} />}
-            {keywords && <meta name="keywords" content={keywords} />}
-            {canonical && <link rel="canonical" href={canonical} />}
-            {noIndex && <meta name="robots" content="noindex, nofollow" />}
+            <meta name="description" content={pageDescription} />
+            {pageKeywords && <meta name="keywords" content={pageKeywords} />}
+            <link rel="canonical" href={canonicalUrl} />
+            <meta
+                name="robots"
+                content={
+                    noIndex
+                        ? 'noindex, nofollow'
+                        : 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'
+                }
+            />
+            <meta name="author" content={SITE_NAME} />
 
             {/* Open Graph */}
             <meta property="og:type" content={ogType} />
             <meta property="og:title" content={fullTitle} />
-            {description && <meta property="og:description" content={description} />}
-            <meta property="og:url" content={ogUrl} />
+            <meta property="og:description" content={pageDescription} />
+            <meta property="og:url" content={canonicalUrl} />
             <meta property="og:site_name" content={SITE_NAME} />
-            <meta property="og:image" content={ogImg.startsWith('http') ? ogImg : `${SITE_URL}${ogImg}`} />
+            <meta property="og:image" content={imageUrl} />
+            {usesDefaultImage && (
+                <>
+                    <meta property="og:image:width" content="1200" />
+                    <meta property="og:image:height" content="630" />
+                </>
+            )}
+            <meta property="og:image:alt" content={fullTitle} />
             <meta property="og:locale" content="en_US" />
 
             {/* Twitter Card */}
             <meta name="twitter:card" content="summary_large_image" />
             <meta name="twitter:title" content={fullTitle} />
-            {description && <meta name="twitter:description" content={description} />}
-            <meta name="twitter:image" content={ogImg.startsWith('http') ? ogImg : `${SITE_URL}${ogImg}`} />
+            <meta name="twitter:description" content={pageDescription} />
+            <meta name="twitter:image" content={imageUrl} />
+            <meta name="twitter:image:alt" content={fullTitle} />
 
             {/* Geo - NOVITA is in Myanmar */}
             <meta name="geo.region" content="MM" />
             <meta name="geo.placename" content="Yangon" />
             <meta name="geo.position" content="16.7745;-96.1701" />
             <meta name="ICBM" content="16.7745, -96.1701" />
+            <meta name="theme-color" content="#097F7C" />
 
             {/* JSON-LD Structured Data */}
-            {jsonLd && (
+            {finalJsonLd && (
                 <script
                     type="application/ld+json"
                     dangerouslySetInnerHTML={{
-                        __html: JSON.stringify(jsonLd),
+                        __html: JSON.stringify(finalJsonLd).replace(
+                            /</g,
+                            '\\u003c',
+                        ),
                     }}
                 />
             )}
@@ -77,16 +199,31 @@ export function organizationSchema() {
     return {
         '@context': 'https://schema.org',
         '@type': 'Organization',
-        name: 'NOVITA Pharmaceutical Co., Ltd.',
+        name: SITE_NAME,
         alternateName: 'NOVITA',
         url: SITE_URL,
         logo: `${SITE_URL}/logo.png`,
-        description: 'NOVITA Pharmaceutical is a leading pharmaceutical manufacturer in Myanmar, committed to quality, innovation, and better healthcare outcomes.',
-        foundingDate: '2024',
+        description:
+            'NOVITA Pharmaceutical is a leading pharmaceutical manufacturer in Myanmar, committed to quality, innovation, and better healthcare outcomes.',
+        slogan: 'Better Health, Longer Life',
         industry: 'Pharmaceutical Manufacturing',
+        areaServed: {
+            '@type': 'Country',
+            name: 'Myanmar',
+        },
+        knowsAbout: [
+            'Pharmaceutical manufacturing',
+            'Oral solid dosage forms',
+            'Tablet manufacturing',
+            'Hard gelatin capsules',
+            'Quality control',
+            'Good Manufacturing Practice (GMP)',
+            'Myanmar FDA regulations',
+        ],
         address: {
             '@type': 'PostalAddress',
-            streetAddress: 'No. 216/222 Bo Myat Htun Housing, Room D3, Corner of 49 Street and Maharbandoola Road, Ward 1',
+            streetAddress:
+                'No. 216/222 Bo Myat Htun Housing, Room D3, Corner of 49 Street and Maharbandoola Road, Ward 1, Pazundaung Township',
             addressLocality: 'Yangon',
             addressRegion: 'Yangon',
             postalCode: '11181',
@@ -102,16 +239,11 @@ export function organizationSchema() {
             {
                 '@type': 'ContactPoint',
                 telephone: '+95-9-977-225-001',
-                contactType: 'sales',
+                contactType: 'factory',
                 availableLanguage: ['English', 'Myanmar'],
             },
         ],
         email: 'info@novita-myanmar.com.mm',
-        sameAs: [
-            'https://facebook.com/novita',
-            'https://linkedin.com/company/novita',
-            'https://youtube.com/novita',
-        ],
         member: {
             '@type': 'Organization',
             name: 'KTECG Group',
@@ -124,12 +256,13 @@ export function websiteSchema() {
     return {
         '@context': 'https://schema.org',
         '@type': 'WebSite',
-        name: 'NOVITA Pharmaceutical Co., Ltd.',
+        name: SITE_NAME,
         url: SITE_URL,
-        potentialAction: {
-            '@type': 'SearchAction',
-            target: `${SITE_URL}/search?q={search_term_string}`,
-            'query-input': 'required name=search_term_string',
+        inLanguage: 'en',
+        publisher: {
+            '@type': 'Organization',
+            name: SITE_NAME,
+            url: SITE_URL,
         },
     };
 }
@@ -167,31 +300,147 @@ export function productSchema(product: {
     description: string;
     image?: string;
     category?: string;
+    url?: string;
 }) {
     return {
         '@context': 'https://schema.org',
         '@type': 'Product',
         name: product.name,
         description: product.description,
-        image: product.image || `${SITE_URL}/og-default.png`,
+        image: product.image ? absoluteUrl(product.image) : `${SITE_URL}${DEFAULT_OG_IMAGE}`,
+        url: product.url ? absoluteUrl(product.url) : `${SITE_URL}/products`,
         brand: {
             '@type': 'Brand',
             name: 'NOVITA',
         },
         manufacturer: {
             '@type': 'Organization',
-            name: 'NOVITA Pharmaceutical Co., Ltd.',
+            name: SITE_NAME,
         },
         category: product.category || 'Pharmaceutical Products',
-        offers: {
-            '@type': 'Offer',
-            availability: 'https://schema.org/PreOrder',
-            priceCurrency: 'MMK',
-            seller: {
-                '@type': 'Organization',
-                name: 'NOVITA Pharmaceutical Co., Ltd.',
+    };
+}
+
+export function newsArticleSchema(article: {
+    headline: string;
+    description?: string;
+    url: string;
+    image?: string;
+    datePublished?: string;
+    dateModified?: string;
+    author?: string;
+    category?: string;
+}) {
+    return {
+        '@context': 'https://schema.org',
+        '@type': 'NewsArticle',
+        headline: article.headline,
+        description: article.description,
+        image: article.image ? [absoluteUrl(article.image)] : [`${SITE_URL}${DEFAULT_OG_IMAGE}`],
+        url: absoluteUrl(article.url),
+        mainEntityOfPage: {
+            '@type': 'WebPage',
+            '@id': absoluteUrl(article.url),
+        },
+        datePublished: article.datePublished,
+        dateModified: article.dateModified || article.datePublished,
+        articleSection: article.category,
+        author: {
+            '@type': 'Organization',
+            name: article.author || SITE_NAME,
+        },
+        publisher: {
+            '@type': 'Organization',
+            name: SITE_NAME,
+            url: SITE_URL,
+            logo: {
+                '@type': 'ImageObject',
+                url: `${SITE_URL}/logo.png`,
             },
         },
+    };
+}
+
+export function jobPostingSchema(job: {
+    title: string;
+    description?: string | null;
+    datePosted: string;
+    validThrough?: string | null;
+    employmentType?: string | null;
+    location?: string | null;
+    department?: string | null;
+    salaryRange?: string | null;
+    requirements?: string[] | null;
+    benefits?: string[] | null;
+}) {
+    const descriptionParts = [
+        job.description,
+        job.requirements?.length
+            ? `Requirements:\n${job.requirements.map((item) => `- ${item}`).join('\n')}`
+            : null,
+        job.benefits?.length
+            ? `Benefits:\n${job.benefits.map((item) => `- ${item}`).join('\n')}`
+            : null,
+    ].filter(Boolean);
+
+    const employmentTypeMap: Record<string, string> = {
+        'full-time': 'FULL_TIME',
+        'part-time': 'PART_TIME',
+        contract: 'CONTRACTOR',
+        internship: 'INTERN',
+    };
+
+    const salaryNumbers = (job.salaryRange || '')
+        .match(/\d[\d,.]*/g)
+        ?.map((value) => Number(value.replace(/,/g, '')))
+        .filter((value) => Number.isFinite(value)) ?? [];
+
+    return {
+        '@context': 'https://schema.org',
+        '@type': 'JobPosting',
+        title: job.title,
+        description: descriptionParts.join('\n\n') || job.title,
+        datePosted: job.datePosted,
+        ...(job.validThrough ? { validThrough: job.validThrough } : {}),
+        employmentType:
+            employmentTypeMap[(job.employmentType || '').toLowerCase()] || 'FULL_TIME',
+        hiringOrganization: {
+            '@type': 'Organization',
+            name: SITE_NAME,
+            url: SITE_URL,
+            logo: `${SITE_URL}/logo.png`,
+        },
+        jobLocation: {
+            '@type': 'Place',
+            address: {
+                '@type': 'PostalAddress',
+                addressLocality: job.location || 'Yangon',
+                addressCountry: 'MM',
+            },
+        },
+        ...(job.department ? { occupationalCategory: job.department } : {}),
+        ...(salaryNumbers.length > 0
+            ? {
+                  baseSalary: {
+                      '@type': 'MonetaryAmount',
+                      currency: 'MMK',
+                      value:
+                          salaryNumbers.length > 1
+                              ? {
+                                    '@type': 'QuantitativeValue',
+                                    minValue: Math.min(...salaryNumbers),
+                                    maxValue: Math.max(...salaryNumbers),
+                                    unitText: 'MONTH',
+                                }
+                              : {
+                                    '@type': 'QuantitativeValue',
+                                    value: salaryNumbers[0],
+                                    unitText: 'MONTH',
+                                },
+                  },
+              }
+            : {}),
+        industry: 'Pharmaceutical Manufacturing',
     };
 }
 
@@ -199,6 +448,7 @@ export function medicalWebPageSchema(page: {
     name: string;
     description: string;
     url: string;
+    lastReviewed?: string;
 }) {
     return {
         '@context': 'https://schema.org',
@@ -208,9 +458,9 @@ export function medicalWebPageSchema(page: {
         url: page.url.startsWith('http') ? page.url : `${SITE_URL}${page.url}`,
         about: {
             '@type': 'Organization',
-            name: 'NOVITA Pharmaceutical Co., Ltd.',
+            name: SITE_NAME,
         },
-        lastReviewed: new Date().toISOString().split('T')[0],
+        ...(page.lastReviewed ? { lastReviewed: page.lastReviewed } : {}),
     };
 }
 

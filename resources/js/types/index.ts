@@ -58,6 +58,7 @@ export interface News {
     excerpt: string | null;
     content: string | null;
     image_path: string | null;
+    image_url: string | null;
     author: string | null;
     category: string | null;
     published_at: string | null;

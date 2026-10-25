@@ -178,7 +178,7 @@ export default function PublicLayout({ children }: { children: ReactNode }) {
                                         if (item.children) {
                                             return (
                                                 <div key={item.key} className="relative">
-                                                    <button onClick={() => { setAboutOpen(!aboutOpen); setWorkOpen(false); }} className={`px-2.5 py-1.5 text-sm font-medium rounded-md transition-colors inline-flex items-center ${isActive(item) ? 'text-novita bg-blue-50 dark:bg-blue-900/30' : 'text-gray-700 dark:text-gray-300 hover:text-novita hover:bg-gray-50 dark:hover:bg-gray-800'}`}>
+                                                    <button onClick={() => { setAboutOpen(!aboutOpen); setWorkOpen(false); }} className={`px-2.5 py-1.5 text-sm font-medium rounded-md transition-colors inline-flex items-center ${isActive(item) ? 'text-novita bg-novita/10 dark:bg-novita/15' : 'text-gray-700 dark:text-gray-300 hover:text-novita hover:bg-gray-50 dark:hover:bg-gray-800'}`}>
                                                         {item.label}<ChevronDown className={`ml-1 h-3 w-3 transition-transform ${aboutOpen ? 'rotate-180' : ''}`} />
                                                     </button>
                                                     <AnimatePresence>
@@ -194,7 +194,7 @@ export default function PublicLayout({ children }: { children: ReactNode }) {
                                             );
                                         }
                                         return (
-                                            <Link key={item.key} href={item.href} className={`px-2.5 py-1.5 text-sm font-medium rounded-md transition-colors ${url === item.href ? 'text-novita bg-blue-50 dark:bg-blue-900/30' : 'text-gray-700 dark:text-gray-300 hover:text-novita hover:bg-gray-50 dark:hover:bg-gray-800'}`}>{item.label}</Link>
+                                            <Link key={item.key} href={item.href} className={`px-2.5 py-1.5 text-sm font-medium rounded-md transition-colors ${url === item.href ? 'text-novita bg-novita/10 dark:bg-novita/15' : 'text-gray-700 dark:text-gray-300 hover:text-novita hover:bg-gray-50 dark:hover:bg-gray-800'}`}>{item.label}</Link>
                                         );
                                     })}
                                 </motion.nav>
@@ -282,13 +282,13 @@ export default function PublicLayout({ children }: { children: ReactNode }) {
                                         <div key={item.key} className="py-2">
                                             <div className="px-3 py-1 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider flex items-center">{item.icon}<span className="ml-2">{item.label}</span></div>
                                             {item.children.map((child) => (
-                                                <Link key={child.key} href={child.href} className={`flex items-center px-3 py-2.5 rounded-xl text-sm font-medium transition-colors ${url === child.href ? 'text-novita bg-blue-50 dark:bg-blue-900/30' : 'text-gray-700 dark:text-gray-300 hover:text-novita hover:bg-gray-50 dark:hover:bg-gray-800'}`} onClick={() => setMobileMenuOpen(false)}>{child.icon}<span className="ml-3">{child.label}</span></Link>
+                                                <Link key={child.key} href={child.href} className={`flex items-center px-3 py-2.5 rounded-xl text-sm font-medium transition-colors ${url === child.href ? 'text-novita bg-novita/10 dark:bg-novita/15' : 'text-gray-700 dark:text-gray-300 hover:text-novita hover:bg-gray-50 dark:hover:bg-gray-800'}`} onClick={() => setMobileMenuOpen(false)}>{child.icon}<span className="ml-3">{child.label}</span></Link>
                                             ))}
                                         </div>
                                     );
                                 }
                                 return (
-                                    <Link key={item.key} href={item.href} className={`flex items-center px-3 py-2.5 rounded-xl text-sm font-medium transition-colors ${url === item.href ? 'text-novita bg-blue-50 dark:bg-blue-900/30' : 'text-gray-700 dark:text-gray-300 hover:text-novita hover:bg-gray-50 dark:hover:bg-gray-800'}`} onClick={() => setMobileMenuOpen(false)}>
+                                    <Link key={item.key} href={item.href} className={`flex items-center px-3 py-2.5 rounded-xl text-sm font-medium transition-colors ${url === item.href ? 'text-novita bg-novita/10 dark:bg-novita/15' : 'text-gray-700 dark:text-gray-300 hover:text-novita hover:bg-gray-50 dark:hover:bg-gray-800'}`} onClick={() => setMobileMenuOpen(false)}>
                                         {item.icon}<span className="ml-3">{item.label}</span>
                                     </Link>
                                 );
